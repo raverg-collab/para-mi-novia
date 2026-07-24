@@ -1,24 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti</title>
     <style>
+        * { box-sizing: border-box; }
         body {
-          background-color: #2e0a4f;
-          color: white;
-          font-family: sans-serif;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
           margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(180deg, #26144a, #3c2166);
+          font-family: 'Georgia', serif;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          color: #f3ecff;
         }
-        h1 {
-          color: #d8a7ff;
+        .wrap {
+          max-width: 480px;
+          width: 100%;
+          text-align: center;
+        }
+        .sobre {
+          background: #f3ecff;
+          color: #3c2166;
+          border-radius: 12px;
+          padding: 40px 24px;
+          cursor: pointer;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          transition: transform 0.2s ease;
+        }
+        .sobre:hover { transform: scale(1.02); }
+        .sobre p {
+          font-size: 18px;
+          margin: 12px 0 0;
+        }
+        .corazon {
+          font-size: 48px;
+        }
+        .mensaje {
+          display: none;
+          background: #f3ecff;
+          color: #2e1a52;
+          border-radius: 12px;
+          padding: 32px 28px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          text-align: left;
+          line-height: 1.8;
+          font-size: 17px;
+        }
+        .mensaje.visible { display: block; animation: aparecer 0.6s ease; }
+        @keyframes aparecer {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .mensaje strong {
+          color: #6b46c1;
+        }
+        .firma {
+          margin-top: 20px;
+          font-style: italic;
+          text-align: right;
+          color: #6b46c1;
         }
     </style>
 </head>
 <body>
-<h1>Hola 💜</h1>
+<div class="wrap">
+    <div class="sobre" id="sobre" onclick="abrir()">
+        <div class="corazon">💜</div>
+        <p>toca aquí</p>
+    </div>
+    <div class="mensaje" id="mensaje">
+        <p>Hoy llegas cansada de un día más de esfuerzo, y antes de que digas nada, quiero que sepas algo:</p>
+        <p><strong>estoy tan orgulloso de ti.</strong> De cómo trabajas, de cómo no te rindes, de todo lo que das aunque nadie te lo pida.</p>
+        <p>Eres <strong>la mejor mujer del mundo</strong>, y lo mejor que tengo en mi vida. Tienes ese amor que no quiero soltar ni dejar de abrazar, y esos rizos en los que no pienso dejarme de enredar nunca.</p>
+        <p>Bienvenida a casa. Te amo.</p>
+        <img src="https://tenor.com/bg8dt.gif" alt="pareja besandose" style="width: 100%; border-radius: 10px; margin-top: 12px;">
+        <p class="firma">— tuyo</p>
+    </div>
+    <button id="btnMusica" onclick="toggleMusica()" style="display:none; margin-top: 16px; background: #f3ecff; color: #3c2166; border: none; padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;">🔈 música</button>
+    <audio id="audio" src="musica.mp3" loop></audio>
+</div>
+<script>
+    function abrir() {
+      document.getElementById('sobre').style.display = 'none';
+      document.getElementById('mensaje').classList.add('visible');
+      document.getElementById('btnMusica').style.display = 'inline-block';
+    }
+    function toggleMusica() {
+      const audio = document.getElementById('audio');
+      const btn = document.getElementById('btnMusica');
+      if (audio.paused) { audio.play(); btn.textContent = '🔊 pausar'; }
+      else { audio.pause(); btn.textContent = '🔈 música'; }
+    }
+</script>
 </body>
 </html>
