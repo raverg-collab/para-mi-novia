@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro álbum</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(180deg, #2a1650, #4a2a80 50%, #6b4aa0);
+          font-family: 'Georgia', serif;
+          color: #f8f1e7;
+          padding: 20px;
+        }
+        .wrap { max-width: 700px; margin: 0 auto; }
+        h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
+
+        .caja {
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-radius: 16px;
+          padding: 22px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+          margin-bottom: 16px;
+        }
+        .caja p { color: #f8f1e7; }
+
+        input {
+          width: 100%;
+          padding: 10px;
+          margin: 6px 0;
+          border-radius: 8px;
+          border: 1px solid rgba(245, 232, 210, 0.4);
+          background: rgba(255,255,255,0.12);
+          color: #fdf8f0;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+        input::placeholder { color: rgba(248,241,231,0.6); }
+        input[type="file"] { padding: 8px; }
+
+        button {
+          background: rgba(240, 224, 192, 0.85);
+          color: #3c2166;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-family: sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 6px;
+          transition: background 0.2s ease;
+        }
+        button:hover { background: #f0e0c0; }
+
+        #app { display: none; }
+
+        .tabs {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 16px;
+          justify-content: center;
+        }
+        .tab {
+          background: rgba(255,255,255,0.10);
+          backdrop-filter: blur(10px);
+          color: #f8f1e7;
+          border: 1px solid rgba(245, 232, 210, 0.3);
+          padding: 8px 14px;
+          border-radius: 999px;
+          cursor: pointer;
+          font-family: sans-serif;
+          font-size: 13px;
+        }
+        .tab.activo { background: rgba(240, 224, 192, 0.9); color: #3c2166; font-weight: bold; }
+
+        .seccion { display: none; }
+        .seccion.activa { display: block; }
+
+        .galeria {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: 10px;
+          margin-top: 16px;
+        }
+        .galeria img {
+          width: 100%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          border-radius: 10px;
+          border: 1px solid rgba(245, 232, 210, 0.3);
+        }
+
+        .link-item {
+          display: block;
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-radius: 10px;
+          padding: 12px;
+          margin-top: 8px;
+          text-decoration: none;
+          color: #f8f1e7;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+        #estado, .nota-estado { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Nuestro álbum 💜</h1>
+
+    <div id="login" class="caja">
+        <p style="font-family: sans-serif; margin-top:0;">Inicia sesión</p>
+        <input type="email" id="correo" placeholder="correo">
+        <input type="password" id="clave" placeholder="contraseña">
+        <button onclick="iniciarSesion()">Entrar</button>
+        <p id="estado"></p>
+    </div>
+
+    <div id="app">
+        <div class="tabs">
+            <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
+            <div class="tab" onclick="mostrar('cartas', this)">cartas virtuales</div>
+            <div class="tab" onclick="mostrar('flores', this)">flores</div>
+            <div class="tab" onclick="mostrar('salidas', this)">salidas</div>
+            <div class="tab" onclick="mostrar('cartasfisicas', this)">cartas físicas</div>
+        </div>
+
+        <div class="seccion activa" id="sec-fotos">
+            <div class="caja">
+                <p style="font-family: sans-serif; margin-top:0;">Subir foto</p>
+                <input type="file" id="archivoFoto" accept="image/*">
+                <button onclick="subirFoto()">Subir</button>
+                <p id="estadoFoto" class="nota-estado"></p>
+            </div>
+            <div class="galeria" id="galeriaFotos"></div>
+        </div>
+
+        <div class="seccion" id="sec-cartas">
+            <div class="caja">
+                <p style="font-family: sans-serif; margin-top:0;">Agregar link de carta virtual</p>
+                <input type="text" id="tituloCarta" placeholder="título, ej. bienvenida a casa">
+                <input type="text" id="linkCarta" placeholder="https://raverg-collab.github.io/para-mi-novia/...">
+                <button onclick="agregarLink('tituloCarta', 'linkCarta')">Guardar</button>
+            </div>
+            <div id="listaCartas"></div>
+        </div>
+
+        <div class="seccion" id="sec-flores">
+            <div class="caja">
+                <p style="font-family: sans-serif; margin-top:0;">Subir foto de flores</p>
+                <input type="file" id="archivoFlores" accept="image/*">
+                <input type="text" id="notaFlores" placeholder="nota (opcional)">
+                <button onclick="subirDetalle('flores', 'archivoFlores', 'notaFlores')">Subir</button>
+            </div>
+            <div class="galeria" id="galeriaFlores"></div>
+        </div>
+
+        <div class="seccion" id="sec-salidas">
+            <div class="caja">
+                <p style="font-family: sans-serif; margin-top:0;">Subir foto de salida</p>
+                <input type="file" id="archivoSalidas" accept="image/*">
+                <input type="text" id="notaSalidas" placeholder="nota (opcional)">
+                <button onclick="subirDetalle('salidas', 'archivoSalidas', 'notaSalidas')">Subir</button>
+            </div>
+            <div class="galeria" id="galeriaSalidas"></div>
+        </div>
+
+        <div class="seccion" id="sec-cartasfisicas">
+            <div class="caja">
+                <p style="font-family: sans-serif; margin-top:0;">Subir foto de carta física</p>
+                <input type="file" id="archivoCF" accept="image/*">
+                <input type="text" id="notaCF" placeholder="nota (opcional)">
+                <button onclick="subirDetalle('cartasfisicas', 'archivoCF', 'notaCF')">Subir</button>
+            </div>
+            <div class="galeria" id="galeriaCF"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
+      authDomain: "album-novia-af9cf.firebaseapp.com",
+      projectId: "album-novia-af9cf",
+      storageBucket: "album-novia-af9cf.firebasestorage.app",
+      messagingSenderId: "560485716923",
+      appId: "1:560485716923:web:8c2a53f3de42bb3dde2a9e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const CLOUD_NAME = "nrfykjzk";
+    const UPLOAD_PRESET = "album-novia";
+
+    function iniciarSesion() {
+      const correo = document.getElementById('correo').value;
+      const clave = document.getElementById('clave').value;
+      auth.signInWithEmailAndPassword(correo, clave)
+        .catch(err => { document.getElementById('estado').textContent = "correo o contraseña incorrectos"; });
+    }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        cargarGaleria('fotos', 'galeriaFotos');
+        cargarGaleria('flores', 'galeriaFlores');
+        cargarGaleria('salidas', 'galeriaSalidas');
+        cargarGaleria('cartasfisicas', 'galeriaCF');
+        cargarLinks();
+      }
+    });
+
+    function mostrar(id, el) {
+      document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
+      document.getElementById('sec-' + id).classList.add('activa');
+      el.classList.add('activo');
+    }
+
+    async function subirACloudinary(inputId) {
+      const archivo = document.getElementById(inputId).files[0];
+      if (!archivo) { alert('elige una imagen primero'); return null; }
+      const formData = new FormData();
+      formData.append('file', archivo);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      return data.secure_url;
+    }
+
+    async function subirFoto() {
+      document.getElementById('estadoFoto').textContent = 'subiendo...';
+      const url = await subirACloudinary('archivoFoto');
+      if (!url) { document.getElementById('estadoFoto').textContent = ''; return; }
+      await db.collection('fotos').add({ url, fecha: Date.now() });
+      document.getElementById('estadoFoto').textContent = 'listo';
+      cargarGaleria('fotos', 'galeriaFotos');
+    }
+
+    async function subirDetalle(categoria, inputId, notaId) {
+      const url = await subirACloudinary(inputId);
+      if (!url) return;
+      const nota = document.getElementById(notaId).value;
+      await db.collection(categoria).add({ url, nota, fecha: Date.now() });
+      document.getElementById(notaId).value = '';
+      const mapaGaleria = { flores: 'galeriaFlores', salidas: 'galeriaSalidas', cartasfisicas: 'galeriaCF' };
+      cargarGaleria(categoria, mapaGaleria[categoria]);
+    }
+
+    async function cargarGaleria(categoria, contenedorId) {
+      const contenedor = document.getElementById(contenedorId);
+      contenedor.innerHTML = '';
+      const snap = await db.collection(categoria).orderBy('fecha', 'desc').get();
+      snap.forEach(doc => {
+        const img = document.createElement('img');
+        img.src = doc.data().url;
+        contenedor.appendChild(img);
+      });
+    }
+
+    async function agregarLink(tituloId, linkId) {
+      const titulo = document.getElementById(tituloId).value;
+      const link = document.getElementById(linkId).value;
+      if (!titulo || !link) { alert('completa ambos campos'); return; }
+      await db.collection('cartas').add({ titulo, link, fecha: Date.now() });
+      document.getElementById(tituloId).value = '';
+      document.getElementById(linkId).value = '';
+      cargarLinks();
+    }
+
+    async function cargarLinks() {
+      const contenedor = document.getElementById('listaCartas');
+      contenedor.innerHTML = '';
+      const snap = await db.collection('cartas').orderBy('fecha', 'desc').get();
+      snap.forEach(doc => {
+        const a = document.createElement('a');
+        a.className = 'link-item';
+        a.href = doc.data().link;
+        a.target = '_blank';
+        a.textContent = doc.data().titulo;
+        contenedor.appendChild(a);
+      });
+    }
+</script>
+</body>
+</html>
