@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti</title>
     <style>
@@ -17,11 +20,7 @@
           padding: 24px;
           color: #f3ecff;
         }
-        .wrap {
-          max-width: 480px;
-          width: 100%;
-          text-align: center;
-        }
+        .wrap { max-width: 480px; width: 100%; text-align: center; }
         .sobre {
           background: #f3ecff;
           color: #3c2166;
@@ -32,13 +31,8 @@
           transition: transform 0.2s ease;
         }
         .sobre:hover { transform: scale(1.02); }
-        .sobre p {
-          font-size: 18px;
-          margin: 12px 0 0;
-        }
-        .corazon {
-          font-size: 48px;
-        }
+        .sobre p { font-size: 18px; margin: 12px 0 0; }
+        .corazon { font-size: 48px; }
         .mensaje {
           display: none;
           background: #f3ecff;
@@ -51,19 +45,9 @@
           font-size: 17px;
         }
         .mensaje.visible { display: block; animation: aparecer 0.6s ease; }
-        @keyframes aparecer {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .mensaje strong {
-          color: #6b46c1;
-        }
-        .firma {
-          margin-top: 20px;
-          font-style: italic;
-          text-align: right;
-          color: #6b46c1;
-        }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .mensaje strong { color: #6b46c1; }
+        .firma { margin-top: 20px; font-style: italic; text-align: right; color: #6b46c1; }
     </style>
 </head>
 <body>
@@ -77,7 +61,7 @@
         <p><strong>estoy tan orgulloso de ti.</strong> De cómo trabajas, de cómo no te rindes, de todo lo que das aunque nadie te lo pida.</p>
         <p>Eres <strong>la mejor mujer del mundo</strong>, y lo mejor que tengo en mi vida. Tienes ese amor que no quiero soltar ni dejar de abrazar, y esos rizos en los que no pienso dejarme de enredar nunca.</p>
         <p>Bienvenida a casa. Te amo.</p>
-        <img src="https://media1.tenor.com/m/j687jXLdgz0AAAAC/kiss-cute.gif" alt="Te Amo" style="width: 100%; border-radius: 10px; margin-top: 12px;">
+        <img src="https://media1.tenor.com/m/j687jXLdgz0AAAAC/kiss-cute.gif" alt="pareja abrazándose" style="width: 100%; border-radius: 10px; margin-top: 12px;">
         <p class="firma">— tuyo Ale</p>
     </div>
     <button id="btnMusica" onclick="toggleMusica()" style="display:none; margin-top: 16px; background: #f3ecff; color: #3c2166; border: none; padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;">🔈 música</button>
