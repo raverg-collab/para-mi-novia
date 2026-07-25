@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para hoy</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(180deg, #26144a, #3c2166);
+          font-family: 'Georgia', serif;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          color: #f3ecff;
+        }
+        .wrap { max-width: 480px; width: 100%; text-align: center; }
+        .sobre {
+          background: #f3ecff;
+          color: #3c2166;
+          border-radius: 12px;
+          padding: 40px 24px;
+          cursor: pointer;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          transition: transform 0.2s ease;
+          animation: latido 1.8s ease-in-out infinite;
+        }
+        @keyframes latido { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        .sobre:hover { transform: scale(1.05); }
+        .sobre p { font-size: 18px; margin: 12px 0 0; }
+        .icono { font-size: 44px; }
+        .mensaje {
+          display: none;
+          background: #f3ecff;
+          color: #2e1a52;
+          border-radius: 12px;
+          padding: 32px 28px;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          text-align: left;
+          line-height: 1.8;
+          font-size: 17px;
+        }
+        .mensaje.visible { display: block; animation: aparecer 0.6s ease; }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .mensaje strong { color: #6b46c1; }
+        .firma { margin-top: 20px; font-style: italic; text-align: right; color: #6b46c1; }
+        #cerrado { display: none; }
+        #cerrado .icono { font-size: 44px; margin-bottom: 10px; animation: none; }
+        #cerrado p { font-family: sans-serif; font-size: 15px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div id="cerrado">
+        <div class="icono">🌙</div>
+        <p>esto se abre en la mañana, después de las 5am</p>
+    </div>
+    <div id="contenido">
+        <div class="sobre" id="sobre" onclick="abrir()">
+            <div class="icono">☀️</div>
+            <p>toca aquí antes de salir</p>
+        </div>
+        <div class="mensaje" id="mensaje">
+            <p>Sé que hoy toca otro día largo. Antes de que salgas, quiero que lo lleves contigo:</p>
+            <p><strong>vas a hacerlo increíble</strong>, como siempre. Cada esfuerzo tuyo no pasa desapercibido, yo lo veo, y estoy orgulloso de la mujer que eres cuando nadie más te está mirando.</p>
+            <p>Si el día se pone pesado, respira, y recuerda que al final del día hay alguien esperándote que te ama exactamente como eres.</p>
+            <p>Ve y arrasa. Te amo.</p>
+            <p class="firma">— tuyo</p>
+        </div>
+    </div>
+</div>
+<script>
+    function horaEcuador() {
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
+    }
+    function revisarHorario() {
+      const h = horaEcuador().getHours();
+      const abierto = (h >= 5 && h < 23);
+      document.getElementById('cerrado').style.display = abierto ? 'none' : 'block';
+      document.getElementById('contenido').style.display = abierto ? 'block' : 'none';
+    }
+    revisarHorario();
+    setInterval(revisarHorario, 30000);
+    function abrir() {
+      document.getElementById('sobre').style.display = 'none';
+      document.getElementById('mensaje').classList.add('visible');
+    }
+</script>
+</body>
+</html>

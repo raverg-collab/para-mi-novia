@@ -20,6 +20,7 @@
         }
         .wrap { max-width: 720px; margin: 0 auto; }
         h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
+        .sub { text-align: center; font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); margin-top: -8px; margin-bottom: 20px; }
         a.volver-link, .volver-btn {
           display: inline-block;
           background: rgba(245, 232, 210, 0.16);
@@ -43,8 +44,7 @@
           box-shadow: 0 8px 32px rgba(0,0,0,0.25);
           margin-bottom: 16px;
         }
-        .caja p { color: #f8f1e7; }
-        input, textarea, select {
+        input, select {
           width: 100%;
           padding: 10px;
           margin: 6px 0;
@@ -55,10 +55,9 @@
           font-family: sans-serif;
           font-size: 14px;
         }
-        textarea { min-height: 100px; resize: vertical; }
-        input::placeholder, textarea::placeholder { color: rgba(248,241,231,0.6); }
+        input::placeholder { color: rgba(248,241,231,0.6); }
+        input[type="color"] { padding: 4px; height: 42px; cursor: pointer; }
         input[type="file"] { padding: 8px; }
-        select option { color: #222; }
         button {
           background: rgba(240, 224, 192, 0.85);
           color: #3c2166;
@@ -70,10 +69,8 @@
           font-weight: bold;
           cursor: pointer;
           margin-top: 6px;
-          transition: background 0.2s ease, transform 0.15s ease;
         }
         button:hover { background: #f0e0c0; }
-        button:active { transform: scale(0.97); }
         .btn-bosque {
           background: linear-gradient(135deg, #1f4d3a, #2d6b4f);
           color: #f0e0c0;
@@ -81,116 +78,97 @@
         }
         .btn-bosque:hover { background: linear-gradient(135deg, #256045, #35815e); }
 
-        #login, #escritorio, #lectura, #cerrada { display: none; }
+        #login, #categorias, #escritorio, #lector { display: none; }
         #estadoLogin { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
 
         .logout-fijo {
-          position: fixed;
-          top: 14px;
-          right: 14px;
-          z-index: 50;
-          margin: 0;
-          padding: 8px 14px;
-          font-size: 12px;
+          position: fixed; top: 14px; right: 14px; z-index: 60;
+          margin: 0; padding: 8px 14px; font-size: 12px;
           background: linear-gradient(135deg, #1f4d3a, #f0e0c0 140%);
-          color: #1c2e24;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+          color: #1c2e24; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
 
-        /* ---- escritorio de cartas ---- */
-        .escritorio-grid {
+        /* ---- categorías (bienvenida / motivación) ---- */
+        .grid-categorias {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
           gap: 16px;
-          margin-top: 10px;
         }
+        .card-categoria {
+          text-decoration: none;
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-radius: 16px;
+          padding: 28px 16px;
+          display: flex; flex-direction: column; align-items: center; gap: 10px;
+          color: #f8f1e7; cursor: pointer;
+          transition: transform 0.2s ease, background 0.2s ease;
+          position: relative;
+        }
+        .card-categoria:hover { transform: translateY(-3px); background: rgba(245, 232, 210, 0.22); }
+        .icono-categoria {
+          width: 56px; height: 56px; border-radius: 50%;
+          background: rgba(240, 224, 192, 0.9);
+          display: flex; align-items: center; justify-content: center; font-size: 26px;
+        }
+        .nombre-categoria { font-family: sans-serif; font-size: 14px; font-weight: bold; }
+        .badge-cat {
+          position: absolute; top: 10px; right: 10px;
+          background: #2d6b4f; color: #f8f1e7; font-family: sans-serif;
+          font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 999px;
+        }
+
+        /* ---- escritorio de una categoría ---- */
+        details.form-nueva summary { cursor: pointer; font-family: sans-serif; color: #f0e0c0; margin-bottom: 6px; }
+        .escritorio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; margin-top: 10px; }
         .carta-card {
           position: relative;
           background: rgba(245, 232, 210, 0.14);
-          backdrop-filter: blur(10px);
           border: 1px solid rgba(245, 232, 210, 0.28);
           border-radius: 12px;
           padding: 14px 10px 10px;
-          cursor: pointer;
-          text-align: center;
+          cursor: pointer; text-align: center;
           transition: transform 0.15s ease, background 0.2s ease;
         }
         .carta-card:hover { transform: translateY(-2px); background: rgba(245, 232, 210, 0.2); }
         .carta-preview {
-          width: 100%;
-          aspect-ratio: 1;
-          border-radius: 8px;
-          object-fit: cover;
-          background: rgba(255,255,255,0.08);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 34px;
-          margin-bottom: 8px;
-          border: 1px solid rgba(245,232,210,0.2);
+          width: 100%; aspect-ratio: 1; border-radius: 8px; object-fit: cover;
+          display: flex; align-items: center; justify-content: center; font-size: 30px;
+          margin-bottom: 8px; border: 1px solid rgba(245,232,210,0.2);
         }
         .carta-numero { font-family: sans-serif; font-weight: bold; font-size: 13px; color: #f0e0c0; }
         .carta-badge {
-          position: absolute;
-          top: 6px;
-          right: 6px;
-          background: #2d6b4f;
-          color: #f8f1e7;
-          font-family: sans-serif;
-          font-size: 10px;
-          font-weight: bold;
-          padding: 3px 7px;
-          border-radius: 999px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+          position: absolute; top: 6px; right: 6px; background: #2d6b4f; color: #f8f1e7;
+          font-family: sans-serif; font-size: 10px; font-weight: bold; padding: 3px 7px;
+          border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         .carta-fecha {
-          position: absolute;
-          top: 26px;
-          right: 6px;
-          background: rgba(20,10,35,0.55);
-          color: #f8f1e7;
-          font-family: sans-serif;
-          font-size: 9px;
-          padding: 2px 6px;
-          border-radius: 999px;
+          position: absolute; top: 26px; right: 6px; background: rgba(20,10,35,0.55); color: #f8f1e7;
+          font-family: sans-serif; font-size: 9px; padding: 2px 6px; border-radius: 999px;
         }
-        .carta-acciones-admin {
-          position: absolute;
-          top: 6px;
-          left: 6px;
-          display: flex;
-          gap: 4px;
-        }
+        .carta-acciones-admin { position: absolute; top: 6px; left: 6px; display: flex; gap: 4px; }
         .icono-btn {
-          background: rgba(20, 10, 35, 0.65);
-          color: #f8f1e7;
-          border: none;
-          border-radius: 6px;
-          width: 24px; height: 24px;
-          font-size: 12px;
-          padding: 0;
-          margin: 0;
-          cursor: pointer;
+          background: rgba(20, 10, 35, 0.65); color: #f8f1e7; border: none; border-radius: 6px;
+          width: 24px; height: 24px; font-size: 12px; padding: 0; margin: 0; cursor: pointer;
         }
         .icono-btn:hover { background: rgba(20, 10, 35, 0.9); }
         .icono-btn.borrar:hover { background: #8a3030; }
         #vacioEscritorio { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 20px; }
 
-        /* ---- lectura de una carta ---- */
-        #lectura .caja { text-align: left; line-height: 1.8; font-size: 17px; }
-        #lectura img { width: 100%; border-radius: 10px; margin-top: 12px; }
-        .firma { margin-top: 18px; font-style: italic; text-align: right; color: #f0e0c0; }
-
-        #cerrada { text-align: center; padding: 40px 20px; }
-        #cerrada .icono { font-size: 44px; margin-bottom: 10px; }
-        #cerrada p { font-family: sans-serif; font-size: 15px; }
-
-        details.form-nueva summary { cursor: pointer; font-family: sans-serif; color: #f0e0c0; margin-bottom: 6px; }
+        /* ---- lector: muestra el archivo que Ale programó, dentro de un iframe ---- */
+        #lector { position: fixed; inset: 0; z-index: 40; background: #2a1650; }
+        #lector iframe { width: 100%; height: 100%; border: none; }
+        .volver-lector {
+          position: fixed; top: 14px; left: 14px; z-index: 70;
+          background: rgba(20,10,35,0.75); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
+          padding: 8px 14px; border-radius: 999px; font-family: sans-serif; font-size: 12px; cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h1>Nuestras cartas 💌</h1>
+    <h1>Cartas</h1>
 
     <div id="login" class="caja">
         <p style="font-family: sans-serif; margin-top:0;">Inicia sesión</p>
@@ -200,29 +178,41 @@
         <p id="estadoLogin"></p>
     </div>
 
-    <div id="escritorio">
+    <div id="categorias">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
         <a class="volver-link" href="index.html">← volver al menú</a>
+        <p class="sub">toca una para ver sus cartas</p>
+        <div class="grid-categorias">
+            <div class="card-categoria" onclick="abrirCategoria('bienvenida')">
+                <div class="icono-categoria">💌</div>
+                <div class="nombre-categoria">bienvenida</div>
+                <div class="badge-cat" id="badgeBienvenida" style="display:none;">nuevo</div>
+            </div>
+            <div class="card-categoria" onclick="abrirCategoria('motivacion')">
+                <div class="icono-categoria">☀️</div>
+                <div class="nombre-categoria">motivación</div>
+                <div class="badge-cat" id="badgeMotivacion" style="display:none;">nuevo</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="escritorio">
+        <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
+        <a class="volver-link" onclick="volverACategorias()">← volver a cartas</a>
+        <h1 id="tituloEscritorio" style="font-size: 22px;"></h1>
 
         <div class="caja" id="cajaNueva" style="display:none;">
             <details class="form-nueva">
-                <summary>+ escribir una carta nueva</summary>
-                <textarea id="mensajeNuevo" placeholder="escribe el mensaje. deja una línea en blanco entre párrafos"></textarea>
-                <input type="text" id="firmaNuevo" placeholder="firma, ej. — tuyo Ale" value="— tuyo Ale">
-                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">imagen o gif (opcional)</label>
+                <summary>+ agregar una carta que ya programaste</summary>
+                <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top:0;">
+                    pon el nombre del archivo .html que subiste al repo (ej. bienvenida-2.html). el contenido y el diseño los haces tú en IntelliJ, aquí solo se guarda la vista previa.
+                </p>
+                <input type="text" id="archivoNuevo" placeholder="nombre-del-archivo.html">
+                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">imagen de previsualización (opcional)</label>
                 <input type="file" id="imagenNuevo" accept="image/*">
-                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">solo se abre entre estas horas (opcional, déjalo en "sin restricción" si quieres que se pueda abrir cuando sea)</label>
-                <div style="display:flex; gap:8px;">
-                    <select id="horaInicioNuevo">
-                        <option value="">sin restricción</option>
-                        <script>for(let h=0;h<24;h++)document.write(`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`);</script>
-                    </select>
-                    <select id="horaFinNuevo">
-                        <option value="">sin restricción</option>
-                        <script>for(let h=0;h<24;h++)document.write(`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`);</script>
-                    </select>
-                </div>
-                <button class="btn-bosque" onclick="crearCarta()">Guardar carta</button>
+                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">o en su lugar, un color (si no subes imagen)</label>
+                <input type="color" id="colorNuevo" value="#2d6b4f">
+                <button class="btn-bosque" onclick="crearEntrada()">Guardar</button>
                 <p id="estadoNueva" style="font-family: sans-serif; font-size: 12px; color: #f0e0c0;"></p>
             </details>
         </div>
@@ -231,19 +221,9 @@
         <p id="vacioEscritorio" style="display:none;">todavía no hay cartas guardadas aquí</p>
     </div>
 
-    <div id="cerrada">
-        <div class="icono">🌙</div>
-        <p id="mensajeCerrada"></p>
-        <button class="volver-btn" onclick="volverAlEscritorio()">← volver</button>
-    </div>
-
-    <div id="lectura">
-        <button class="volver-btn" onclick="volverAlEscritorio()">← volver a todas las cartas</button>
-        <div class="caja" id="contenidoLectura"></div>
-        <div id="accionesLecturaAdmin" style="display:none; text-align:center;">
-            <button onclick="editarCartaActual()">✏️ editar</button>
-            <button onclick="eliminarCartaActual()">🗑️ eliminar</button>
-        </div>
+    <div id="lector">
+        <button class="volver-lector" onclick="volverAlEscritorio()">← volver</button>
+        <iframe id="iframeLector" src=""></iframe>
     </div>
 </div>
 
@@ -270,12 +250,7 @@
     const UPLOAD_PRESET = "album-novia";
 
     let esAdmin = false;
-    let cartaActualId = null;
-    let cartaActualData = null;
-
-    function horaEcuadorAhora() {
-      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
-    }
+    let categoriaActual = null;
 
     function iniciarSesion() {
       const correo = document.getElementById('correo').value;
@@ -289,24 +264,41 @@
       if (user) {
         esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
         document.getElementById('login').style.display = 'none';
-        document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
-        volverAlEscritorio();
-        cargarCartas();
+        volverACategorias();
+        revisarBadgesCategorias();
       } else {
         esAdmin = false;
         document.getElementById('login').style.display = 'block';
+        document.getElementById('categorias').style.display = 'none';
         document.getElementById('escritorio').style.display = 'none';
-        document.getElementById('lectura').style.display = 'none';
-        document.getElementById('cerrada').style.display = 'none';
+        document.getElementById('lector').style.display = 'none';
       }
     });
 
-    function volverAlEscritorio() {
-      cartaActualId = null;
-      cartaActualData = null;
+    function volverACategorias() {
+      categoriaActual = null;
+      document.getElementById('categorias').style.display = 'block';
+      document.getElementById('escritorio').style.display = 'none';
+      document.getElementById('lector').style.display = 'none';
+      revisarBadgesCategorias();
+    }
+
+    async function revisarBadgesCategorias() {
+      for (const cat of ['bienvenida', 'motivacion']) {
+        const snap = await db.collection('entradas').where('categoria', '==', cat).where('leida', '==', false).get();
+        const badge = document.getElementById(cat === 'bienvenida' ? 'badgeBienvenida' : 'badgeMotivacion');
+        badge.style.display = snap.empty ? 'none' : 'inline-block';
+      }
+    }
+
+    function abrirCategoria(categoria) {
+      categoriaActual = categoria;
+      document.getElementById('categorias').style.display = 'none';
       document.getElementById('escritorio').style.display = 'block';
-      document.getElementById('lectura').style.display = 'none';
-      document.getElementById('cerrada').style.display = 'none';
+      document.getElementById('lector').style.display = 'none';
+      document.getElementById('tituloEscritorio').textContent = categoria === 'bienvenida' ? 'bienvenida 💌' : 'motivación ☀️';
+      document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
+      cargarEntradas();
     }
 
     async function subirACloudinary(archivo) {
@@ -318,73 +310,67 @@
       return data.secure_url;
     }
 
-    // ================= CREAR / EDITAR =================
+    // ================= CREAR / EDITAR ENTRADAS =================
 
-    async function crearCarta() {
-      const mensaje = document.getElementById('mensajeNuevo').value.trim();
-      if (!mensaje) { alert('escribe el mensaje primero'); return; }
-      const firma = document.getElementById('firmaNuevo').value.trim();
-      const horaInicio = document.getElementById('horaInicioNuevo').value;
-      const horaFin = document.getElementById('horaFinNuevo').value;
-      const archivo = document.getElementById('imagenNuevo').files[0];
+    async function crearEntrada() {
+      const archivo = document.getElementById('archivoNuevo').value.trim();
+      if (!archivo) { alert('pon el nombre del archivo .html'); return; }
       const estado = document.getElementById('estadoNueva');
       estado.textContent = 'guardando...';
 
+      const archivoImg = document.getElementById('imagenNuevo').files[0];
       let imagen = null;
-      if (archivo) imagen = await subirACloudinary(archivo);
+      if (archivoImg) imagen = await subirACloudinary(archivoImg);
+      const color = document.getElementById('colorNuevo').value;
 
-      const ultimaSnap = await db.collection('cartas').orderBy('numero', 'desc').limit(1).get();
+      const ultimaSnap = await db.collection('entradas').where('categoria', '==', categoriaActual).orderBy('numero', 'desc').limit(1).get();
       const numero = ultimaSnap.empty ? 1 : (ultimaSnap.docs[0].data().numero + 1);
 
-      await db.collection('cartas').add({
-        numero, mensaje, firma, imagen: imagen || null,
-        horaInicio: horaInicio === '' ? null : parseInt(horaInicio),
-        horaFin: horaFin === '' ? null : parseInt(horaFin),
-        fecha: Date.now(),
-        leida: false
+      await db.collection('entradas').add({
+        categoria: categoriaActual, numero, archivo,
+        imagen: imagen || null,
+        color: imagen ? null : color,
+        fecha: Date.now(), leida: false
       });
 
-      document.getElementById('mensajeNuevo').value = '';
+      document.getElementById('archivoNuevo').value = '';
       document.getElementById('imagenNuevo').value = '';
       estado.textContent = 'lista ✓';
-      cargarCartas();
+      cargarEntradas();
     }
 
-    async function editarCartaActual() {
-      if (!cartaActualId) return;
-      const nuevoMensaje = prompt('editar mensaje (usa doble salto de línea entre párrafos):', cartaActualData.mensaje);
-      if (nuevoMensaje === null) return;
-      const nuevaFirma = prompt('editar firma:', cartaActualData.firma || '');
-      await db.collection('cartas').doc(cartaActualId).update({ mensaje: nuevoMensaje, firma: nuevaFirma || '' });
-      abrirCarta(cartaActualId);
+    async function renombrarEntrada(id, archivoActual) {
+      const nuevo = prompt('nuevo nombre de archivo:', archivoActual);
+      if (!nuevo || !nuevo.trim()) return;
+      await db.collection('entradas').doc(id).update({ archivo: nuevo.trim() });
+      cargarEntradas();
     }
 
-    async function eliminarCartaActual() {
-      if (!cartaActualId) return;
-      if (!confirm('¿eliminar esta carta para siempre?')) return;
-      await db.collection('cartas').doc(cartaActualId).delete();
-      volverAlEscritorio();
-      cargarCartas();
+    async function eliminarEntrada(id) {
+      if (!confirm('¿quitar esta carta del escritorio? (el archivo .html en tu repo no se borra, solo esta ficha)')) return;
+      await db.collection('entradas').doc(id).delete();
+      cargarEntradas();
     }
 
     // ================= LISTAR =================
 
-    async function cargarCartas() {
+    async function cargarEntradas() {
       const contenedor = document.getElementById('listaCartas');
       contenedor.innerHTML = '';
-      const snap = await db.collection('cartas').orderBy('numero', 'asc').get();
+      const snap = await db.collection('entradas').where('categoria', '==', categoriaActual).orderBy('numero', 'asc').get();
       document.getElementById('vacioEscritorio').style.display = snap.empty ? 'block' : 'none';
       snap.forEach(doc => {
         const c = doc.data();
         const card = document.createElement('div');
         card.className = 'carta-card';
-        card.onclick = (e) => { if (!e.target.closest('.icono-btn')) abrirCarta(doc.id); };
+        card.onclick = (e) => { if (!e.target.closest('.icono-btn')) abrirEntrada(doc.id, c); };
 
         let adminBotones = '';
         if (esAdmin) {
           adminBotones = `
             <div class="carta-acciones-admin">
-              <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarCarta('${doc.id}')" title="eliminar">🗑️</button>
+              <button class="icono-btn" onclick="event.stopPropagation(); renombrarEntrada('${doc.id}', '${c.archivo}')" title="renombrar archivo">✏️</button>
+              <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarEntrada('${doc.id}')" title="quitar">🗑️</button>
             </div>`;
         }
 
@@ -394,9 +380,14 @@
           insignias = `<div class="carta-badge">nuevo</div><div class="carta-fecha">${fechaTxt}</div>`;
         }
 
-        const previewInterior = c.imagen
-          ? `<img class="carta-preview" src="${c.imagen}" alt="vista previa">`
-          : `<div class="carta-preview">💌</div>`;
+        let previewInterior;
+        if (c.imagen) {
+          previewInterior = `<img class="carta-preview" src="${c.imagen}" alt="vista previa">`;
+        } else {
+          const colorFondo = c.color || '#2d6b4f';
+          const icono = categoriaActual === 'bienvenida' ? '💌' : '☀️';
+          previewInterior = `<div class="carta-preview" style="background:${colorFondo};">${icono}</div>`;
+        }
 
         card.innerHTML = `
           ${adminBotones}
@@ -408,50 +399,24 @@
       });
     }
 
-    async function eliminarCarta(id) {
-      if (!confirm('¿eliminar esta carta para siempre?')) return;
-      await db.collection('cartas').doc(id).delete();
-      cargarCartas();
+    // ================= ABRIR (iframe con lo que Ale programó) =================
+
+    async function abrirEntrada(id, c) {
+      // marcar como leída solo si abre alguien que no sea el admin,
+      // para no gastar el "nuevo" cuando Ale entra a revisar cómo quedó
+      if (!esAdmin && !c.leida) {
+        await db.collection('entradas').doc(id).update({ leida: true });
+      }
+      document.getElementById('iframeLector').src = c.archivo;
+      document.getElementById('escritorio').style.display = 'none';
+      document.getElementById('lector').style.display = 'block';
     }
 
-    // ================= ABRIR / LEER =================
-
-    async function abrirCarta(id) {
-      const doc = await db.collection('cartas').doc(id).get();
-      if (!doc.exists) return;
-      const c = doc.data();
-      cartaActualId = id;
-      cartaActualData = c;
-
-      // candado por horario, el admin siempre puede entrar a revisar
-      if (!esAdmin && (c.horaInicio !== null && c.horaInicio !== undefined) && (c.horaFin !== null && c.horaFin !== undefined)) {
-        const h = horaEcuadorAhora().getHours();
-        const dentro = c.horaInicio <= c.horaFin
-          ? (h >= c.horaInicio && h < c.horaFin)
-          : (h >= c.horaInicio || h < c.horaFin); // rango que cruza medianoche
-        if (!dentro) {
-          document.getElementById('mensajeCerrada').textContent =
-            `esta carta se abre entre las ${String(c.horaInicio).padStart(2,'0')}:00 y las ${String(c.horaFin).padStart(2,'0')}:00`;
-          document.getElementById('escritorio').style.display = 'none';
-          document.getElementById('cerrada').style.display = 'block';
-          return;
-        }
-      }
-
-      // marcar como leída solo cuando la abre quien NO es admin (para no arruinar la sorpresa contando las veces que Ale la revisa)
-      if (!esAdmin && !c.leida) {
-        await db.collection('cartas').doc(id).update({ leida: true });
-      }
-
-      const parrafos = c.mensaje.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
-      const imagenHtml = c.imagen ? `<img src="${c.imagen}" alt="">` : '';
-      const firmaHtml = c.firma ? `<p class="firma">${c.firma}</p>` : '';
-
-      document.getElementById('contenidoLectura').innerHTML = parrafos + imagenHtml + firmaHtml;
-      document.getElementById('accionesLecturaAdmin').style.display = esAdmin ? 'block' : 'none';
-      document.getElementById('escritorio').style.display = 'none';
-      document.getElementById('cerrada').style.display = 'none';
-      document.getElementById('lectura').style.display = 'block';
+    function volverAlEscritorio() {
+      document.getElementById('iframeLector').src = '';
+      document.getElementById('lector').style.display = 'none';
+      document.getElementById('escritorio').style.display = 'block';
+      cargarEntradas();
     }
 </script>
 </body>
