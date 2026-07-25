@@ -94,6 +94,7 @@
           font-size: 14px;
         }
         #estado, .nota-estado { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
+        #avisoAdmin { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.6); text-align:center; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -116,6 +117,7 @@
     </div>
 
     <div id="app">
+        <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
             <div class="tab" onclick="mostrar('cartas', this)">cartas virtuales</div>
@@ -180,13 +182,24 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
-    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00');
+    // Correo que se salta el bloqueo de fecha (para ir viendo el progreso)
+    const CORREO_ADMIN = "palrom2006@gmail.com";
+    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00'); // hora Ecuador fija
+
+    function horaEcuadorAhora() {
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
+    }
+
+    let esAdmin = false;
 
     function revisarBloqueo() {
-      const ahora = new Date();
+      if (esAdmin) {
+        document.getElementById('bloqueado').style.display = 'none';
+        return true;
+      }
+      const ahora = horaEcuadorAhora();
       if (ahora >= FECHA_DESBLOQUEO) {
         document.getElementById('bloqueado').style.display = 'none';
-        document.getElementById('login').style.display = 'block';
         return true;
       } else {
         document.getElementById('bloqueado').style.display = 'block';
@@ -203,8 +216,6 @@
         return false;
       }
     }
-    revisarBloqueo();
-    setInterval(revisarBloqueo, 1000);
 
     const firebaseConfig = {
       apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
@@ -229,16 +240,32 @@
     }
 
     auth.onAuthStateChanged(user => {
-      if (user && new Date() >= FECHA_DESBLOQUEO) {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('app').style.display = 'block';
-        cargarGaleria('fotos', 'galeriaFotos');
-        cargarGaleria('flores', 'galeriaFlores');
-        cargarGaleria('salidas', 'galeriaSalidas');
-        cargarGaleria('cartasfisicas', 'galeriaCF');
-        cargarLinks();
+      if (user) {
+        esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
+        const desbloqueado = revisarBloqueo();
+        if (desbloqueado) {
+          document.getElementById('login').style.display = 'none';
+          document.getElementById('app').style.display = 'block';
+          document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
+          cargarGaleria('fotos', 'galeriaFotos');
+          cargarGaleria('flores', 'galeriaFlores');
+          cargarGaleria('salidas', 'galeriaSalidas');
+          cargarGaleria('cartasfisicas', 'galeriaCF');
+          cargarLinks();
+        }
+      } else {
+        esAdmin = false;
+        const desbloqueado = revisarBloqueo();
+        if (desbloqueado) {
+          document.getElementById('login').style.display = 'block';
+        }
+        document.getElementById('app').style.display = 'none';
       }
     });
+
+    setInterval(() => {
+      if (!esAdmin) revisarBloqueo();
+    }, 1000);
 
     function mostrar(id, el) {
       document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
