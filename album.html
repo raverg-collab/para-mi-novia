@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestro álbum</title>
     <style>
@@ -16,7 +19,6 @@
         }
         .wrap { max-width: 700px; margin: 0 auto; }
         h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
-
         .caja {
           background: rgba(245, 232, 210, 0.14);
           backdrop-filter: blur(14px);
@@ -28,7 +30,6 @@
           margin-bottom: 16px;
         }
         .caja p { color: #f8f1e7; }
-
         input {
           width: 100%;
           padding: 10px;
@@ -42,7 +43,6 @@
         }
         input::placeholder { color: rgba(248,241,231,0.6); }
         input[type="file"] { padding: 8px; }
-
         button {
           background: rgba(240, 224, 192, 0.85);
           color: #3c2166;
@@ -57,16 +57,13 @@
           transition: background 0.2s ease;
         }
         button:hover { background: #f0e0c0; }
-
-        #app { display: none; }
-
-        .tabs {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 16px;
-          justify-content: center;
-        }
+        #login, #app { display: none; }
+        #bloqueado { text-align: center; padding: 60px 20px; }
+        #bloqueado .icono { font-size: 48px; margin-bottom: 12px; }
+        #bloqueado p { font-family: sans-serif; }
+        #cuenta { font-family: sans-serif; font-size: 28px; font-weight: bold; color: #f0e0c0; margin-top: 16px; letter-spacing: 1px; }
+        #cuenta-label { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); margin-top: 4px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
         .tab {
           background: rgba(255,255,255,0.10);
           backdrop-filter: blur(10px);
@@ -79,24 +76,10 @@
           font-size: 13px;
         }
         .tab.activo { background: rgba(240, 224, 192, 0.9); color: #3c2166; font-weight: bold; }
-
         .seccion { display: none; }
         .seccion.activa { display: block; }
-
-        .galeria {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-          gap: 10px;
-          margin-top: 16px;
-        }
-        .galeria img {
-          width: 100%;
-          aspect-ratio: 1;
-          object-fit: cover;
-          border-radius: 10px;
-          border: 1px solid rgba(245, 232, 210, 0.3);
-        }
-
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
+        .galeria img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid rgba(245, 232, 210, 0.3); }
         .link-item {
           display: block;
           background: rgba(245, 232, 210, 0.14);
@@ -116,6 +99,13 @@
 <body>
 <div class="wrap">
     <h1>Nuestro álbum 💜</h1>
+
+    <div id="bloqueado">
+        <div class="icono">🔒</div>
+        <p>esto se abre el 9 de agosto</p>
+        <div id="cuenta">--:--:--:--</div>
+        <div id="cuenta-label">días · horas · minutos · segundos</div>
+    </div>
 
     <div id="login" class="caja">
         <p style="font-family: sans-serif; margin-top:0;">Inicia sesión</p>
@@ -190,6 +180,32 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
+    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00');
+
+    function revisarBloqueo() {
+      const ahora = new Date();
+      if (ahora >= FECHA_DESBLOQUEO) {
+        document.getElementById('bloqueado').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+        return true;
+      } else {
+        document.getElementById('bloqueado').style.display = 'block';
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('app').style.display = 'none';
+        const diff = FECHA_DESBLOQUEO - ahora;
+        const dias = Math.floor(diff / (1000*60*60*24));
+        const horas = Math.floor((diff / (1000*60*60)) % 24);
+        const minutos = Math.floor((diff / (1000*60)) % 60);
+        const segundos = Math.floor((diff / 1000) % 60);
+        document.getElementById('cuenta').textContent =
+          String(dias).padStart(2,'0') + ':' + String(horas).padStart(2,'0') + ':' +
+          String(minutos).padStart(2,'0') + ':' + String(segundos).padStart(2,'0');
+        return false;
+      }
+    }
+    revisarBloqueo();
+    setInterval(revisarBloqueo, 1000);
+
     const firebaseConfig = {
       apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
       authDomain: "album-novia-af9cf.firebaseapp.com",
@@ -213,7 +229,7 @@
     }
 
     auth.onAuthStateChanged(user => {
-      if (user) {
+      if (user && new Date() >= FECHA_DESBLOQUEO) {
         document.getElementById('login').style.display = 'none';
         document.getElementById('app').style.display = 'block';
         cargarGaleria('fotos', 'galeriaFotos');
