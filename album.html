@@ -16,6 +16,7 @@
           font-family: 'Georgia', serif;
           color: #f8f1e7;
           padding: 20px;
+          padding-top: 64px;
         }
         .wrap { max-width: 700px; margin: 0 auto; }
         h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
@@ -42,7 +43,6 @@
           font-size: 14px;
         }
         input::placeholder { color: rgba(248,241,231,0.6); }
-        input[type="file"] { padding: 8px; }
         button {
           background: rgba(240, 224, 192, 0.85);
           color: #3c2166;
@@ -54,15 +54,47 @@
           font-weight: bold;
           cursor: pointer;
           margin-top: 6px;
-          transition: background 0.2s ease;
+          transition: background 0.2s ease, transform 0.15s ease;
         }
         button:hover { background: #f0e0c0; }
+        button:active { transform: scale(0.97); }
+
+        /* --- Acento verde bosque + beige (carpetas y acciones secundarias) --- */
+        .btn-bosque {
+          background: linear-gradient(135deg, #1f4d3a, #2d6b4f);
+          color: #f0e0c0;
+          border: 1px solid rgba(240, 224, 192, 0.35);
+        }
+        .btn-bosque:hover { background: linear-gradient(135deg, #256045, #35815e); }
+
+        /* Botón "elegir archivo(s)" con estilo de verdad, combinando verde bosque + beige */
+        .file-label {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          background: linear-gradient(135deg, #f0e0c0, #cfead9 45%, #2d6b4f);
+          color: #1c2e24;
+          border: 1px solid rgba(240, 224, 192, 0.5);
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-family: sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 6px;
+          transition: filter 0.2s ease;
+        }
+        .file-label:hover { filter: brightness(1.06); }
+        input[type="file"] { display: none; }
+        .nombre-archivos { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75); margin-top: 4px; text-align: center; }
+
         #login, #app, #bloqueado { display: none; }
         #bloqueado { text-align: center; padding: 60px 20px; }
         #bloqueado .icono { font-size: 48px; margin-bottom: 12px; }
         #bloqueado p { font-family: sans-serif; }
         #cuenta { font-family: sans-serif; font-size: 28px; font-weight: bold; color: #f0e0c0; margin-top: 16px; letter-spacing: 1px; }
         #cuenta-label { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); margin-top: 4px; }
+
         .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
         .tab {
           background: rgba(255,255,255,0.10);
@@ -78,8 +110,30 @@
         .tab.activo { background: rgba(240, 224, 192, 0.9); color: #3c2166; font-weight: bold; }
         .seccion { display: none; }
         .seccion.activa { display: block; }
+
         .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
-        .galeria img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1px solid rgba(245, 232, 210, 0.3); }
+        .foto-item { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid rgba(245, 232, 210, 0.3); }
+        .foto-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+        .foto-nota {
+          font-family: sans-serif; font-size: 11px; color: #f8f1e7;
+          background: rgba(0,0,0,0.35); padding: 4px 6px; word-break: break-word;
+        }
+        .foto-acciones { position: absolute; top: 4px; right: 4px; display: flex; gap: 4px; }
+        .icono-btn {
+          background: rgba(20, 10, 35, 0.65);
+          color: #f8f1e7;
+          border: none;
+          border-radius: 6px;
+          width: 26px; height: 26px;
+          font-size: 13px;
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .icono-btn:hover { background: rgba(20, 10, 35, 0.9); }
+        .icono-btn.borrar:hover { background: #8a3030; }
+
         .link-item {
           display: block;
           background: rgba(245, 232, 210, 0.14);
@@ -95,6 +149,57 @@
         }
         #estado, .nota-estado { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
         #avisoAdmin { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.6); text-align:center; margin-bottom: 10px; }
+
+        /* --- Botón cerrar sesión, siempre visible --- */
+        .logout-fijo {
+          position: fixed;
+          top: 14px;
+          right: 14px;
+          z-index: 50;
+          width: auto;
+          margin: 0;
+          padding: 8px 14px;
+          font-size: 12px;
+          background: linear-gradient(135deg, #1f4d3a, #f0e0c0 140%);
+          color: #1c2e24;
+          box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        }
+
+        /* --- Carpetas --- */
+        .carpetas-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 14px;
+          margin-top: 16px;
+        }
+        .carpeta-card {
+          position: relative;
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-left: 5px solid #2d6b4f;
+          border-radius: 10px;
+          padding: 16px 14px;
+          cursor: pointer;
+          transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .carpeta-card:hover { transform: translateY(-2px); background: rgba(245, 232, 210, 0.2); }
+        .carpeta-icono { font-size: 26px; margin-bottom: 6px; }
+        .carpeta-nombre { font-family: sans-serif; font-weight: bold; font-size: 14px; color: #f0e0c0; word-break: break-word; }
+        .carpeta-fecha { font-family: sans-serif; font-size: 11px; color: rgba(248,241,231,0.65); margin-top: 2px; }
+        .carpeta-acciones { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
+
+        .encabezado-carpeta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 6px;
+        }
+        .encabezado-carpeta h3 { margin: 0; font-weight: normal; color: #f0e0c0; }
+        .volver-btn { width: auto; padding: 6px 12px; font-size: 12px; }
+        #vaciaCarpetas { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -117,6 +222,7 @@
     </div>
 
     <div id="app">
+        <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
@@ -126,14 +232,39 @@
             <div class="tab" onclick="mostrar('cartasfisicas', this)">cartas físicas</div>
         </div>
 
+        <!-- ===== FOTOS: ahora con carpetas ===== -->
         <div class="seccion activa" id="sec-fotos">
-            <div class="caja">
-                <p style="font-family: sans-serif; margin-top:0;">Subir foto</p>
-                <input type="file" id="archivoFoto" accept="image/*">
-                <button onclick="subirFoto()">Subir</button>
-                <p id="estadoFoto" class="nota-estado"></p>
+
+            <!-- Vista: lista de carpetas -->
+            <div id="vistaCarpetas">
+                <div class="caja">
+                    <p style="font-family: sans-serif; margin-top:0;">Crear carpeta</p>
+                    <input type="text" id="nombreCarpeta" placeholder="ej. 24 de julio, o 'nuestro aniversario'">
+                    <button class="btn-bosque" onclick="crearCarpeta()">Crear carpeta</button>
+                </div>
+                <div class="carpetas-grid" id="listaCarpetas"></div>
+                <p id="vaciaCarpetas" style="display:none;">todavía no hay carpetas, crea la primera arriba</p>
             </div>
-            <div class="galeria" id="galeriaFotos"></div>
+
+            <!-- Vista: dentro de una carpeta -->
+            <div id="vistaCarpetaAbierta" style="display:none;">
+                <button class="volver-btn" onclick="volverACarpetas()">← volver a carpetas</button>
+                <div class="caja">
+                    <div class="encabezado-carpeta">
+                        <h3 id="tituloCarpetaAbierta"></h3>
+                        <div style="display:flex; gap:6px;">
+                            <button class="icono-btn" onclick="renombrarCarpetaActual()" title="renombrar">✏️</button>
+                            <button class="icono-btn borrar" onclick="eliminarCarpetaActual()" title="eliminar carpeta">🗑️</button>
+                        </div>
+                    </div>
+                    <label class="file-label" for="archivoFotos">elegir fotos</label>
+                    <input type="file" id="archivoFotos" accept="image/*" multiple onchange="mostrarNombresElegidos()">
+                    <p class="nombre-archivos" id="nombresElegidos"></p>
+                    <button onclick="subirFotos()">Subir</button>
+                    <p id="estadoFoto" class="nota-estado"></p>
+                </div>
+                <div class="galeria" id="galeriaFotos"></div>
+            </div>
         </div>
 
         <div class="seccion" id="sec-cartas">
@@ -149,6 +280,7 @@
         <div class="seccion" id="sec-flores">
             <div class="caja">
                 <p style="font-family: sans-serif; margin-top:0;">Subir foto de flores</p>
+                <label class="file-label" for="archivoFlores">elegir foto</label>
                 <input type="file" id="archivoFlores" accept="image/*">
                 <input type="text" id="notaFlores" placeholder="nota (opcional)">
                 <button onclick="subirDetalle('flores', 'archivoFlores', 'notaFlores')">Subir</button>
@@ -159,6 +291,7 @@
         <div class="seccion" id="sec-salidas">
             <div class="caja">
                 <p style="font-family: sans-serif; margin-top:0;">Subir foto de salida</p>
+                <label class="file-label" for="archivoSalidas">elegir foto</label>
                 <input type="file" id="archivoSalidas" accept="image/*">
                 <input type="text" id="notaSalidas" placeholder="nota (opcional)">
                 <button onclick="subirDetalle('salidas', 'archivoSalidas', 'notaSalidas')">Subir</button>
@@ -169,6 +302,7 @@
         <div class="seccion" id="sec-cartasfisicas">
             <div class="caja">
                 <p style="font-family: sans-serif; margin-top:0;">Subir foto de carta física</p>
+                <label class="file-label" for="archivoCF">elegir foto</label>
                 <input type="file" id="archivoCF" accept="image/*">
                 <input type="text" id="notaCF" placeholder="nota (opcional)">
                 <button onclick="subirDetalle('cartasfisicas', 'archivoCF', 'notaCF')">Subir</button>
@@ -191,6 +325,8 @@
     }
 
     let esAdmin = false;
+    let carpetaAbiertaId = null;
+    let carpetaAbiertaNombre = null;
 
     function revisarBloqueo() {
       if (esAdmin) {
@@ -240,6 +376,10 @@
         .catch(err => { document.getElementById('estado').textContent = "correo o contraseña incorrectos"; });
     }
 
+    function cerrarSesion() {
+      auth.signOut();
+    }
+
     auth.onAuthStateChanged(user => {
       if (user) {
         esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
@@ -248,19 +388,17 @@
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'block';
           document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
-          cargarGaleria('fotos', 'galeriaFotos');
+          volverACarpetas(); // asegura que arranque mostrando la lista de carpetas
+          cargarCarpetas();
           cargarGaleria('flores', 'galeriaFlores');
           cargarGaleria('salidas', 'galeriaSalidas');
           cargarGaleria('cartasfisicas', 'galeriaCF');
           cargarLinks();
         } else {
-          // logueado pero no es admin y todavia no llega la fecha: se queda viendo el candado
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'none';
         }
       } else {
-        // sin sesion: el login SIEMPRE debe verse, sin importar la fecha,
-        // para que el admin pueda entrar y saltarse el candado
         esAdmin = false;
         document.getElementById('bloqueado').style.display = 'none';
         document.getElementById('app').style.display = 'none';
@@ -279,9 +417,7 @@
       el.classList.add('activo');
     }
 
-    async function subirACloudinary(inputId) {
-      const archivo = document.getElementById(inputId).files[0];
-      if (!archivo) { alert('elige una imagen primero'); return null; }
+    async function subirACloudinary(archivo) {
       const formData = new FormData();
       formData.append('file', archivo);
       formData.append('upload_preset', UPLOAD_PRESET);
@@ -293,21 +429,179 @@
       return data.secure_url;
     }
 
-    async function subirFoto() {
-      document.getElementById('estadoFoto').textContent = 'subiendo...';
-      const url = await subirACloudinary('archivoFoto');
-      if (!url) { document.getElementById('estadoFoto').textContent = ''; return; }
-      await db.collection('fotos').add({ url, fecha: Date.now() });
-      document.getElementById('estadoFoto').textContent = 'listo';
-      cargarGaleria('fotos', 'galeriaFotos');
+    // ================= CARPETAS =================
+
+    async function crearCarpeta() {
+      const input = document.getElementById('nombreCarpeta');
+      const nombre = input.value.trim();
+      if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
+      await db.collection('carpetas').add({ nombre, fecha: Date.now() });
+      input.value = '';
+      cargarCarpetas();
+    }
+
+    async function cargarCarpetas() {
+      const contenedor = document.getElementById('listaCarpetas');
+      contenedor.innerHTML = '';
+      const snap = await db.collection('carpetas').orderBy('fecha', 'desc').get();
+      document.getElementById('vaciaCarpetas').style.display = snap.empty ? 'block' : 'none';
+      snap.forEach(doc => {
+        const c = doc.data();
+        const div = document.createElement('div');
+        div.className = 'carpeta-card';
+        div.onclick = (e) => {
+          if (e.target.closest('.carpeta-acciones')) return;
+          abrirCarpeta(doc.id, c.nombre);
+        };
+        div.innerHTML = `
+          <div class="carpeta-acciones">
+            <button class="icono-btn" onclick="event.stopPropagation(); renombrarCarpeta('${doc.id}')" title="renombrar">✏️</button>
+            <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarCarpeta('${doc.id}')" title="eliminar">🗑️</button>
+          </div>
+          <div class="carpeta-icono">📁</div>
+          <div class="carpeta-nombre"></div>
+          <div class="carpeta-fecha">${new Date(c.fecha).toLocaleDateString('es-EC', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+        `;
+        div.querySelector('.carpeta-nombre').textContent = c.nombre;
+        contenedor.appendChild(div);
+      });
+    }
+
+    async function renombrarCarpeta(id) {
+      const nuevo = prompt('nuevo nombre para la carpeta:');
+      if (!nuevo || !nuevo.trim()) return;
+      await db.collection('carpetas').doc(id).update({ nombre: nuevo.trim() });
+      cargarCarpetas();
+      if (carpetaAbiertaId === id) {
+        carpetaAbiertaNombre = nuevo.trim();
+        document.getElementById('tituloCarpetaAbierta').textContent = carpetaAbiertaNombre;
+      }
+    }
+
+    function renombrarCarpetaActual() {
+      if (carpetaAbiertaId) renombrarCarpeta(carpetaAbiertaId);
+    }
+
+    async function eliminarCarpeta(id) {
+      if (!confirm('¿eliminar esta carpeta y quitar sus fotos de la galería? esto no se puede deshacer')) return;
+      const fotosSnap = await db.collection('fotos').where('carpetaId', '==', id).get();
+      const lotes = [];
+      fotosSnap.forEach(doc => lotes.push(doc.ref.delete()));
+      await Promise.all(lotes);
+      await db.collection('carpetas').doc(id).delete();
+      if (carpetaAbiertaId === id) volverACarpetas();
+      cargarCarpetas();
+    }
+
+    function eliminarCarpetaActual() {
+      if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId);
+    }
+
+    function abrirCarpeta(id, nombre) {
+      carpetaAbiertaId = id;
+      carpetaAbiertaNombre = nombre;
+      document.getElementById('tituloCarpetaAbierta').textContent = nombre;
+      document.getElementById('vistaCarpetas').style.display = 'none';
+      document.getElementById('vistaCarpetaAbierta').style.display = 'block';
+      document.getElementById('estadoFoto').textContent = '';
+      document.getElementById('nombresElegidos').textContent = '';
+      cargarGaleriaFotosDeCarpeta();
+    }
+
+    function volverACarpetas() {
+      carpetaAbiertaId = null;
+      carpetaAbiertaNombre = null;
+      document.getElementById('vistaCarpetaAbierta').style.display = 'none';
+      document.getElementById('vistaCarpetas').style.display = 'block';
+    }
+
+    function mostrarNombresElegidos() {
+      const archivos = document.getElementById('archivoFotos').files;
+      if (!archivos.length) { document.getElementById('nombresElegidos').textContent = ''; return; }
+      document.getElementById('nombresElegidos').textContent =
+        archivos.length === 1 ? archivos[0].name : `${archivos.length} fotos elegidas`;
+    }
+
+    async function subirFotos() {
+      if (!carpetaAbiertaId) return;
+      const archivos = Array.from(document.getElementById('archivoFotos').files);
+      if (!archivos.length) { alert('elige al menos una foto'); return; }
+      const estado = document.getElementById('estadoFoto');
+      estado.textContent = `subiendo 0/${archivos.length}...`;
+      let listas = 0;
+      for (const archivo of archivos) {
+        const url = await subirACloudinary(archivo);
+        if (url) {
+          await db.collection('fotos').add({ url, fecha: Date.now(), carpetaId: carpetaAbiertaId });
+        }
+        listas++;
+        estado.textContent = `subiendo ${listas}/${archivos.length}...`;
+      }
+      estado.textContent = 'listo';
+      document.getElementById('archivoFotos').value = '';
+      document.getElementById('nombresElegidos').textContent = '';
+      cargarGaleriaFotosDeCarpeta();
+    }
+
+    async function cargarGaleriaFotosDeCarpeta() {
+      const contenedor = document.getElementById('galeriaFotos');
+      contenedor.innerHTML = '';
+      const snap = await db.collection('fotos').where('carpetaId', '==', carpetaAbiertaId).orderBy('fecha', 'desc').get();
+      snap.forEach(doc => {
+        contenedor.appendChild(crearItemFoto(doc.id, doc.data(), 'fotos', cargarGaleriaFotosDeCarpeta));
+      });
+    }
+
+    // ================= GALERÍAS SIMPLES (flores, salidas, cartas físicas) =================
+
+    function crearItemFoto(id, data, coleccion, recargar) {
+      const div = document.createElement('div');
+      div.className = 'foto-item';
+      const img = document.createElement('img');
+      img.src = data.url;
+      div.appendChild(img);
+      if (typeof data.nota === 'string') {
+        const nota = document.createElement('div');
+        nota.className = 'foto-nota';
+        nota.textContent = data.nota;
+        div.appendChild(nota);
+      }
+      const acciones = document.createElement('div');
+      acciones.className = 'foto-acciones';
+      const btnEditar = document.createElement('button');
+      btnEditar.className = 'icono-btn';
+      btnEditar.title = 'editar nota';
+      btnEditar.textContent = '✏️';
+      btnEditar.onclick = async () => {
+        const nuevaNota = prompt('nota para esta foto:', data.nota || '');
+        if (nuevaNota === null) return;
+        await db.collection(coleccion).doc(id).update({ nota: nuevaNota });
+        recargar();
+      };
+      const btnBorrar = document.createElement('button');
+      btnBorrar.className = 'icono-btn borrar';
+      btnBorrar.title = 'eliminar';
+      btnBorrar.textContent = '🗑️';
+      btnBorrar.onclick = async () => {
+        if (!confirm('¿eliminar esta foto de la galería?')) return;
+        await db.collection(coleccion).doc(id).delete();
+        recargar();
+      };
+      acciones.appendChild(btnEditar);
+      acciones.appendChild(btnBorrar);
+      div.appendChild(acciones);
+      return div;
     }
 
     async function subirDetalle(categoria, inputId, notaId) {
-      const url = await subirACloudinary(inputId);
+      const archivo = document.getElementById(inputId).files[0];
+      if (!archivo) { alert('elige una imagen primero'); return; }
+      const url = await subirACloudinary(archivo);
       if (!url) return;
       const nota = document.getElementById(notaId).value;
       await db.collection(categoria).add({ url, nota, fecha: Date.now() });
       document.getElementById(notaId).value = '';
+      document.getElementById(inputId).value = '';
       const mapaGaleria = { flores: 'galeriaFlores', salidas: 'galeriaSalidas', cartasfisicas: 'galeriaCF' };
       cargarGaleria(categoria, mapaGaleria[categoria]);
     }
@@ -317,9 +611,7 @@
       contenedor.innerHTML = '';
       const snap = await db.collection(categoria).orderBy('fecha', 'desc').get();
       snap.forEach(doc => {
-        const img = document.createElement('img');
-        img.src = doc.data().url;
-        contenedor.appendChild(img);
+        contenedor.appendChild(crearItemFoto(doc.id, doc.data(), categoria, () => cargarGaleria(categoria, contenedorId)));
       });
     }
 
