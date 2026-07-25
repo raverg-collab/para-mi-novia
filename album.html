@@ -57,7 +57,7 @@
           transition: background 0.2s ease;
         }
         button:hover { background: #f0e0c0; }
-        #login, #app { display: none; }
+        #login, #app, #bloqueado { display: none; }
         #bloqueado { text-align: center; padding: 60px 20px; }
         #bloqueado .icono { font-size: 48px; margin-bottom: 12px; }
         #bloqueado p { font-family: sans-serif; }
@@ -252,19 +252,23 @@
           cargarGaleria('salidas', 'galeriaSalidas');
           cargarGaleria('cartasfisicas', 'galeriaCF');
           cargarLinks();
+        } else {
+          // logueado pero no es admin y todavia no llega la fecha: se queda viendo el candado
+          document.getElementById('login').style.display = 'none';
+          document.getElementById('app').style.display = 'none';
         }
       } else {
+        // sin sesion: el login SIEMPRE debe verse, sin importar la fecha,
+        // para que el admin pueda entrar y saltarse el candado
         esAdmin = false;
-        const desbloqueado = revisarBloqueo();
-        if (desbloqueado) {
-          document.getElementById('login').style.display = 'block';
-        }
+        document.getElementById('bloqueado').style.display = 'none';
         document.getElementById('app').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
       }
     });
 
     setInterval(() => {
-      if (!esAdmin) revisarBloqueo();
+      if (auth.currentUser && !esAdmin) revisarBloqueo();
     }, 1000);
 
     function mostrar(id, el) {
