@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(180deg, #2a1650, #4a2a80 50%, #6b4aa0);
+          font-family: 'Georgia', serif;
+          color: #f8f1e7;
+          padding: 20px;
+          padding-top: 64px;
+        }
+        .wrap { max-width: 720px; margin: 0 auto; }
+        h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
+        a.volver-link, .volver-btn {
+          display: inline-block;
+          background: rgba(245, 232, 210, 0.16);
+          color: #f8f1e7;
+          border: 1px solid rgba(245, 232, 210, 0.3);
+          padding: 6px 14px;
+          border-radius: 999px;
+          text-decoration: none;
+          font-family: sans-serif;
+          font-size: 12px;
+          cursor: pointer;
+          margin-bottom: 14px;
+        }
+        .caja {
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-radius: 16px;
+          padding: 22px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+          margin-bottom: 16px;
+        }
+        .caja p { color: #f8f1e7; }
+        input, textarea, select {
+          width: 100%;
+          padding: 10px;
+          margin: 6px 0;
+          border-radius: 8px;
+          border: 1px solid rgba(245, 232, 210, 0.4);
+          background: rgba(255,255,255,0.12);
+          color: #fdf8f0;
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        input::placeholder, textarea::placeholder { color: rgba(248,241,231,0.6); }
+        input[type="file"] { padding: 8px; }
+        select option { color: #222; }
+        button {
+          background: rgba(240, 224, 192, 0.85);
+          color: #3c2166;
+          border: none;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-family: sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+          margin-top: 6px;
+          transition: background 0.2s ease, transform 0.15s ease;
+        }
+        button:hover { background: #f0e0c0; }
+        button:active { transform: scale(0.97); }
+        .btn-bosque {
+          background: linear-gradient(135deg, #1f4d3a, #2d6b4f);
+          color: #f0e0c0;
+          border: 1px solid rgba(240, 224, 192, 0.35);
+        }
+        .btn-bosque:hover { background: linear-gradient(135deg, #256045, #35815e); }
+
+        #login, #escritorio, #lectura, #cerrada { display: none; }
+        #estadoLogin { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
+
+        .logout-fijo {
+          position: fixed;
+          top: 14px;
+          right: 14px;
+          z-index: 50;
+          margin: 0;
+          padding: 8px 14px;
+          font-size: 12px;
+          background: linear-gradient(135deg, #1f4d3a, #f0e0c0 140%);
+          color: #1c2e24;
+          box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+        }
+
+        /* ---- escritorio de cartas ---- */
+        .escritorio-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: 16px;
+          margin-top: 10px;
+        }
+        .carta-card {
+          position: relative;
+          background: rgba(245, 232, 210, 0.14);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(245, 232, 210, 0.28);
+          border-radius: 12px;
+          padding: 14px 10px 10px;
+          cursor: pointer;
+          text-align: center;
+          transition: transform 0.15s ease, background 0.2s ease;
+        }
+        .carta-card:hover { transform: translateY(-2px); background: rgba(245, 232, 210, 0.2); }
+        .carta-preview {
+          width: 100%;
+          aspect-ratio: 1;
+          border-radius: 8px;
+          object-fit: cover;
+          background: rgba(255,255,255,0.08);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 34px;
+          margin-bottom: 8px;
+          border: 1px solid rgba(245,232,210,0.2);
+        }
+        .carta-numero { font-family: sans-serif; font-weight: bold; font-size: 13px; color: #f0e0c0; }
+        .carta-badge {
+          position: absolute;
+          top: 6px;
+          right: 6px;
+          background: #2d6b4f;
+          color: #f8f1e7;
+          font-family: sans-serif;
+          font-size: 10px;
+          font-weight: bold;
+          padding: 3px 7px;
+          border-radius: 999px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .carta-fecha {
+          position: absolute;
+          top: 26px;
+          right: 6px;
+          background: rgba(20,10,35,0.55);
+          color: #f8f1e7;
+          font-family: sans-serif;
+          font-size: 9px;
+          padding: 2px 6px;
+          border-radius: 999px;
+        }
+        .carta-acciones-admin {
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          display: flex;
+          gap: 4px;
+        }
+        .icono-btn {
+          background: rgba(20, 10, 35, 0.65);
+          color: #f8f1e7;
+          border: none;
+          border-radius: 6px;
+          width: 24px; height: 24px;
+          font-size: 12px;
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
+        }
+        .icono-btn:hover { background: rgba(20, 10, 35, 0.9); }
+        .icono-btn.borrar:hover { background: #8a3030; }
+        #vacioEscritorio { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 20px; }
+
+        /* ---- lectura de una carta ---- */
+        #lectura .caja { text-align: left; line-height: 1.8; font-size: 17px; }
+        #lectura img { width: 100%; border-radius: 10px; margin-top: 12px; }
+        .firma { margin-top: 18px; font-style: italic; text-align: right; color: #f0e0c0; }
+
+        #cerrada { text-align: center; padding: 40px 20px; }
+        #cerrada .icono { font-size: 44px; margin-bottom: 10px; }
+        #cerrada p { font-family: sans-serif; font-size: 15px; }
+
+        details.form-nueva summary { cursor: pointer; font-family: sans-serif; color: #f0e0c0; margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h1>Nuestras cartas 💌</h1>
+
+    <div id="login" class="caja">
+        <p style="font-family: sans-serif; margin-top:0;">Inicia sesión</p>
+        <input type="email" id="correo" placeholder="correo">
+        <input type="password" id="clave" placeholder="contraseña">
+        <button onclick="iniciarSesion()">Entrar</button>
+        <p id="estadoLogin"></p>
+    </div>
+
+    <div id="escritorio">
+        <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
+        <a class="volver-link" href="index.html">← volver al menú</a>
+
+        <div class="caja" id="cajaNueva" style="display:none;">
+            <details class="form-nueva">
+                <summary>+ escribir una carta nueva</summary>
+                <textarea id="mensajeNuevo" placeholder="escribe el mensaje. deja una línea en blanco entre párrafos"></textarea>
+                <input type="text" id="firmaNuevo" placeholder="firma, ej. — tuyo Ale" value="— tuyo Ale">
+                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">imagen o gif (opcional)</label>
+                <input type="file" id="imagenNuevo" accept="image/*">
+                <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">solo se abre entre estas horas (opcional, déjalo en "sin restricción" si quieres que se pueda abrir cuando sea)</label>
+                <div style="display:flex; gap:8px;">
+                    <select id="horaInicioNuevo">
+                        <option value="">sin restricción</option>
+                        <script>for(let h=0;h<24;h++)document.write(`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`);</script>
+                    </select>
+                    <select id="horaFinNuevo">
+                        <option value="">sin restricción</option>
+                        <script>for(let h=0;h<24;h++)document.write(`<option value="${h}">${String(h).padStart(2,'0')}:00</option>`);</script>
+                    </select>
+                </div>
+                <button class="btn-bosque" onclick="crearCarta()">Guardar carta</button>
+                <p id="estadoNueva" style="font-family: sans-serif; font-size: 12px; color: #f0e0c0;"></p>
+            </details>
+        </div>
+
+        <div class="escritorio-grid" id="listaCartas"></div>
+        <p id="vacioEscritorio" style="display:none;">todavía no hay cartas guardadas aquí</p>
+    </div>
+
+    <div id="cerrada">
+        <div class="icono">🌙</div>
+        <p id="mensajeCerrada"></p>
+        <button class="volver-btn" onclick="volverAlEscritorio()">← volver</button>
+    </div>
+
+    <div id="lectura">
+        <button class="volver-btn" onclick="volverAlEscritorio()">← volver a todas las cartas</button>
+        <div class="caja" id="contenidoLectura"></div>
+        <div id="accionesLecturaAdmin" style="display:none; text-align:center;">
+            <button onclick="editarCartaActual()">✏️ editar</button>
+            <button onclick="eliminarCartaActual()">🗑️ eliminar</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+    const CORREO_ADMIN = "palrom2006@gmail.com";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
+      authDomain: "album-novia-af9cf.firebaseapp.com",
+      projectId: "album-novia-af9cf",
+      storageBucket: "album-novia-af9cf.firebasestorage.app",
+      messagingSenderId: "560485716923",
+      appId: "1:560485716923:web:8c2a53f3de42bb3dde2a9e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+    const db = firebase.firestore();
+
+    const CLOUD_NAME = "nrfykjzk";
+    const UPLOAD_PRESET = "album-novia";
+
+    let esAdmin = false;
+    let cartaActualId = null;
+    let cartaActualData = null;
+
+    function horaEcuadorAhora() {
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
+    }
+
+    function iniciarSesion() {
+      const correo = document.getElementById('correo').value;
+      const clave = document.getElementById('clave').value;
+      auth.signInWithEmailAndPassword(correo, clave)
+        .catch(() => { document.getElementById('estadoLogin').textContent = "correo o contraseña incorrectos"; });
+    }
+    function cerrarSesion() { auth.signOut(); }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
+        volverAlEscritorio();
+        cargarCartas();
+      } else {
+        esAdmin = false;
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('escritorio').style.display = 'none';
+        document.getElementById('lectura').style.display = 'none';
+        document.getElementById('cerrada').style.display = 'none';
+      }
+    });
+
+    function volverAlEscritorio() {
+      cartaActualId = null;
+      cartaActualData = null;
+      document.getElementById('escritorio').style.display = 'block';
+      document.getElementById('lectura').style.display = 'none';
+      document.getElementById('cerrada').style.display = 'none';
+    }
+
+    async function subirACloudinary(archivo) {
+      const formData = new FormData();
+      formData.append('file', archivo);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+      const data = await res.json();
+      return data.secure_url;
+    }
+
+    // ================= CREAR / EDITAR =================
+
+    async function crearCarta() {
+      const mensaje = document.getElementById('mensajeNuevo').value.trim();
+      if (!mensaje) { alert('escribe el mensaje primero'); return; }
+      const firma = document.getElementById('firmaNuevo').value.trim();
+      const horaInicio = document.getElementById('horaInicioNuevo').value;
+      const horaFin = document.getElementById('horaFinNuevo').value;
+      const archivo = document.getElementById('imagenNuevo').files[0];
+      const estado = document.getElementById('estadoNueva');
+      estado.textContent = 'guardando...';
+
+      let imagen = null;
+      if (archivo) imagen = await subirACloudinary(archivo);
+
+      const ultimaSnap = await db.collection('cartas').orderBy('numero', 'desc').limit(1).get();
+      const numero = ultimaSnap.empty ? 1 : (ultimaSnap.docs[0].data().numero + 1);
+
+      await db.collection('cartas').add({
+        numero, mensaje, firma, imagen: imagen || null,
+        horaInicio: horaInicio === '' ? null : parseInt(horaInicio),
+        horaFin: horaFin === '' ? null : parseInt(horaFin),
+        fecha: Date.now(),
+        leida: false
+      });
+
+      document.getElementById('mensajeNuevo').value = '';
+      document.getElementById('imagenNuevo').value = '';
+      estado.textContent = 'lista ✓';
+      cargarCartas();
+    }
+
+    async function editarCartaActual() {
+      if (!cartaActualId) return;
+      const nuevoMensaje = prompt('editar mensaje (usa doble salto de línea entre párrafos):', cartaActualData.mensaje);
+      if (nuevoMensaje === null) return;
+      const nuevaFirma = prompt('editar firma:', cartaActualData.firma || '');
+      await db.collection('cartas').doc(cartaActualId).update({ mensaje: nuevoMensaje, firma: nuevaFirma || '' });
+      abrirCarta(cartaActualId);
+    }
+
+    async function eliminarCartaActual() {
+      if (!cartaActualId) return;
+      if (!confirm('¿eliminar esta carta para siempre?')) return;
+      await db.collection('cartas').doc(cartaActualId).delete();
+      volverAlEscritorio();
+      cargarCartas();
+    }
+
+    // ================= LISTAR =================
+
+    async function cargarCartas() {
+      const contenedor = document.getElementById('listaCartas');
+      contenedor.innerHTML = '';
+      const snap = await db.collection('cartas').orderBy('numero', 'asc').get();
+      document.getElementById('vacioEscritorio').style.display = snap.empty ? 'block' : 'none';
+      snap.forEach(doc => {
+        const c = doc.data();
+        const card = document.createElement('div');
+        card.className = 'carta-card';
+        card.onclick = (e) => { if (!e.target.closest('.icono-btn')) abrirCarta(doc.id); };
+
+        let adminBotones = '';
+        if (esAdmin) {
+          adminBotones = `
+            <div class="carta-acciones-admin">
+              <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarCarta('${doc.id}')" title="eliminar">🗑️</button>
+            </div>`;
+        }
+
+        let insignias = '';
+        if (!c.leida) {
+          const fechaTxt = new Date(c.fecha).toLocaleDateString('es-EC', { day: 'numeric', month: 'short' });
+          insignias = `<div class="carta-badge">nuevo</div><div class="carta-fecha">${fechaTxt}</div>`;
+        }
+
+        const previewInterior = c.imagen
+          ? `<img class="carta-preview" src="${c.imagen}" alt="vista previa">`
+          : `<div class="carta-preview">💌</div>`;
+
+        card.innerHTML = `
+          ${adminBotones}
+          ${insignias}
+          ${previewInterior}
+          <div class="carta-numero">${String(c.numero).padStart(2,'0')}</div>
+        `;
+        contenedor.appendChild(card);
+      });
+    }
+
+    async function eliminarCarta(id) {
+      if (!confirm('¿eliminar esta carta para siempre?')) return;
+      await db.collection('cartas').doc(id).delete();
+      cargarCartas();
+    }
+
+    // ================= ABRIR / LEER =================
+
+    async function abrirCarta(id) {
+      const doc = await db.collection('cartas').doc(id).get();
+      if (!doc.exists) return;
+      const c = doc.data();
+      cartaActualId = id;
+      cartaActualData = c;
+
+      // candado por horario, el admin siempre puede entrar a revisar
+      if (!esAdmin && (c.horaInicio !== null && c.horaInicio !== undefined) && (c.horaFin !== null && c.horaFin !== undefined)) {
+        const h = horaEcuadorAhora().getHours();
+        const dentro = c.horaInicio <= c.horaFin
+          ? (h >= c.horaInicio && h < c.horaFin)
+          : (h >= c.horaInicio || h < c.horaFin); // rango que cruza medianoche
+        if (!dentro) {
+          document.getElementById('mensajeCerrada').textContent =
+            `esta carta se abre entre las ${String(c.horaInicio).padStart(2,'0')}:00 y las ${String(c.horaFin).padStart(2,'0')}:00`;
+          document.getElementById('escritorio').style.display = 'none';
+          document.getElementById('cerrada').style.display = 'block';
+          return;
+        }
+      }
+
+      // marcar como leída solo cuando la abre quien NO es admin (para no arruinar la sorpresa contando las veces que Ale la revisa)
+      if (!esAdmin && !c.leida) {
+        await db.collection('cartas').doc(id).update({ leida: true });
+      }
+
+      const parrafos = c.mensaje.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+      const imagenHtml = c.imagen ? `<img src="${c.imagen}" alt="">` : '';
+      const firmaHtml = c.firma ? `<p class="firma">${c.firma}</p>` : '';
+
+      document.getElementById('contenidoLectura').innerHTML = parrafos + imagenHtml + firmaHtml;
+      document.getElementById('accionesLecturaAdmin').style.display = esAdmin ? 'block' : 'none';
+      document.getElementById('escritorio').style.display = 'none';
+      document.getElementById('cerrada').style.display = 'none';
+      document.getElementById('lectura').style.display = 'block';
+    }
+</script>
+</body>
+</html>
