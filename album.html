@@ -31,7 +31,7 @@
           margin-bottom: 16px;
         }
         .caja p { color: #f8f1e7; }
-        input {
+        input, textarea {
           width: 100%;
           padding: 10px;
           margin: 6px 0;
@@ -42,7 +42,8 @@
           font-family: sans-serif;
           font-size: 14px;
         }
-        input::placeholder { color: rgba(248,241,231,0.6); }
+        textarea { resize: vertical; min-height: 60px; }
+        input::placeholder, textarea::placeholder { color: rgba(248,241,231,0.6); }
         button {
           background: rgba(240, 224, 192, 0.85);
           color: #3c2166;
@@ -59,7 +60,6 @@
         button:hover { background: #f0e0c0; }
         button:active { transform: scale(0.97); }
 
-        /* --- Acento verde bosque + beige (carpetas y acciones secundarias) --- */
         .btn-bosque {
           background: linear-gradient(135deg, #1f4d3a, #2d6b4f);
           color: #f0e0c0;
@@ -67,7 +67,6 @@
         }
         .btn-bosque:hover { background: linear-gradient(135deg, #256045, #35815e); }
 
-        /* Botón "elegir archivo(s)" con estilo de verdad, combinando verde bosque + beige */
         .file-label {
           display: inline-block;
           width: 100%;
@@ -134,44 +133,18 @@
         .icono-btn:hover { background: rgba(20, 10, 35, 0.9); }
         .icono-btn.borrar:hover { background: #8a3030; }
 
-        .link-item {
-          display: block;
-          background: rgba(245, 232, 210, 0.14);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(245, 232, 210, 0.28);
-          border-radius: 10px;
-          padding: 12px;
-          margin-top: 8px;
-          text-decoration: none;
-          color: #f8f1e7;
-          font-family: sans-serif;
-          font-size: 14px;
-        }
         #estado, .nota-estado { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
         #avisoAdmin { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.6); text-align:center; margin-bottom: 10px; }
 
-        /* --- Botón cerrar sesión, siempre visible --- */
         .logout-fijo {
-          position: fixed;
-          top: 14px;
-          right: 14px;
-          z-index: 50;
-          width: auto;
-          margin: 0;
-          padding: 8px 14px;
-          font-size: 12px;
+          position: fixed; top: 14px; right: 14px; z-index: 50;
+          width: auto; margin: 0; padding: 8px 14px; font-size: 12px;
           background: linear-gradient(135deg, #1f4d3a, #f0e0c0 140%);
-          color: #1c2e24;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+          color: #1c2e24; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
 
         /* --- Carpetas --- */
-        .carpetas-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-          gap: 14px;
-          margin-top: 16px;
-        }
+        .carpetas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 16px; }
         .carpeta-card {
           position: relative;
           background: rgba(245, 232, 210, 0.14);
@@ -189,17 +162,51 @@
         .carpeta-fecha { font-family: sans-serif; font-size: 11px; color: rgba(248,241,231,0.65); margin-top: 2px; }
         .carpeta-acciones { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
 
-        .encabezado-carpeta {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 6px;
-        }
+        .encabezado-carpeta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
         .encabezado-carpeta h3 { margin: 0; font-weight: normal; color: #f0e0c0; }
         .volver-btn { width: auto; padding: 6px 12px; font-size: 12px; }
         #vaciaCarpetas { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 10px; }
+
+        .caja-descripcion { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+        .caja-descripcion .texto { font-family: sans-serif; font-size: 14px; line-height: 1.5; flex: 1; white-space: pre-wrap; }
+        .caja-descripcion .texto.vacio { color: rgba(248,241,231,0.5); font-style: italic; }
+
+        .btn-experiencia {
+          width: 100%;
+          background: linear-gradient(135deg, #2d6b4f, #f0e0c0 160%);
+          color: #1c2e24;
+          font-size: 15px;
+          padding: 12px;
+        }
+
+        /* --- Modo experiencia (pantalla completa) --- */
+        #experienciaOverlay {
+          display: none;
+          position: fixed; inset: 0; z-index: 100;
+          background: radial-gradient(circle at center, #4a2a80, #1a0d33 80%);
+          align-items: center; justify-content: center;
+          padding: 30px;
+        }
+        .exp-cerrar {
+          position: absolute; top: 18px; right: 18px;
+          background: rgba(255,255,255,0.12); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.3);
+          width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer;
+        }
+        #experienciaPortada, #experienciaFoto, #experienciaFin {
+          display: none;
+          flex-direction: column; align-items: center; justify-content: center;
+          text-align: center; max-width: 520px; width: 100%;
+        }
+        #expDescripcion {
+          font-family: 'Georgia', serif; font-size: 22px; line-height: 1.7; color: #f8f1e7;
+          margin-bottom: 26px; white-space: pre-wrap;
+        }
+        #expDescripcion.vacio { color: rgba(248,241,231,0.6); font-style: italic; font-size: 17px; }
+        #imgExperiencia { max-width: 100%; max-height: 62vh; border-radius: 14px; box-shadow: 0 12px 50px rgba(0,0,0,0.5); }
+        #contadorExperiencia { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top: 12px; }
+        .exp-controles { display: flex; gap: 10px; margin-top: 20px; }
+        .exp-controles button { margin-top: 0; }
+        #experienciaFin .icono-fin { font-size: 50px; margin-bottom: 14px; }
     </style>
 </head>
 <body>
@@ -226,27 +233,24 @@
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
-            <div class="tab" onclick="mostrar('cartas', this)">cartas virtuales</div>
             <div class="tab" onclick="mostrar('flores', this)">flores</div>
-            <div class="tab" onclick="mostrar('salidas', this)">salidas</div>
             <div class="tab" onclick="mostrar('cartasfisicas', this)">cartas físicas</div>
         </div>
 
-        <!-- ===== FOTOS: ahora con carpetas ===== -->
+        <!-- ===== FOTOS: carpetas con descripcion + experiencia ===== -->
         <div class="seccion activa" id="sec-fotos">
 
-            <!-- Vista: lista de carpetas -->
             <div id="vistaCarpetas">
                 <div class="caja">
                     <p style="font-family: sans-serif; margin-top:0;">Crear carpeta</p>
                     <input type="text" id="nombreCarpeta" placeholder="ej. 24 de julio, o 'nuestro aniversario'">
+                    <textarea id="descripcionCarpeta" placeholder="descripción (opcional) — se ve al abrir la carpeta"></textarea>
                     <button class="btn-bosque" onclick="crearCarpeta()">Crear carpeta</button>
                 </div>
                 <div class="carpetas-grid" id="listaCarpetas"></div>
                 <p id="vaciaCarpetas" style="display:none;">todavía no hay carpetas, crea la primera arriba</p>
             </div>
 
-            <!-- Vista: dentro de una carpeta -->
             <div id="vistaCarpetaAbierta" style="display:none;">
                 <button class="volver-btn" onclick="volverACarpetas()">← volver a carpetas</button>
                 <div class="caja">
@@ -257,6 +261,18 @@
                             <button class="icono-btn borrar" onclick="eliminarCarpetaActual()" title="eliminar carpeta">🗑️</button>
                         </div>
                     </div>
+                </div>
+
+                <div class="caja">
+                    <div class="caja-descripcion">
+                        <div class="texto" id="descripcionCarpetaTexto"></div>
+                        <button class="icono-btn" onclick="editarDescripcionCarpeta()" title="editar descripción">✏️</button>
+                    </div>
+                </div>
+
+                <button class="btn-experiencia" onclick="iniciarExperiencia()">▶ reproducir experiencia</button>
+
+                <div class="caja" style="margin-top:16px;">
                     <label class="file-label" for="archivoFotos">elegir fotos</label>
                     <input type="file" id="archivoFotos" accept="image/*" multiple onchange="mostrarNombresElegidos()">
                     <p class="nombre-archivos" id="nombresElegidos"></p>
@@ -265,16 +281,6 @@
                 </div>
                 <div class="galeria" id="galeriaFotos"></div>
             </div>
-        </div>
-
-        <div class="seccion" id="sec-cartas">
-            <div class="caja">
-                <p style="font-family: sans-serif; margin-top:0;">Agregar link de carta virtual</p>
-                <input type="text" id="tituloCarta" placeholder="título, ej. bienvenida a casa">
-                <input type="text" id="linkCarta" placeholder="https://raverg-collab.github.io/para-mi-novia/...">
-                <button onclick="agregarLink('tituloCarta', 'linkCarta')">Guardar</button>
-            </div>
-            <div id="listaCartas"></div>
         </div>
 
         <div class="seccion" id="sec-flores">
@@ -286,17 +292,6 @@
                 <button onclick="subirDetalle('flores', 'archivoFlores', 'notaFlores')">Subir</button>
             </div>
             <div class="galeria" id="galeriaFlores"></div>
-        </div>
-
-        <div class="seccion" id="sec-salidas">
-            <div class="caja">
-                <p style="font-family: sans-serif; margin-top:0;">Subir foto de salida</p>
-                <label class="file-label" for="archivoSalidas">elegir foto</label>
-                <input type="file" id="archivoSalidas" accept="image/*">
-                <input type="text" id="notaSalidas" placeholder="nota (opcional)">
-                <button onclick="subirDetalle('salidas', 'archivoSalidas', 'notaSalidas')">Subir</button>
-            </div>
-            <div class="galeria" id="galeriaSalidas"></div>
         </div>
 
         <div class="seccion" id="sec-cartasfisicas">
@@ -312,13 +307,43 @@
     </div>
 </div>
 
+<!-- ===== MODO EXPERIENCIA (pantalla completa) ===== -->
+<div id="experienciaOverlay">
+    <button class="exp-cerrar" onclick="cerrarExperiencia()">✕</button>
+
+    <div id="experienciaPortada">
+        <div id="expDescripcion"></div>
+        <div class="exp-controles">
+            <button class="btn-bosque" onclick="siguienteExperiencia()">comenzar →</button>
+        </div>
+    </div>
+
+    <div id="experienciaFoto">
+        <img id="imgExperiencia" src="">
+        <div id="contadorExperiencia"></div>
+        <div class="exp-controles">
+            <button onclick="anteriorExperiencia()">← atrás</button>
+            <button class="btn-bosque" onclick="siguienteExperiencia()">siguiente →</button>
+        </div>
+    </div>
+
+    <div id="experienciaFin">
+        <div class="icono-fin">💜</div>
+        <p style="font-family: sans-serif; font-size: 16px;">fin — gracias por revivir esto conmigo</p>
+        <div class="exp-controles">
+            <button class="btn-bosque" onclick="cerrarExperiencia()">cerrar</button>
+        </div>
+    </div>
+
+    <audio id="audioExperiencia" src="musica.mp3" loop></audio>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
-    // Correo que se salta el bloqueo de fecha (para ir viendo el progreso)
     const CORREO_ADMIN = "palrom2006@gmail.com";
-    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00'); // hora Ecuador fija
+    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00');
 
     function horaEcuadorAhora() {
       return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
@@ -327,12 +352,10 @@
     let esAdmin = false;
     let carpetaAbiertaId = null;
     let carpetaAbiertaNombre = null;
+    let carpetaAbiertaDescripcion = '';
 
     function revisarBloqueo() {
-      if (esAdmin) {
-        document.getElementById('bloqueado').style.display = 'none';
-        return true;
-      }
+      if (esAdmin) { document.getElementById('bloqueado').style.display = 'none'; return true; }
       const ahora = horaEcuadorAhora();
       if (ahora >= FECHA_DESBLOQUEO) {
         document.getElementById('bloqueado').style.display = 'none';
@@ -376,9 +399,7 @@
         .catch(err => { document.getElementById('estado').textContent = "correo o contraseña incorrectos"; });
     }
 
-    function cerrarSesion() {
-      auth.signOut();
-    }
+    function cerrarSesion() { auth.signOut(); }
 
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -388,12 +409,10 @@
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'block';
           document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
-          volverACarpetas(); // asegura que arranque mostrando la lista de carpetas
+          volverACarpetas();
           cargarCarpetas();
           cargarGaleria('flores', 'galeriaFlores');
-          cargarGaleria('salidas', 'galeriaSalidas');
           cargarGaleria('cartasfisicas', 'galeriaCF');
-          cargarLinks();
         } else {
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'none';
@@ -406,9 +425,7 @@
       }
     });
 
-    setInterval(() => {
-      if (auth.currentUser && !esAdmin) revisarBloqueo();
-    }, 1000);
+    setInterval(() => { if (auth.currentUser && !esAdmin) revisarBloqueo(); }, 1000);
 
     function mostrar(id, el) {
       document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
@@ -421,10 +438,7 @@
       const formData = new FormData();
       formData.append('file', archivo);
       formData.append('upload_preset', UPLOAD_PRESET);
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: formData
-      });
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
       const data = await res.json();
       return data.secure_url;
     }
@@ -432,11 +446,13 @@
     // ================= CARPETAS =================
 
     async function crearCarpeta() {
-      const input = document.getElementById('nombreCarpeta');
-      const nombre = input.value.trim();
+      const inputNombre = document.getElementById('nombreCarpeta');
+      const inputDesc = document.getElementById('descripcionCarpeta');
+      const nombre = inputNombre.value.trim();
       if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
-      await db.collection('carpetas').add({ nombre, fecha: Date.now() });
-      input.value = '';
+      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), fecha: Date.now() });
+      inputNombre.value = '';
+      inputDesc.value = '';
       cargarCarpetas();
     }
 
@@ -451,7 +467,7 @@
         div.className = 'carpeta-card';
         div.onclick = (e) => {
           if (e.target.closest('.carpeta-acciones')) return;
-          abrirCarpeta(doc.id, c.nombre);
+          abrirCarpeta(doc.id, c.nombre, c.descripcion || '');
         };
         div.innerHTML = `
           <div class="carpeta-acciones">
@@ -478,8 +494,25 @@
       }
     }
 
-    function renombrarCarpetaActual() {
-      if (carpetaAbiertaId) renombrarCarpeta(carpetaAbiertaId);
+    function renombrarCarpetaActual() { if (carpetaAbiertaId) renombrarCarpeta(carpetaAbiertaId); }
+
+    async function editarDescripcionCarpeta() {
+      const nueva = prompt('descripción de esta carpeta:', carpetaAbiertaDescripcion || '');
+      if (nueva === null) return;
+      await db.collection('carpetas').doc(carpetaAbiertaId).update({ descripcion: nueva });
+      carpetaAbiertaDescripcion = nueva;
+      pintarDescripcionCarpeta();
+    }
+
+    function pintarDescripcionCarpeta() {
+      const el = document.getElementById('descripcionCarpetaTexto');
+      if (carpetaAbiertaDescripcion && carpetaAbiertaDescripcion.trim()) {
+        el.textContent = carpetaAbiertaDescripcion;
+        el.classList.remove('vacio');
+      } else {
+        el.textContent = 'sin descripción todavía — toca el lápiz para agregar una';
+        el.classList.add('vacio');
+      }
     }
 
     async function eliminarCarpeta(id) {
@@ -493,14 +526,14 @@
       cargarCarpetas();
     }
 
-    function eliminarCarpetaActual() {
-      if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId);
-    }
+    function eliminarCarpetaActual() { if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId); }
 
-    function abrirCarpeta(id, nombre) {
+    function abrirCarpeta(id, nombre, descripcion) {
       carpetaAbiertaId = id;
       carpetaAbiertaNombre = nombre;
+      carpetaAbiertaDescripcion = descripcion;
       document.getElementById('tituloCarpetaAbierta').textContent = nombre;
+      pintarDescripcionCarpeta();
       document.getElementById('vistaCarpetas').style.display = 'none';
       document.getElementById('vistaCarpetaAbierta').style.display = 'block';
       document.getElementById('estadoFoto').textContent = '';
@@ -511,6 +544,7 @@
     function volverACarpetas() {
       carpetaAbiertaId = null;
       carpetaAbiertaNombre = null;
+      carpetaAbiertaDescripcion = '';
       document.getElementById('vistaCarpetaAbierta').style.display = 'none';
       document.getElementById('vistaCarpetas').style.display = 'block';
     }
@@ -543,16 +577,78 @@
       cargarGaleriaFotosDeCarpeta();
     }
 
+    let fotosCarpetaActualCache = [];
+
     async function cargarGaleriaFotosDeCarpeta() {
       const contenedor = document.getElementById('galeriaFotos');
       contenedor.innerHTML = '';
       const snap = await db.collection('fotos').where('carpetaId', '==', carpetaAbiertaId).orderBy('fecha', 'desc').get();
+      fotosCarpetaActualCache = [];
       snap.forEach(doc => {
+        fotosCarpetaActualCache.push(doc.data());
         contenedor.appendChild(crearItemFoto(doc.id, doc.data(), 'fotos', cargarGaleriaFotosDeCarpeta));
       });
+      fotosCarpetaActualCache.reverse(); // orden cronológico para la experiencia
     }
 
-    // ================= GALERÍAS SIMPLES (flores, salidas, cartas físicas) =================
+    // ================= MODO EXPERIENCIA =================
+
+    let expFotos = [];
+    let expIndice = -1;
+
+    function iniciarExperiencia() {
+      if (!fotosCarpetaActualCache.length) { alert('sube fotos primero'); return; }
+      expFotos = fotosCarpetaActualCache;
+      expIndice = -1;
+
+      const descEl = document.getElementById('expDescripcion');
+      if (carpetaAbiertaDescripcion && carpetaAbiertaDescripcion.trim()) {
+        descEl.textContent = carpetaAbiertaDescripcion;
+        descEl.classList.remove('vacio');
+      } else {
+        descEl.textContent = carpetaAbiertaNombre;
+        descEl.classList.add('vacio');
+      }
+
+      document.getElementById('experienciaPortada').style.display = 'flex';
+      document.getElementById('experienciaFoto').style.display = 'none';
+      document.getElementById('experienciaFin').style.display = 'none';
+      document.getElementById('experienciaOverlay').style.display = 'flex';
+
+      const audio = document.getElementById('audioExperiencia');
+      audio.currentTime = 0;
+      audio.play().catch(() => {}); // por si el navegador bloquea, no rompe nada
+    }
+
+    function siguienteExperiencia() {
+      expIndice++;
+      if (expIndice >= expFotos.length) {
+        document.getElementById('experienciaPortada').style.display = 'none';
+        document.getElementById('experienciaFoto').style.display = 'none';
+        document.getElementById('experienciaFin').style.display = 'flex';
+        return;
+      }
+      document.getElementById('experienciaPortada').style.display = 'none';
+      document.getElementById('experienciaFin').style.display = 'none';
+      document.getElementById('experienciaFoto').style.display = 'flex';
+      document.getElementById('imgExperiencia').src = expFotos[expIndice].url;
+      document.getElementById('contadorExperiencia').textContent = (expIndice + 1) + ' / ' + expFotos.length;
+    }
+
+    function anteriorExperiencia() {
+      if (expIndice <= 0) return;
+      expIndice--;
+      document.getElementById('imgExperiencia').src = expFotos[expIndice].url;
+      document.getElementById('contadorExperiencia').textContent = (expIndice + 1) + ' / ' + expFotos.length;
+    }
+
+    function cerrarExperiencia() {
+      document.getElementById('experienciaOverlay').style.display = 'none';
+      const audio = document.getElementById('audioExperiencia');
+      audio.pause();
+    }
+
+    // ================= GALERÍAS SIMPLES (flores, cartas físicas) =================
 
     function crearItemFoto(id, data, coleccion, recargar) {
       const div = document.createElement('div');
@@ -560,7 +656,7 @@
       const img = document.createElement('img');
       img.src = data.url;
       div.appendChild(img);
-      if (typeof data.nota === 'string') {
+      if (typeof data.nota === 'string' && data.nota) {
         const nota = document.createElement('div');
         nota.className = 'foto-nota';
         nota.textContent = data.nota;
@@ -602,7 +698,7 @@
       await db.collection(categoria).add({ url, nota, fecha: Date.now() });
       document.getElementById(notaId).value = '';
       document.getElementById(inputId).value = '';
-      const mapaGaleria = { flores: 'galeriaFlores', salidas: 'galeriaSalidas', cartasfisicas: 'galeriaCF' };
+      const mapaGaleria = { flores: 'galeriaFlores', cartasfisicas: 'galeriaCF' };
       cargarGaleria(categoria, mapaGaleria[categoria]);
     }
 
@@ -612,30 +708,6 @@
       const snap = await db.collection(categoria).orderBy('fecha', 'desc').get();
       snap.forEach(doc => {
         contenedor.appendChild(crearItemFoto(doc.id, doc.data(), categoria, () => cargarGaleria(categoria, contenedorId)));
-      });
-    }
-
-    async function agregarLink(tituloId, linkId) {
-      const titulo = document.getElementById(tituloId).value;
-      const link = document.getElementById(linkId).value;
-      if (!titulo || !link) { alert('completa ambos campos'); return; }
-      await db.collection('cartas').add({ titulo, link, fecha: Date.now() });
-      document.getElementById(tituloId).value = '';
-      document.getElementById(linkId).value = '';
-      cargarLinks();
-    }
-
-    async function cargarLinks() {
-      const contenedor = document.getElementById('listaCartas');
-      contenedor.innerHTML = '';
-      const snap = await db.collection('cartas').orderBy('fecha', 'desc').get();
-      snap.forEach(doc => {
-        const a = document.createElement('a');
-        a.className = 'link-item';
-        a.href = doc.data().link;
-        a.target = '_blank';
-        a.textContent = doc.data().titulo;
-        contenedor.appendChild(a);
       });
     }
 </script>
