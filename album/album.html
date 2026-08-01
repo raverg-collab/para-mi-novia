@@ -203,10 +203,29 @@
         }
         #expDescripcion.vacio { color: rgba(248,241,231,0.6); font-style: italic; font-size: 17px; }
         #imgExperiencia { max-width: 100%; max-height: 62vh; border-radius: 14px; box-shadow: 0 12px 50px rgba(0,0,0,0.5); }
+        #imgExperiencia.animar { animation: kenburns 5s ease forwards; }
+        @keyframes kenburns {
+          from { opacity: 0; transform: scale(1.06); }
+          to { opacity: 1; transform: scale(1); }
+        }
         #contadorExperiencia { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top: 12px; }
         .exp-controles { display: flex; gap: 10px; margin-top: 20px; }
         .exp-controles button { margin-top: 0; }
         #experienciaFin .icono-fin { font-size: 50px; margin-bottom: 14px; }
+
+        .foto-item.seleccionable { cursor: pointer; }
+        .foto-item .check-seleccion {
+          position: absolute; top: 4px; left: 4px; width: 22px; height: 22px;
+          border-radius: 50%; border: 2px solid rgba(255,255,255,0.8);
+          background: rgba(0,0,0,0.3); display: none;
+        }
+        .foto-item.seleccionable .check-seleccion { display: block; }
+        .foto-item.seleccionada .check-seleccion { background: #2d6b4f; border-color: #f0e0c0; }
+        .foto-item.seleccionada .check-seleccion::after {
+          content: '✓'; color: white; font-size: 13px; display: flex;
+          align-items: center; justify-content: center; height: 100%;
+        }
+        .foto-item.seleccionable .foto-acciones { display: none; }
     </style>
 </head>
 <body>
@@ -245,6 +264,9 @@
                     <p style="font-family: sans-serif; margin-top:0;">Crear carpeta</p>
                     <input type="text" id="nombreCarpeta" placeholder="ej. 24 de julio, o 'nuestro aniversario'">
                     <textarea id="descripcionCarpeta" placeholder="descripción (opcional) — se ve al abrir la carpeta"></textarea>
+                    <label class="file-label" for="musicaCarpeta">elegir música (opcional)</label>
+                    <input type="file" id="musicaCarpeta" accept="audio/*">
+                    <p class="nombre-archivos" id="nombreMusicaCarpeta"></p>
                     <button class="btn-bosque" onclick="crearCarpeta()">Crear carpeta</button>
                 </div>
                 <div class="carpetas-grid" id="listaCarpetas"></div>
@@ -256,11 +278,14 @@
                 <div class="caja">
                     <div class="encabezado-carpeta">
                         <h3 id="tituloCarpetaAbierta"></h3>
-                        <div style="display:flex; gap:6px;">
+                        <div style="display:flex; gap:6px;" id="accionesCarpetaAdmin">
                             <button class="icono-btn" onclick="renombrarCarpetaActual()" title="renombrar">✏️</button>
                             <button class="icono-btn borrar" onclick="eliminarCarpetaActual()" title="eliminar carpeta">🗑️</button>
                         </div>
                     </div>
+                    <label class="file-label" for="cambiarMusica" style="margin-top:10px;">🎵 cambiar música de esta carpeta</label>
+                    <input type="file" id="cambiarMusica" accept="audio/*" onchange="cambiarMusicaCarpeta()">
+                    <p class="nombre-archivos" id="estadoMusicaCarpeta"></p>
                 </div>
 
                 <div class="caja">
@@ -278,6 +303,10 @@
                     <p class="nombre-archivos" id="nombresElegidos"></p>
                     <button onclick="subirFotos()">Subir</button>
                     <p id="estadoFoto" class="nota-estado"></p>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center; margin-bottom: -6px;">
+                    <button class="icono-btn" style="width:auto; padding:6px 12px;" onclick="toggleModoSeleccion()" id="btnModoSeleccion">seleccionar</button>
+                    <button class="icono-btn borrar" style="width:auto; padding:6px 12px; display:none;" onclick="eliminarSeleccionadas()" id="btnEliminarSeleccion">eliminar (0)</button>
                 </div>
                 <div class="galeria" id="galeriaFotos"></div>
             </div>
@@ -314,7 +343,8 @@
     <div id="experienciaPortada">
         <div id="expDescripcion"></div>
         <div class="exp-controles">
-            <button class="btn-bosque" onclick="siguienteExperiencia()">comenzar →</button>
+            <button onclick="anteriorExperiencia()">← atrás</button>
+            <button class="btn-bosque" onclick="siguienteExperiencia()">siguiente →</button>
         </div>
     </div>
 
@@ -353,6 +383,7 @@
     let carpetaAbiertaId = null;
     let carpetaAbiertaNombre = null;
     let carpetaAbiertaDescripcion = '';
+    let carpetaAbiertaMusica = null;
 
     function revisarBloqueo() {
       if (esAdmin) { document.getElementById('bloqueado').style.display = 'none'; return true; }
@@ -409,6 +440,7 @@
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'block';
           document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
+          document.getElementById('accionesCarpetaAdmin').style.display = esAdmin ? 'flex' : 'none';
           volverACarpetas();
           cargarCarpetas();
           cargarGaleria('flores', 'galeriaFlores');
@@ -454,16 +486,43 @@
       }
     }
 
+    async function subirAudioACloudinary(archivo) {
+      const formData = new FormData();
+      formData.append('file', archivo);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!res.ok || !data.secure_url) {
+          console.error('Error subiendo audio:', data);
+          alert('no se pudo subir la música: ' + (data.error ? data.error.message : 'error desconocido'));
+          return null;
+        }
+        return data.secure_url;
+      } catch (err) {
+        alert('fallo de conexión subiendo la música');
+        return null;
+      }
+    }
+
     // ================= CARPETAS =================
 
     async function crearCarpeta() {
       const inputNombre = document.getElementById('nombreCarpeta');
       const inputDesc = document.getElementById('descripcionCarpeta');
+      const archivoMusica = document.getElementById('musicaCarpeta').files[0];
       const nombre = inputNombre.value.trim();
       if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
-      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), fecha: Date.now() });
+      let musicaUrl = null;
+      if (archivoMusica) {
+        document.getElementById('nombreMusicaCarpeta').textContent = 'subiendo música...';
+        musicaUrl = await subirAudioACloudinary(archivoMusica);
+      }
+      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), musica: musicaUrl, fecha: Date.now() });
       inputNombre.value = '';
       inputDesc.value = '';
+      document.getElementById('musicaCarpeta').value = '';
+      document.getElementById('nombreMusicaCarpeta').textContent = '';
       cargarCarpetas();
     }
 
@@ -478,10 +537,10 @@
         div.className = 'carpeta-card';
         div.onclick = (e) => {
           if (e.target.closest('.carpeta-acciones')) return;
-          abrirCarpeta(doc.id, c.nombre, c.descripcion || '');
+          abrirCarpeta(doc.id, c.nombre, c.descripcion || '', c.musica || null);
         };
         div.innerHTML = `
-          <div class="carpeta-acciones">
+          <div class="carpeta-acciones" style="${esAdmin ? '' : 'display:none;'}">
             <button class="icono-btn" onclick="event.stopPropagation(); renombrarCarpeta('${doc.id}')" title="renombrar">✏️</button>
             <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarCarpeta('${doc.id}')" title="eliminar">🗑️</button>
           </div>
@@ -539,23 +598,39 @@
 
     function eliminarCarpetaActual() { if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId); }
 
-    function abrirCarpeta(id, nombre, descripcion) {
+    function abrirCarpeta(id, nombre, descripcion, musica) {
       carpetaAbiertaId = id;
       carpetaAbiertaNombre = nombre;
       carpetaAbiertaDescripcion = descripcion;
+      carpetaAbiertaMusica = musica || null;
       document.getElementById('tituloCarpetaAbierta').textContent = nombre;
+      document.getElementById('estadoMusicaCarpeta').textContent = carpetaAbiertaMusica ? '🎵 esta carpeta tiene música propia' : 'usando la música por defecto';
       pintarDescripcionCarpeta();
       document.getElementById('vistaCarpetas').style.display = 'none';
       document.getElementById('vistaCarpetaAbierta').style.display = 'block';
       document.getElementById('estadoFoto').textContent = '';
       document.getElementById('nombresElegidos').textContent = '';
+      salirModoSeleccion();
       cargarGaleriaFotosDeCarpeta();
+    }
+
+    async function cambiarMusicaCarpeta() {
+      const archivo = document.getElementById('cambiarMusica').files[0];
+      if (!archivo) return;
+      document.getElementById('estadoMusicaCarpeta').textContent = 'subiendo música...';
+      const url = await subirAudioACloudinary(archivo);
+      if (!url) { document.getElementById('estadoMusicaCarpeta').textContent = ''; return; }
+      await db.collection('carpetas').doc(carpetaAbiertaId).update({ musica: url });
+      carpetaAbiertaMusica = url;
+      document.getElementById('estadoMusicaCarpeta').textContent = '🎵 música actualizada';
+      document.getElementById('cambiarMusica').value = '';
     }
 
     function volverACarpetas() {
       carpetaAbiertaId = null;
       carpetaAbiertaNombre = null;
       carpetaAbiertaDescripcion = '';
+      carpetaAbiertaMusica = null;
       document.getElementById('vistaCarpetaAbierta').style.display = 'none';
       document.getElementById('vistaCarpetas').style.display = 'block';
     }
@@ -589,6 +664,46 @@
     }
 
     let fotosCarpetaActualCache = [];
+    let modoSeleccion = false;
+    let fotosSeleccionadas = new Set();
+
+    function toggleModoSeleccion() {
+      modoSeleccion = !modoSeleccion;
+      fotosSeleccionadas.clear();
+      document.getElementById('btnModoSeleccion').textContent = modoSeleccion ? 'cancelar' : 'seleccionar';
+      document.getElementById('btnEliminarSeleccion').style.display = modoSeleccion ? 'inline-block' : 'none';
+      document.getElementById('btnEliminarSeleccion').textContent = 'eliminar (0)';
+      cargarGaleriaFotosDeCarpeta();
+    }
+
+    function salirModoSeleccion() {
+      modoSeleccion = false;
+      fotosSeleccionadas.clear();
+      const btnSel = document.getElementById('btnModoSeleccion');
+      const btnEli = document.getElementById('btnEliminarSeleccion');
+      if (btnSel) btnSel.textContent = 'seleccionar';
+      if (btnEli) { btnEli.style.display = 'none'; btnEli.textContent = 'eliminar (0)'; }
+    }
+
+    function toggleSeleccionFoto(id, elDiv) {
+      if (fotosSeleccionadas.has(id)) {
+        fotosSeleccionadas.delete(id);
+        elDiv.classList.remove('seleccionada');
+      } else {
+        fotosSeleccionadas.add(id);
+        elDiv.classList.add('seleccionada');
+      }
+      document.getElementById('btnEliminarSeleccion').textContent = `eliminar (${fotosSeleccionadas.size})`;
+    }
+
+    async function eliminarSeleccionadas() {
+      if (!fotosSeleccionadas.size) return;
+      if (!confirm(`¿eliminar ${fotosSeleccionadas.size} foto(s) de la galería?`)) return;
+      const lotes = Array.from(fotosSeleccionadas).map(id => db.collection('fotos').doc(id).delete());
+      await Promise.all(lotes);
+      salirModoSeleccion();
+      cargarGaleriaFotosDeCarpeta();
+    }
 
     async function cargarGaleriaFotosDeCarpeta() {
       const contenedor = document.getElementById('galeriaFotos');
@@ -600,7 +715,15 @@
       fotosCarpetaActualCache = [];
       items.forEach(item => {
         fotosCarpetaActualCache.push(item.data);
-        contenedor.appendChild(crearItemFoto(item.id, item.data, 'fotos', cargarGaleriaFotosDeCarpeta));
+        if (modoSeleccion) {
+          const div = document.createElement('div');
+          div.className = 'foto-item seleccionable';
+          div.innerHTML = `<img src="${item.data.url}"><div class="check-seleccion"></div>`;
+          div.onclick = () => toggleSeleccionFoto(item.id, div);
+          contenedor.appendChild(div);
+        } else {
+          contenedor.appendChild(crearItemFoto(item.id, item.data, 'fotos', cargarGaleriaFotosDeCarpeta));
+        }
       });
       fotosCarpetaActualCache.reverse(); // orden cronologico para la experiencia
     }
@@ -608,11 +731,16 @@
     // ================= MODO EXPERIENCIA =================
 
     let expFotos = [];
+    let expGuion = [];
     let expIndice = -1;
 
     function iniciarExperiencia() {
       if (!fotosCarpetaActualCache.length) { alert('sube fotos primero'); return; }
       expFotos = fotosCarpetaActualCache;
+
+      // guion: primera foto, luego la descripcion, luego el resto de fotos
+      expGuion = [{ tipo: 'foto', foto: expFotos[0] }, { tipo: 'descripcion' }];
+      for (let i = 1; i < expFotos.length; i++) expGuion.push({ tipo: 'foto', foto: expFotos[i] });
       expIndice = -1;
 
       const descEl = document.getElementById('expDescripcion');
@@ -624,36 +752,68 @@
         descEl.classList.add('vacio');
       }
 
-      document.getElementById('experienciaPortada').style.display = 'flex';
+      document.getElementById('experienciaPortada').style.display = 'none';
       document.getElementById('experienciaFoto').style.display = 'none';
       document.getElementById('experienciaFin').style.display = 'none';
       document.getElementById('experienciaOverlay').style.display = 'flex';
 
       const audio = document.getElementById('audioExperiencia');
+      audio.src = carpetaAbiertaMusica || 'musica.mp3';
       audio.currentTime = 0;
-      audio.play().catch(() => {}); // por si el navegador bloquea, no rompe nada
+      audio.play().catch(() => {});
+
+      siguienteExperiencia();
+    }
+
+    function contarFotosHasta(indice) {
+      let n = 0;
+      for (let i = 0; i <= indice; i++) if (expGuion[i].tipo === 'foto') n++;
+      return n;
+    }
+
+    function totalFotosEnGuion() {
+      return expGuion.filter(s => s.tipo === 'foto').length;
     }
 
     function siguienteExperiencia() {
       expIndice++;
-      if (expIndice >= expFotos.length) {
+      if (expIndice >= expGuion.length) {
         document.getElementById('experienciaPortada').style.display = 'none';
         document.getElementById('experienciaFoto').style.display = 'none';
         document.getElementById('experienciaFin').style.display = 'flex';
         return;
       }
-      document.getElementById('experienciaPortada').style.display = 'none';
-      document.getElementById('experienciaFin').style.display = 'none';
-      document.getElementById('experienciaFoto').style.display = 'flex';
-      document.getElementById('imgExperiencia').src = expFotos[expIndice].url;
-      document.getElementById('contadorExperiencia').textContent = (expIndice + 1) + ' / ' + expFotos.length;
+      const paso = expGuion[expIndice];
+      if (paso.tipo === 'descripcion') {
+        document.getElementById('experienciaFoto').style.display = 'none';
+        document.getElementById('experienciaFin').style.display = 'none';
+        document.getElementById('experienciaPortada').style.display = 'flex';
+      } else {
+        document.getElementById('experienciaPortada').style.display = 'none';
+        document.getElementById('experienciaFin').style.display = 'none';
+        document.getElementById('experienciaFoto').style.display = 'flex';
+        const img = document.getElementById('imgExperiencia');
+        img.classList.remove('animar');
+        void img.offsetWidth; // fuerza reinicio de la animacion
+        img.src = paso.foto.url;
+        img.classList.add('animar');
+        document.getElementById('contadorExperiencia').textContent = contarFotosHasta(expIndice) + ' / ' + totalFotosEnGuion();
+      }
     }
 
     function anteriorExperiencia() {
       if (expIndice <= 0) return;
       expIndice--;
-      document.getElementById('imgExperiencia').src = expFotos[expIndice].url;
-      document.getElementById('contadorExperiencia').textContent = (expIndice + 1) + ' / ' + expFotos.length;
+      const paso = expGuion[expIndice];
+      if (paso.tipo === 'descripcion') {
+        document.getElementById('experienciaFoto').style.display = 'none';
+        document.getElementById('experienciaPortada').style.display = 'flex';
+      } else {
+        document.getElementById('experienciaPortada').style.display = 'none';
+        document.getElementById('experienciaFoto').style.display = 'flex';
+        document.getElementById('imgExperiencia').src = paso.foto.url;
+        document.getElementById('contadorExperiencia').textContent = contarFotosHasta(expIndice) + ' / ' + totalFotosEnGuion();
+      }
     }
 
     function cerrarExperiencia() {
