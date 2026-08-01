@@ -593,16 +593,13 @@
     async function cargarGaleriaFotosDeCarpeta() {
       const contenedor = document.getElementById('galeriaFotos');
       contenedor.innerHTML = '';
-      const snap = await db.collection('fotos').where('carpetaId', '==', carpetaAbiertaId).get();
-      let items = [];
-      snap.forEach(doc => items.push({ id: doc.id, data: doc.data() }));
-      items.sort((a, b) => b.data.fecha - a.data.fecha); // mas reciente primero
+      const snap = await db.collection('fotos').where('carpetaId', '==', carpetaAbiertaId).orderBy('fecha', 'desc').get();
       fotosCarpetaActualCache = [];
-      items.forEach(item => {
-        fotosCarpetaActualCache.push(item.data);
-        contenedor.appendChild(crearItemFoto(item.id, item.data, 'fotos', cargarGaleriaFotosDeCarpeta));
+      snap.forEach(doc => {
+        fotosCarpetaActualCache.push(doc.data());
+        contenedor.appendChild(crearItemFoto(doc.id, doc.data(), 'fotos', cargarGaleriaFotosDeCarpeta));
       });
-      fotosCarpetaActualCache.reverse(); // orden cronologico para la experiencia
+      fotosCarpetaActualCache.reverse(); // orden cronológico para la experiencia
     }
 
     // ================= MODO EXPERIENCIA =================
