@@ -44,7 +44,7 @@
           box-shadow: 0 8px 32px rgba(0,0,0,0.25);
           margin-bottom: 16px;
         }
-        input, select {
+        input, select, textarea {
           width: 100%;
           padding: 10px;
           margin: 6px 0;
@@ -55,9 +55,13 @@
           font-family: sans-serif;
           font-size: 14px;
         }
-        input::placeholder { color: rgba(248,241,231,0.6); }
+        textarea { resize: vertical; min-height: 90px; }
+        input::placeholder, textarea::placeholder { color: rgba(248,241,231,0.6); }
         input[type="color"] { padding: 4px; height: 42px; cursor: pointer; }
         input[type="file"] { padding: 8px; }
+        label.chica { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75); display:block; margin-top: 8px; }
+        .opciones-tipo { display: flex; gap: 8px; margin: 8px 0; }
+        .opciones-tipo label { font-family: sans-serif; font-size: 13px; display: flex; align-items: center; gap: 4px; }
         button {
           background: rgba(240, 224, 192, 0.85);
           color: #3c2166;
@@ -88,7 +92,6 @@
           color: #1c2e24; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
         }
 
-        /* ---- categorías (bienvenida / motivación) ---- */
         .grid-categorias {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -119,7 +122,6 @@
           font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 999px;
         }
 
-        /* ---- escritorio de una categoría ---- */
         details.form-nueva summary { cursor: pointer; font-family: sans-serif; color: #f0e0c0; margin-bottom: 6px; }
         .escritorio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; margin-top: 10px; }
         .carta-card {
@@ -156,9 +158,9 @@
         .icono-btn.borrar:hover { background: #8a3030; }
         #vacioEscritorio { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 20px; }
 
-        /* ---- lector: muestra el archivo que Ale programó, dentro de un iframe ---- */
         #lector { position: fixed; inset: 0; z-index: 40; background: #2a1650; }
         #lector iframe { width: 100%; height: 100%; border: none; }
+        #lectorTexto { max-width: 480px; margin: 60px auto; padding: 0 20px; }
         .volver-lector {
           position: fixed; top: 14px; left: 14px; z-index: 70;
           background: rgba(20,10,35,0.75); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
@@ -180,7 +182,7 @@
 
     <div id="categorias">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a class="volver-link" href="../index.html">← volver al menú</a>
+        <a class="volver-link" href="index.html">← volver al menú</a>
         <p class="sub">toca una para ver sus cartas</p>
         <div class="grid-categorias">
             <div class="card-categoria" onclick="abrirCategoria('bienvenida')">
@@ -203,11 +205,27 @@
 
         <div class="caja" id="cajaNueva" style="display:none;">
             <details class="form-nueva">
-                <summary>+ agregar una carta que ya programaste</summary>
-                <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top:0;">
-                    pon el nombre del archivo .html que subiste al repo (ej. bienvenida-2.html). el contenido y el diseño los haces tú en IntelliJ, aquí solo se guarda la vista previa.
-                </p>
-                <input type="text" id="archivoNuevo" placeholder="nombre-del-archivo.html">
+                <summary>+ agregar una carta nueva</summary>
+
+                <label class="chica">¿Cómo quieres cargarla?</label>
+                <div class="opciones-tipo">
+                    <label><input type="radio" name="tipoCarta" value="archivo" checked onchange="cambiarTipoCarta()"> por nombre de archivo</label>
+                    <label><input type="radio" name="tipoCarta" value="texto" onchange="cambiarTipoCarta()"> escribir aquí</label>
+                </div>
+
+                <div id="campoArchivoCarta">
+                    <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top:0;">
+                        pon el nombre del archivo .html que ya subiste al repo (el diseño lo haces tú en IntelliJ)
+                    </p>
+                    <input type="text" id="archivoNuevo" placeholder="nombre-del-archivo.html">
+                </div>
+                <div id="campoTextoCarta" style="display:none;">
+                    <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top:0;">
+                        escribe el mensaje aquí mismo, útil si estás desde el celular
+                    </p>
+                    <textarea id="textoNuevo" placeholder="escribe la carta aquí..."></textarea>
+                </div>
+
                 <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">imagen de previsualización (opcional)</label>
                 <input type="file" id="imagenNuevo" accept="image/*">
                 <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">o en su lugar, un color (si no subes imagen)</label>
@@ -224,6 +242,9 @@
     <div id="lector">
         <button class="volver-lector" onclick="volverAlEscritorio()">← volver</button>
         <iframe id="iframeLector" src=""></iframe>
+        <div id="lectorTexto" style="display:none;">
+            <p style="white-space:pre-wrap; font-family: 'Georgia', serif; color: #f8f1e7; line-height:1.8; margin-top: 70px;" id="lectorTextoContenido"></p>
+        </div>
     </div>
 </div>
 
@@ -243,7 +264,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     const db = firebase.firestore();
 
     const CLOUD_NAME = "nrfykjzk";
@@ -301,6 +322,12 @@
       cargarEntradas();
     }
 
+    function cambiarTipoCarta() {
+      const tipo = document.querySelector('input[name="tipoCarta"]:checked').value;
+      document.getElementById('campoArchivoCarta').style.display = tipo === 'archivo' ? 'block' : 'none';
+      document.getElementById('campoTextoCarta').style.display = tipo === 'texto' ? 'block' : 'none';
+    }
+
     async function subirACloudinary(archivo) {
       const formData = new FormData();
       formData.append('file', archivo);
@@ -313,8 +340,12 @@
     // ================= CREAR / EDITAR ENTRADAS =================
 
     async function crearEntrada() {
-      const archivo = document.getElementById('archivoNuevo').value.trim();
-      if (!archivo) { alert('pon el nombre del archivo .html'); return; }
+      const tipo = document.querySelector('input[name="tipoCarta"]:checked').value;
+      const archivo = tipo === 'archivo' ? document.getElementById('archivoNuevo').value.trim() : null;
+      const contenido = tipo === 'texto' ? document.getElementById('textoNuevo').value : null;
+      if (tipo === 'archivo' && !archivo) { alert('pon el nombre del archivo .html'); return; }
+      if (tipo === 'texto' && !contenido) { alert('escribe el mensaje'); return; }
+
       const estado = document.getElementById('estadoNueva');
       estado.textContent = 'guardando...';
 
@@ -327,27 +358,22 @@
       const numero = ultimaSnap.empty ? 1 : (ultimaSnap.docs[0].data().numero + 1);
 
       await db.collection('entradas').add({
-        categoria: categoriaActual, numero, archivo,
+        categoria: categoriaActual, numero, tipo,
+        archivo: archivo, contenido: contenido,
         imagen: imagen || null,
         color: imagen ? null : color,
         fecha: Date.now(), leida: false
       });
 
       document.getElementById('archivoNuevo').value = '';
+      document.getElementById('textoNuevo').value = '';
       document.getElementById('imagenNuevo').value = '';
       estado.textContent = 'lista ✓';
       cargarEntradas();
     }
 
-    async function renombrarEntrada(id, archivoActual) {
-      const nuevo = prompt('nuevo nombre de archivo:', archivoActual);
-      if (!nuevo || !nuevo.trim()) return;
-      await db.collection('entradas').doc(id).update({ archivo: nuevo.trim() });
-      cargarEntradas();
-    }
-
     async function eliminarEntrada(id) {
-      if (!confirm('¿quitar esta carta del escritorio? (el archivo .html en tu repo no se borra, solo esta ficha)')) return;
+      if (!confirm('¿quitar esta carta del escritorio?')) return;
       await db.collection('entradas').doc(id).delete();
       cargarEntradas();
     }
@@ -369,7 +395,6 @@
         if (esAdmin) {
           adminBotones = `
             <div class="carta-acciones-admin">
-              <button class="icono-btn" onclick="event.stopPropagation(); renombrarEntrada('${doc.id}', '${c.archivo}')" title="renombrar archivo">✏️</button>
               <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarEntrada('${doc.id}')" title="quitar">🗑️</button>
             </div>`;
         }
@@ -399,15 +424,21 @@
       });
     }
 
-    // ================= ABRIR (iframe con lo que Ale programó) =================
+    // ================= ABRIR =================
 
     async function abrirEntrada(id, c) {
-      // marcar como leída solo si abre alguien que no sea el admin,
-      // para no gastar el "nuevo" cuando Ale entra a revisar cómo quedó
       if (!esAdmin && !c.leida) {
         await db.collection('entradas').doc(id).update({ leida: true });
       }
-      document.getElementById('iframeLector').src = c.archivo;
+      if (c.tipo === 'texto') {
+        document.getElementById('iframeLector').style.display = 'none';
+        document.getElementById('lectorTexto').style.display = 'block';
+        document.getElementById('lectorTextoContenido').textContent = c.contenido;
+      } else {
+        document.getElementById('lectorTexto').style.display = 'none';
+        document.getElementById('iframeLector').style.display = 'block';
+        document.getElementById('iframeLector').src = c.archivo;
+      }
       document.getElementById('escritorio').style.display = 'none';
       document.getElementById('lector').style.display = 'block';
     }

@@ -249,6 +249,7 @@
 
     <div id="app">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
+        <a href="index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
@@ -417,7 +418,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     const db = firebase.firestore();
 
     const CLOUD_NAME = "nrfykjzk";
