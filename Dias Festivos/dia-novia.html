@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día de la novia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0; min-height: 100vh; overflow: hidden;
+          background: radial-gradient(circle at center, #2f1a52, #140a26 85%);
+          font-family: 'Georgia', serif; color: #f8f1e7;
+        }
+        .cerrar-flotante {
+          position: fixed; top: 16px; right: 16px; z-index: 95;
+          background: rgba(255,255,255,0.14); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.35);
+          width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer;
+        }
+
+        .kuromi-fondo img {
+          position: absolute; width: 56px; opacity: 0.16; filter: saturate(0.9); pointer-events: none;
+        }
+
+        #capaBouquet, #capaCarta {
+          position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column;
+        }
+        #capaCarta { display: none; overflow-y: auto; padding: 20px 0; }
+
+        .ramo { position: relative; width: 280px; height: 280px; }
+        .girasol {
+          position: absolute; left: 50%; bottom: 10px; font-size: 46px;
+          transform-origin: bottom center;
+          opacity: 0; transform: translateX(-50%) scale(0.3) rotate(var(--rot));
+          animation: crecerFlor 0.9s ease forwards; animation-delay: var(--delay);
+        }
+        @keyframes crecerFlor { to { opacity: 1; transform: translateX(-50%) translateY(var(--sube)) scale(1) rotate(var(--rot)); } }
+        .girasol.brotado { animation: mecerse 3.5s ease-in-out infinite; animation-delay: 0s; }
+        @keyframes mecerse {
+          0%, 100% { transform: translateX(-50%) translateY(var(--sube)) rotate(var(--rot)); }
+          50% { transform: translateX(-50%) translateY(var(--sube)) rotate(calc(var(--rot) + 4deg)); }
+        }
+        .lazo { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font-size: 34px; opacity: 0; animation: aparecerSuave 1s ease forwards; animation-delay: 2.6s; }
+        @keyframes aparecerSuave { to { opacity: 1; } }
+        #botonAbrirCarta {
+          opacity: 0; margin-top: 18px; font-size: 15px; padding: 12px 26px; border: none; border-radius: 8px;
+          background: linear-gradient(135deg, #1f4d3a, #2d6b4f); color: #f0e0c0; cursor: pointer;
+          font-family: sans-serif; font-weight: bold;
+          animation: aparecerSuave 1s ease forwards; animation-delay: 3.4s;
+        }
+        #botonAbrirCarta:hover { filter: brightness(1.1); }
+
+        .papel-carta {
+          max-width: 480px; width: 90%; margin: 40px auto; padding: 46px 38px;
+          background: #ecdcc0;
+          background-image:
+            radial-gradient(circle at 15% 20%, rgba(120,80,40,0.12) 0, transparent 12%),
+            radial-gradient(circle at 80% 75%, rgba(120,80,40,0.1) 0, transparent 15%),
+            radial-gradient(circle at 60% 10%, rgba(120,80,40,0.08) 0, transparent 10%);
+          color: #3b2a1a; font-family: 'Caveat', cursive; font-size: 24px; line-height: 1.55;
+          border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(120,80,40,0.15);
+          transform: rotate(-0.6deg);
+          opacity: 0; animation: aparecerCarta 1.2s ease forwards;
+        }
+        @keyframes aparecerCarta { from { opacity: 0; transform: translateY(20px) rotate(-0.6deg); } to { opacity: 1; transform: translateY(0) rotate(-0.6deg); } }
+        .papel-carta p { opacity: 0; animation: aparecerParrafo 0.8s ease forwards; }
+        .papel-carta p:nth-child(1) { animation-delay: 0.3s; }
+        .papel-carta p:nth-child(2) { animation-delay: 0.9s; }
+        .papel-carta p:nth-child(3) { animation-delay: 1.5s; }
+        .papel-carta p:nth-child(4) { animation-delay: 2.1s; }
+        .papel-carta p:nth-child(5) { animation-delay: 2.7s; }
+        @keyframes aparecerParrafo { to { opacity: 1; } }
+        .firma-carta { text-align: right; margin-top: 10px; }
+
+        /* ---- panel admin: subir musica ---- */
+        #panelAdmin {
+          display: none; position: fixed; bottom: 16px; left: 16px; z-index: 95;
+          background: rgba(20,10,35,0.75); border: 1px solid rgba(245,232,210,0.3);
+          border-radius: 12px; padding: 12px 14px; max-width: 240px;
+        }
+        #panelAdmin p { font-family: sans-serif; font-size: 11px; margin: 0 0 6px; color: rgba(248,241,231,0.8); }
+        .file-label-mini {
+          display: inline-block; background: rgba(240,224,192,0.9); color: #3c2166;
+          padding: 6px 10px; border-radius: 6px; font-family: sans-serif; font-size: 11px;
+          font-weight: bold; cursor: pointer;
+        }
+        input[type="file"] { display: none; }
+        #estadoMusicaAdmin { font-family: sans-serif; font-size: 10px; color: #f0e0c0; margin-top: 4px; }
+
+        /* ---- fallback si el navegador bloquea el autoplay ---- */
+        #tocaParaSonido {
+          display: none; position: fixed; bottom: 20px; right: 20px; z-index: 95;
+          background: rgba(240,224,192,0.9); color: #3c2166; border: none; border-radius: 999px;
+          padding: 10px 16px; font-family: sans-serif; font-size: 13px; font-weight: bold; cursor: pointer;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+<button class="cerrar-flotante" onclick="cerrarYVolver()">✕</button>
+<div class="kuromi-fondo" id="kuromiFondo"></div>
+
+<div id="capaBouquet">
+    <div class="ramo" id="ramoGirasoles"></div>
+    <button id="botonAbrirCarta" onclick="abrirCarta()">💌 abrir</button>
+</div>
+
+<div id="capaCarta">
+    <div class="papel-carta" id="textoCarta"></div>
+</div>
+
+<div id="panelAdmin">
+    <p>🎵 música de esta experiencia (solo tú la ves)</p>
+    <label class="file-label-mini" for="inputMusica">elegir audio</label>
+    <input type="file" id="inputMusica" accept="audio/*" onchange="subirMusica()">
+    <p id="estadoMusicaAdmin"></p>
+</div>
+
+<button id="tocaParaSonido" onclick="forzarPlay()">🔊 toca para la música</button>
+
+<audio id="audioDiaNovia" src="dia-de-la-novia.mp3" loop></audio>
+
+<!-- pega aqui links de imagenes miniatura de Kuromi si quieres el fondo decorativo -->
+<script>
+    const KUROMI_URLS = [
+      // "https://...", "https://...",
+    ];
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script>
+    const CORREO_ADMIN = "palrom2006@gmail.com";
+    const CLOUD_NAME = "nrfykjzk";
+    const UPLOAD_PRESET = "album-novia";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
+      authDomain: "album-novia-af9cf.firebaseapp.com",
+      projectId: "album-novia-af9cf",
+      storageBucket: "album-novia-af9cf.firebasestorage.app",
+      messagingSenderId: "560485716923",
+      appId: "1:560485716923:web:8c2a53f3de42bb3dde2a9e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    const db = firebase.firestore();
+
+    const params = new URLSearchParams(window.location.search);
+    const festivoId = params.get('id');
+
+    let esAdmin = false;
+
+    function cerrarYVolver() {
+      document.getElementById('audioDiaNovia').pause();
+      window.location.href = 'festivos.html';
+    }
+
+    auth.onAuthStateChanged(async (user) => {
+      esAdmin = !!(user && user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
+      document.getElementById('panelAdmin').style.display = esAdmin ? 'block' : 'none';
+      await cargarMusicaYArrancar();
+      iniciarBouquet();
+    });
+
+    async function cargarMusicaYArrancar() {
+      const audio = document.getElementById('audioDiaNovia');
+      if (festivoId) {
+        try {
+          const doc = await db.collection('festivos').doc(festivoId).get();
+          const datos = doc.data();
+          if (datos && datos.musica) audio.src = datos.musica;
+        } catch (e) { /* usa el mp3 por defecto si algo falla */ }
+      }
+      audio.currentTime = 0;
+      audio.play().then(() => {
+        document.getElementById('tocaParaSonido').style.display = 'none';
+      }).catch(() => {
+        document.getElementById('tocaParaSonido').style.display = 'block';
+      });
+    }
+
+    function forzarPlay() {
+      const audio = document.getElementById('audioDiaNovia');
+      audio.play().then(() => { document.getElementById('tocaParaSonido').style.display = 'none'; }).catch(() => {});
+    }
+
+    async function subirMusica() {
+      const archivo = document.getElementById('inputMusica').files[0];
+      if (!archivo || !festivoId) return;
+      const estado = document.getElementById('estadoMusicaAdmin');
+      estado.textContent = 'subiendo...';
+      const formData = new FormData();
+      formData.append('file', archivo);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!res.ok || !data.secure_url) {
+          estado.textContent = 'error al subir';
+          return;
+        }
+        await db.collection('festivos').doc(festivoId).update({ musica: data.secure_url });
+        const audio = document.getElementById('audioDiaNovia');
+        audio.src = data.secure_url;
+        audio.play().catch(() => {});
+        estado.textContent = 'música guardada ✓ (sonará automático la próxima vez)';
+      } catch (e) {
+        estado.textContent = 'fallo de conexión';
+      }
+    }
+
+    // ================= BOUQUET: se arma poco a poco =================
+
+    function iniciarBouquet() {
+      const fondo = document.getElementById('kuromiFondo');
+      fondo.innerHTML = '';
+      if (KUROMI_URLS.length) {
+        for (let i = 0; i < 24; i++) {
+          const url = KUROMI_URLS[i % KUROMI_URLS.length];
+          const img = document.createElement('img');
+          img.src = url;
+          img.style.left = Math.random() * 92 + '%';
+          img.style.top = Math.random() * 92 + '%';
+          img.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+          fondo.appendChild(img);
+        }
+      }
+
+      const ramo = document.getElementById('ramoGirasoles');
+      ramo.innerHTML = '';
+      const cantidad = 9;
+      for (let i = 0; i < cantidad; i++) {
+        const flor = document.createElement('div');
+        flor.className = 'girasol';
+        flor.textContent = '🌻';
+        const angulo = (i - (cantidad - 1) / 2) * 12;
+        const sube = -Math.abs((i - (cantidad - 1) / 2)) * 10 - 40;
+        flor.style.setProperty('--rot', angulo + 'deg');
+        flor.style.setProperty('--sube', sube + 'px');
+        flor.style.setProperty('--delay', (i * 0.18) + 's');
+        flor.style.left = (50 + (i - (cantidad - 1) / 2) * 9) + '%';
+        setTimeout(() => flor.classList.add('brotado'), (i * 180) + 900);
+        ramo.appendChild(flor);
+      }
+      const lazo = document.createElement('div');
+      lazo.className = 'lazo';
+      lazo.textContent = '🎀';
+      ramo.appendChild(lazo);
+    }
+
+    function abrirCarta() {
+      document.getElementById('capaBouquet').style.display = 'none';
+      document.getElementById('capaCarta').style.display = 'flex';
+
+      document.getElementById('textoCarta').innerHTML = `
+        <p>Buenas noches amada mía 🌙, sé que para este punto has de creer que me he olvidado nuevamente de una fecha significativa para ti, y al mismo tiempo para mí, ya que forma parte de tu felicidad y tu felicidad es la mía. Déjame decirte que no es así, y que desde el primer minuto de este día he pensado en tu detalle, pero he optado por hacerlo un poco más especial: actuar como si no supiera y estuviera ocupado, para que te molestes un poquito y al llegar acá te sea más significativo, o eso a mi parecer 💭.</p>
+        <p>Te dije que sería todo diferente de ahora en adelante, y lo es 🌻. Siempre me esfuerzo por ser un mejor novio para ti. Este es el día de la novia, y no hay mejor forma de conmemorarlo que no solo resaltar tus virtudes como mi pareja, mi amiga y mi compañera, sino también marcando nuevas tradiciones para el futuro en distintos momentos, sean fechas conmemorativas o no — siempre agregar algo especial a cada semana, dejando registro de mi amor por ti. Y qué mejor forma de hacerlo que con algo que conozco, y sé que puede durar toda la eternidad ✨. Algo para toda la vida, como lo es nuestro amor.</p>
+        <p>Y a pesar de las adversidades y problemas que enfrentemos, siempre estemos dispuestos a mejorar. Más que el día de la novia, es el día en que esta mujer con la que he vivido muchas experiencias hizo un pacto conmigo: de no dejarnos jamás, de siempre estar con y para el otro 🤍. Es el día para recordar todo lo que hemos vivido, y lo que nos falta por experimentar.</p>
+        <p>Por eso y más, un feliz día de la novia, mi manguito piche 💛.</p>
+        <p class="firma-carta">Te ama con toda el alma, tu rey.<br>Tuyo, Ale 🌻</p>
+      `;
+    }
+</script>
+</body>
+</html>
