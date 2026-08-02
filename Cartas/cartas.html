@@ -235,8 +235,9 @@
                         escribe el mensaje aquí mismo, útil si estás desde el celular
                     </p>
                     <textarea id="textoNuevo" placeholder="escribe la carta aquí..."></textarea>
-                    <label class="chica">link de GIF (opcional, se muestra debajo del texto)</label>
-                    <input type="text" id="gifNuevo" placeholder="https://...gif">
+                    <label class="chica">GIF (opcional, se muestra debajo del texto)</label>
+                    <input type="file" id="gifNuevo" accept="image/gif" onchange="mostrarNombreGifNueva()">
+                    <p class="chica" id="nombreGifNueva"></p>
                     <label class="chica">🎵 música que suene al abrir (opcional)</label>
                     <input type="file" id="musicaNuevo" accept="audio/*" onchange="mostrarNombreMusicaNueva()">
                     <p class="chica" id="nombreMusicaNueva"></p>
@@ -274,8 +275,9 @@
             <label class="chica">texto</label>
             <textarea id="editTexto"></textarea>
         </div>
-        <label class="chica">link de GIF (opcional)</label>
-        <input type="text" id="editGif" placeholder="https://...gif">
+        <label class="chica">GIF (opcional — sube uno para reemplazar el actual)</label>
+        <input type="file" id="editGifArchivo" accept="image/gif" onchange="mostrarNombreGifEdit()">
+        <p class="chica" id="editGifEstado"></p>
         <label class="chica">🎵 cambiar música (opcional, sube un archivo nuevo para reemplazar)</label>
         <input type="file" id="editMusicaArchivo" accept="audio/*" onchange="mostrarNombreMusicaEdit()">
         <p class="chica" id="editMusicaEstado"></p>
@@ -371,9 +373,17 @@
       const archivo = document.getElementById('musicaNuevo').files[0];
       document.getElementById('nombreMusicaNueva').textContent = archivo ? archivo.name : '';
     }
+    function mostrarNombreGifNueva() {
+      const archivo = document.getElementById('gifNuevo').files[0];
+      document.getElementById('nombreGifNueva').textContent = archivo ? archivo.name : '';
+    }
     function mostrarNombreMusicaEdit() {
       const archivo = document.getElementById('editMusicaArchivo').files[0];
       document.getElementById('editMusicaEstado').textContent = archivo ? ('nuevo archivo: ' + archivo.name) : '';
+    }
+    function mostrarNombreGifEdit() {
+      const archivo = document.getElementById('editGifArchivo').files[0];
+      document.getElementById('editGifEstado').textContent = archivo ? ('nuevo gif: ' + archivo.name) : '';
     }
 
     async function subirACloudinary(archivo) {
@@ -422,7 +432,11 @@
 
       let gif = null, musica = null;
       if (tipo === 'texto') {
-        gif = document.getElementById('gifNuevo').value.trim() || null;
+        const archivoGif = document.getElementById('gifNuevo').files[0];
+        if (archivoGif) {
+          estado.textContent = 'subiendo gif...';
+          gif = await subirACloudinary(archivoGif);
+        }
         const archivoMusica = document.getElementById('musicaNuevo').files[0];
         if (archivoMusica) {
           estado.textContent = 'subiendo música...';
@@ -445,6 +459,7 @@
       document.getElementById('archivoNuevo').value = '';
       document.getElementById('textoNuevo').value = '';
       document.getElementById('gifNuevo').value = '';
+      document.getElementById('nombreGifNueva').textContent = '';
       document.getElementById('musicaNuevo').value = '';
       document.getElementById('nombreMusicaNueva').textContent = '';
       document.getElementById('imagenNuevo').value = '';
@@ -464,7 +479,8 @@
       editandoId = id;
       document.getElementById('editarSoloTexto').style.display = c.tipo === 'texto' ? 'block' : 'none';
       document.getElementById('editTexto').value = c.contenido || '';
-      document.getElementById('editGif').value = c.gif || '';
+      document.getElementById('editGifArchivo').value = '';
+      document.getElementById('editGifEstado').textContent = c.gif ? 'ya tiene un gif puesto' : 'sin gif todavía';
       document.getElementById('editMusicaEstado').textContent = c.musica ? 'ya tiene música puesta' : 'sin música todavía';
       document.getElementById('editMusicaArchivo').value = '';
       document.getElementById('estadoEditar').textContent = '';
@@ -480,13 +496,19 @@
       const estado = document.getElementById('estadoEditar');
       estado.textContent = 'guardando...';
       const datos = {
-        contenido: document.getElementById('editTexto').value,
-        gif: document.getElementById('editGif').value.trim() || null
+        contenido: document.getElementById('editTexto').value
       };
+      const archivoGif = document.getElementById('editGifArchivo').files[0];
+      if (archivoGif) {
+        estado.textContent = 'subiendo gif...';
+        const urlGif = await subirACloudinary(archivoGif);
+        if (urlGif) datos.gif = urlGif;
+      }
       const archivoMusica = document.getElementById('editMusicaArchivo').files[0];
       if (archivoMusica) {
-        const url = await subirAudioACloudinary(archivoMusica);
-        if (url) datos.musica = url;
+        estado.textContent = 'subiendo música...';
+        const urlMusica = await subirAudioACloudinary(archivoMusica);
+        if (urlMusica) datos.musica = urlMusica;
       }
       await db.collection('entradas').doc(editandoId).update(datos);
       estado.textContent = 'guardado ✓';
