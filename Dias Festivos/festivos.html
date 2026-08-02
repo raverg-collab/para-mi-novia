@@ -117,7 +117,8 @@
 
         <div class="caja" id="cajaNueva" style="display:none;">
             <p style="font-family: sans-serif; margin-top:0;">Agregar fecha</p>
-            <input type="text" id="tituloFestivo" placeholder="título, ej. cumpleaños de mamá">
+            <input type="text" id="tituloFestivo" placeholder="título, ej. día de la madre">
+            <p class="chica" style="margin-top:-2px;">tip: si no quieres que se note de qué trata, pon aquí solo la fecha (ej. "9 de agosto") en vez de un título que revele la sorpresa</p>
 
             <label class="chica">¿Qué tipo de contenido es?</label>
             <div class="opciones-tipo">
@@ -338,8 +339,14 @@
     }
 
     function continuarPregunta() {
-      const val = document.getElementById('inputRespuesta').value;
-      if (normalizar(val) !== normalizar(festivoPendiente.respuesta)) {
+      const val = normalizar(document.getElementById('inputRespuesta').value);
+      let correcta;
+      if (festivoPendiente.especial === 'dia-novia') {
+        correcta = val.includes('dia') && val.includes('novia');
+      } else {
+        correcta = val === normalizar(festivoPendiente.respuesta);
+      }
+      if (!correcta) {
         document.getElementById('errorPregunta').textContent = 'esa no es, inténtalo de nuevo 💭';
         return;
       }
