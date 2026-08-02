@@ -30,28 +30,48 @@
         }
         #capaCarta { display: none; overflow-y: auto; padding: 20px 0; }
 
-        .ramo { position: relative; width: 280px; height: 280px; }
+        .ramo { position: relative; width: 340px; height: 340px; max-width: 88vw; }
         .girasol {
-          position: absolute; left: 50%; bottom: 10px; font-size: 46px;
+          position: absolute; left: 50%; bottom: 40px; width: 92px; height: 92px;
           transform-origin: bottom center;
-          opacity: 0; transform: translateX(-50%) scale(0.3) rotate(var(--rot));
+          opacity: 0; transform: translateX(-50%) scale(0.25) rotate(var(--rot));
           animation: crecerFlor 0.9s ease forwards; animation-delay: var(--delay);
+          filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
         }
+        .girasol svg { width: 100%; height: 100%; display: block; }
         @keyframes crecerFlor { to { opacity: 1; transform: translateX(-50%) translateY(var(--sube)) scale(1) rotate(var(--rot)); } }
-        .girasol.brotado { animation: mecerse 3.5s ease-in-out infinite; animation-delay: 0s; }
+        .girasol.brotado { animation: mecerse 4s ease-in-out infinite; animation-delay: 0s; }
         @keyframes mecerse {
           0%, 100% { transform: translateX(-50%) translateY(var(--sube)) rotate(var(--rot)); }
-          50% { transform: translateX(-50%) translateY(var(--sube)) rotate(calc(var(--rot) + 4deg)); }
+          50% { transform: translateX(-50%) translateY(var(--sube)) rotate(calc(var(--rot) + 3deg)); }
         }
-        .lazo { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font-size: 34px; opacity: 0; animation: aparecerSuave 1s ease forwards; animation-delay: 2.6s; }
         @keyframes aparecerSuave { to { opacity: 1; } }
-        #botonAbrirCarta {
-          opacity: 0; margin-top: 18px; font-size: 15px; padding: 12px 26px; border: none; border-radius: 8px;
-          background: linear-gradient(135deg, #1f4d3a, #2d6b4f); color: #f0e0c0; cursor: pointer;
-          font-family: sans-serif; font-weight: bold;
-          animation: aparecerSuave 1s ease forwards; animation-delay: 3.4s;
+
+        /* tallos + liston en la base del ramo */
+        .tallos {
+          position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+          width: 70px; height: 46px; opacity: 0; animation: aparecerSuave 0.8s ease forwards; animation-delay: 2.2s;
         }
-        #botonAbrirCarta:hover { filter: brightness(1.1); }
+        .liston {
+          position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+          width: 78px; height: 44px; opacity: 0; animation: aparecerSuave 0.8s ease forwards; animation-delay: 2.6s;
+        }
+
+        /* el sobre, integrado al liston, mas grande, es el boton para abrir */
+        #botonAbrirCarta {
+          position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%) scale(0.5);
+          opacity: 0; font-size: 58px; line-height: 1; border: none; background: none; cursor: pointer;
+          filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+          animation: aparecerCartaBtn 0.9s ease forwards, latirCarta 2.2s ease-in-out infinite;
+          animation-delay: 3.2s, 4.1s;
+          padding: 0;
+        }
+        @keyframes aparecerCartaBtn { to { opacity: 1; transform: translateX(-50%) scale(1); } }
+        @keyframes latirCarta {
+          0%, 100% { transform: translateX(-50%) scale(1); }
+          50% { transform: translateX(-50%) scale(1.08); }
+        }
+        #botonAbrirCarta:hover { filter: drop-shadow(0 4px 18px rgba(0,0,0,0.65)) brightness(1.08); }
 
         .papel-carta {
           max-width: 480px; width: 90%; margin: 40px auto; padding: 46px 38px;
@@ -104,8 +124,20 @@
 <div class="kuromi-fondo" id="kuromiFondo"></div>
 
 <div id="capaBouquet">
-    <div class="ramo" id="ramoGirasoles"></div>
-    <button id="botonAbrirCarta" onclick="abrirCarta()">💌 abrir</button>
+    <div class="ramo">
+        <div id="ramoGirasoles"></div>
+        <svg class="tallos" viewBox="0 0 70 46" xmlns="http://www.w3.org/2000/svg">
+            <path d="M35 46 Q30 20 22 2" stroke="#2d6b4f" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M35 46 Q35 18 35 0" stroke="#256045" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M35 46 Q40 20 48 2" stroke="#2d6b4f" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+        <svg class="liston" viewBox="0 0 78 44" xmlns="http://www.w3.org/2000/svg">
+            <path d="M39 22 L6 4 Q0 2 4 12 L18 22 L4 32 Q0 42 6 40 Z" fill="#c9433f"/>
+            <path d="M39 22 L72 4 Q78 2 74 12 L60 22 L74 32 Q78 42 72 40 Z" fill="#c9433f"/>
+            <circle cx="39" cy="22" r="8" fill="#a8332f"/>
+        </svg>
+        <button id="botonAbrirCarta" onclick="abrirCarta()" title="abrir la carta">💌</button>
+    </div>
 </div>
 
 <div id="capaCarta">
@@ -238,9 +270,9 @@
       for (let i = 0; i < cantidad; i++) {
         const flor = document.createElement('div');
         flor.className = 'girasol';
-        flor.textContent = '🌻';
+        flor.innerHTML = crearGirasolSVG(i);
         const angulo = (i - (cantidad - 1) / 2) * 12;
-        const sube = -Math.abs((i - (cantidad - 1) / 2)) * 10 - 40;
+        const sube = -Math.abs((i - (cantidad - 1) / 2)) * 12 - 60;
         flor.style.setProperty('--rot', angulo + 'deg');
         flor.style.setProperty('--sube', sube + 'px');
         flor.style.setProperty('--delay', (i * 0.18) + 's');
@@ -248,10 +280,33 @@
         setTimeout(() => flor.classList.add('brotado'), (i * 180) + 900);
         ramo.appendChild(flor);
       }
-      const lazo = document.createElement('div');
-      lazo.className = 'lazo';
-      lazo.textContent = '🎀';
-      ramo.appendChild(lazo);
+    }
+
+    // girasol estilo puntillista (petalos y centro hechos de puntos, como un dibujo a lapiz de puntos)
+    function crearGirasolSVG(idx) {
+      const petaloId = 'dotPetalo' + idx;
+      const centroId = 'dotCentro' + idx;
+      const cantidadPetalos = 12;
+      let petalos = '';
+      for (let p = 0; p < cantidadPetalos; p++) {
+        const ang = (360 / cantidadPetalos) * p;
+        petalos += `<ellipse cx="50" cy="26" rx="8.5" ry="24" fill="url(#${petaloId})" stroke="#d9c94a" stroke-width="0.6" opacity="0.95" transform="rotate(${ang} 50 50)"/>`;
+      }
+      return `
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="${petaloId}" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+              <rect width="3.2" height="3.2" fill="#e9d24a"/>
+              <circle cx="1.6" cy="1.6" r="0.7" fill="#c8ae2c"/>
+            </pattern>
+            <pattern id="${centroId}" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(20)">
+              <rect width="2.6" height="2.6" fill="#7a2420"/>
+              <circle cx="1.3" cy="1.3" r="0.65" fill="#4d1512"/>
+            </pattern>
+          </defs>
+          ${petalos}
+          <circle cx="50" cy="50" r="15" fill="url(#${centroId})" stroke="#3d100e" stroke-width="0.6"/>
+        </svg>`;
     }
 
     function abrirCarta() {

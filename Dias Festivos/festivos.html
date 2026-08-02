@@ -113,7 +113,7 @@
 
     <div id="lista">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a class="volver-link" href="../index.html">← volver al menú</a>
+        <a class="volver-link" href="index.html">← volver al menú</a>
 
         <div class="caja" id="cajaNueva" style="display:none;">
             <p style="font-family: sans-serif; margin-top:0;">Agregar fecha</p>
@@ -133,9 +133,12 @@
                 <textarea id="textoFestivo" placeholder="escribe el mensaje aquí..."></textarea>
             </div>
             <div id="campoEspecialFestivo" style="display:none;">
-                <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75);">
-                    esta abrirá automáticamente la experiencia del ramo + carta (dia-novia.html). la música se sube desde ahí mismo, una vez creada.
+                <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75); margin-top:0;">
+                    esta abrirá automáticamente la experiencia del ramo + carta (dia-novia.html)
                 </p>
+                <label class="chica">🎵 música (sonará sola cuando ella lo abra)</label>
+                <input type="file" id="musicaFestivoEspecial" accept="audio/*" onchange="mostrarNombreMusicaFestivo()">
+                <p class="chica" id="nombreMusicaFestivo"></p>
             </div>
 
             <label class="chica"><input type="checkbox" id="tienePregunta" onchange="togglePregunta()"> tiene una pregunta de acceso antes de abrir</label>
@@ -175,6 +178,8 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
     const CORREO_ADMIN = "palrom2006@gmail.com";
+    const CLOUD_NAME = "nrfykjzk";
+    const UPLOAD_PRESET = "album-novia";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
@@ -225,11 +230,43 @@
       document.getElementById('campoPregunta').style.display = document.getElementById('tienePregunta').checked ? 'block' : 'none';
     }
 
+    function mostrarNombreMusicaFestivo() {
+      const archivo = document.getElementById('musicaFestivoEspecial').files[0];
+      document.getElementById('nombreMusicaFestivo').textContent = archivo ? archivo.name : '';
+    }
+
+    async function subirAudioACloudinary(archivo) {
+      const formData = new FormData();
+      formData.append('file', archivo);
+      formData.append('upload_preset', UPLOAD_PRESET);
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!res.ok || !data.secure_url) {
+          alert('no se pudo subir la música: ' + (data.error ? data.error.message : 'error desconocido'));
+          return null;
+        }
+        return data.secure_url;
+      } catch (err) {
+        alert('fallo de conexión subiendo la música');
+        return null;
+      }
+    }
+
     async function crearFestivo() {
       const titulo = document.getElementById('tituloFestivo').value.trim();
       if (!titulo) { alert('ponle un título'); return; }
       const tipo = document.querySelector('input[name="tipoFestivo"]:checked').value;
       const tienePregunta = document.getElementById('tienePregunta').checked;
+
+      let musicaUrl = null;
+      if (tipo === 'especial') {
+        const archivoMusica = document.getElementById('musicaFestivoEspecial').files[0];
+        if (archivoMusica) {
+          document.getElementById('estadoNuevoFestivo').textContent = 'subiendo música...';
+          musicaUrl = await subirAudioACloudinary(archivoMusica);
+        }
+      }
 
       const datos = {
         titulo, tipo,
@@ -239,7 +276,7 @@
         pregunta: tienePregunta ? document.getElementById('preguntaFestivo').value.trim() : null,
         respuesta: tienePregunta ? document.getElementById('respuestaFestivo').value.trim() : null,
         especial: tipo === 'especial' ? 'dia-novia' : null,
-        musica: null,
+        musica: musicaUrl,
         fecha: Date.now()
       };
       await db.collection('festivos').add(datos);
@@ -249,6 +286,8 @@
       document.getElementById('preguntaFestivo').value = '';
       document.getElementById('respuestaFestivo').value = '';
       document.getElementById('tienePregunta').checked = false;
+      document.getElementById('musicaFestivoEspecial').value = '';
+      document.getElementById('nombreMusicaFestivo').textContent = '';
       togglePregunta();
       document.getElementById('estadoNuevoFestivo').textContent = 'guardado ✓';
       cargarFestivos();
