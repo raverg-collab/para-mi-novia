@@ -177,6 +177,9 @@
         #modalEditar h3 { margin-top: 0; font-weight: normal; color: #f0e0c0; }
         .fila-modal { display: flex; gap: 8px; }
         .fila-modal button { flex: 1; }
+        #estadoEditar { font-family: sans-serif; font-size: 12px; color: #f0e0c0; }
+        .transicion { animation: entrarSuave 0.45s ease; }
+        @keyframes entrarSuave { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -322,6 +325,12 @@
     }
     function cerrarSesion() { auth.signOut(); }
 
+    function animarEntrada(el) {
+      el.classList.remove('transicion');
+      void el.offsetWidth;
+      el.classList.add('transicion');
+    }
+
     auth.onAuthStateChanged(user => {
       if (user) {
         esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
@@ -331,6 +340,7 @@
       } else {
         esAdmin = false;
         document.getElementById('login').style.display = 'block';
+        animarEntrada(document.getElementById('login'));
         document.getElementById('categorias').style.display = 'none';
         document.getElementById('escritorio').style.display = 'none';
         document.getElementById('lector').style.display = 'none';
@@ -340,6 +350,7 @@
     function volverACategorias() {
       categoriaActual = null;
       document.getElementById('categorias').style.display = 'block';
+      animarEntrada(document.getElementById('categorias'));
       document.getElementById('escritorio').style.display = 'none';
       document.getElementById('lector').style.display = 'none';
       revisarBadgesCategorias();
@@ -357,6 +368,7 @@
       categoriaActual = categoria;
       document.getElementById('categorias').style.display = 'none';
       document.getElementById('escritorio').style.display = 'block';
+      animarEntrada(document.getElementById('escritorio'));
       document.getElementById('lector').style.display = 'none';
       document.getElementById('tituloEscritorio').textContent = categoria === 'bienvenida' ? 'bienvenida 💌' : 'motivación ☀️';
       document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
@@ -584,6 +596,7 @@
       }
       document.getElementById('escritorio').style.display = 'none';
       document.getElementById('lector').style.display = 'block';
+      animarEntrada(document.getElementById('lector'));
     }
 
     function volverAlEscritorio() {
@@ -591,6 +604,7 @@
       document.getElementById('audioLector').pause();
       document.getElementById('lector').style.display = 'none';
       document.getElementById('escritorio').style.display = 'block';
+      animarEntrada(document.getElementById('escritorio'));
       cargarEntradas();
     }
 </script>

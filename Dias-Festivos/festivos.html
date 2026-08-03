@@ -78,7 +78,6 @@
         .opciones-tipo { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
         .opciones-tipo label { font-family: sans-serif; font-size: 13px; display: flex; align-items: center; gap: 4px; }
 
-        /* ---- vista simple de una entrada (texto o iframe) ---- */
         #vistaSimple { position: fixed; inset: 0; z-index: 70; background: #2a1650; display: none; }
         #vistaSimple iframe { width: 100%; height: 100%; border: none; }
         #vistaSimpleTexto { max-width: 480px; margin: 60px auto; }
@@ -88,7 +87,6 @@
           padding: 8px 14px; border-radius: 999px; font-family: sans-serif; font-size: 12px; cursor: pointer;
         }
 
-        /* ---- pregunta de acceso ---- */
         #pantallaPregunta {
           display: none; position: fixed; inset: 0; z-index: 90;
           background: radial-gradient(circle at center, #4a2a80, #1a0d33 80%);
@@ -97,6 +95,9 @@
         #pantallaPregunta .caja { max-width: 380px; text-align: center; }
         #textoPregunta { font-family: sans-serif; font-size: 16px; margin-bottom: 10px; }
         #errorPregunta { font-family: sans-serif; font-size: 12px; color: #f0a0a0; }
+
+        .transicion { animation: entrarSuave 0.45s ease; }
+        @keyframes entrarSuave { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -157,14 +158,12 @@
     </div>
 </div>
 
-<!-- vista simple: texto o archivo por iframe -->
 <div id="vistaSimple">
     <button class="volver-flotante" onclick="cerrarVistaSimple()">← volver</button>
     <div id="vistaSimpleTexto" class="caja" style="display:none;"></div>
     <iframe id="iframeSimple" src=""></iframe>
 </div>
 
-<!-- pregunta de acceso -->
 <div id="pantallaPregunta">
     <div class="caja">
         <p id="textoPregunta"></p>
@@ -199,6 +198,12 @@
     let festivoPendiente = null;
     let festivoPendienteId = null;
 
+    function animarEntrada(el) {
+      el.classList.remove('transicion');
+      void el.offsetWidth;
+      el.classList.add('transicion');
+    }
+
     function iniciarSesion() {
       const correo = document.getElementById('correo').value;
       const clave = document.getElementById('clave').value;
@@ -212,11 +217,13 @@
         esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
         document.getElementById('login').style.display = 'none';
         document.getElementById('lista').style.display = 'block';
+        animarEntrada(document.getElementById('lista'));
         document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
         cargarFestivos();
       } else {
         esAdmin = false;
         document.getElementById('login').style.display = 'block';
+        animarEntrada(document.getElementById('login'));
         document.getElementById('lista').style.display = 'none';
       }
     });
@@ -329,6 +336,7 @@
         document.getElementById('inputRespuesta').value = '';
         document.getElementById('errorPregunta').textContent = '';
         document.getElementById('pantallaPregunta').style.display = 'flex';
+        animarEntrada(document.getElementById('pantallaPregunta'));
       } else {
         mostrarFestivo(id, f);
       }
@@ -373,6 +381,7 @@
         document.getElementById('vistaSimpleTexto').innerHTML = `<p style="font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.75);">esta fecha todavía no tiene contenido cargado.</p>`;
       }
       document.getElementById('vistaSimple').style.display = 'block';
+      animarEntrada(document.getElementById('vistaSimple'));
     }
 
     function cerrarVistaSimple() {

@@ -226,9 +226,45 @@
           align-items: center; justify-content: center; height: 100%;
         }
         .foto-item.seleccionable .foto-acciones { display: none; }
+
+        /* ---- animaciones de transicion entre pantallas (no en CRUD) ---- */
+        .transicion { animation: entrarSuave 0.45s ease; }
+        @keyframes entrarSuave {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---- intro de video ---- */
+        #introAlbum {
+          position: fixed; inset: 0; z-index: 200; background: #000;
+          display: flex; align-items: center; justify-content: center;
+        }
+        #introAlbum video { width: 100%; height: 100%; object-fit: cover; }
+        #btnOmitirIntro {
+          position: fixed; top: 16px; right: 16px; z-index: 210;
+          background: rgba(255,255,255,0.15); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
+          padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;
+        }
+        #tocaSonidoIntro {
+          display: none; position: fixed; bottom: 20px; right: 20px; z-index: 210;
+          background: rgba(240,224,192,0.9); color: #3c2166; border: none; border-radius: 999px;
+          padding: 10px 16px; font-family: sans-serif; font-size: 13px; font-weight: bold; cursor: pointer;
+        }
+        #btnVerIntro {
+          background: rgba(255,255,255,0.10); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.3);
+          padding: 6px 12px; border-radius: 999px; font-family: sans-serif; font-size: 11px; cursor: pointer;
+          margin-top: 0;
+        }
     </style>
 </head>
 <body>
+<div id="introAlbum">
+    <video id="videoIntro" muted playsinline></video>
+</div>
+<button id="btnOmitirIntro" onclick="omitirIntro()">omitir ⏭</button>
+<button id="tocaSonidoIntro" onclick="forzarSonidoIntro()">🔊 toca para el sonido</button>
+<audio id="audioIntro" src="intro-album.mp3"></audio>
+
 <div class="wrap">
     <h1>Nuestro álbum 💜</h1>
 
@@ -249,7 +285,8 @@
 
     <div id="app">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a href="../index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
+        <a href="index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
+        <button id="btnVerIntro" onclick="verIntroDeNuevo()">▶ ver intro otra vez</button>
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
@@ -373,6 +410,65 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
+    const VIDEO_1 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786845/VID-20260802-WA0069_bh2qie.mp4";
+    const VIDEO_2 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786905/VID-20260802-WA0045_uo4858.mp4";
+    const INICIO_VIDEO_2 = 16;
+
+    function iniciarIntro() {
+      const video = document.getElementById('videoIntro');
+      const audio = document.getElementById('audioIntro');
+
+      video.muted = true;
+      video.src = VIDEO_1;
+      video.currentTime = 0;
+      video.play().catch(() => {});
+
+      audio.currentTime = 0;
+      audio.play().then(() => {
+        document.getElementById('tocaSonidoIntro').style.display = 'none';
+      }).catch(() => {
+        document.getElementById('tocaSonidoIntro').style.display = 'block';
+      });
+
+      video.onended = () => {
+        video.src = VIDEO_2;
+        video.onloadedmetadata = () => { video.currentTime = INICIO_VIDEO_2; };
+        video.play().catch(() => {});
+        video.onended = terminarIntro;
+      };
+    }
+
+    function forzarSonidoIntro() {
+      const audio = document.getElementById('audioIntro');
+      audio.play().then(() => { document.getElementById('tocaSonidoIntro').style.display = 'none'; }).catch(() => {});
+    }
+
+    function omitirIntro() { terminarIntro(); }
+
+    function terminarIntro() {
+      const video = document.getElementById('videoIntro');
+      const audio = document.getElementById('audioIntro');
+      video.pause();
+      audio.pause();
+      document.getElementById('introAlbum').style.display = 'none';
+      document.getElementById('btnOmitirIntro').style.display = 'none';
+      document.getElementById('tocaSonidoIntro').style.display = 'none';
+    }
+
+    function verIntroDeNuevo() {
+      document.getElementById('introAlbum').style.display = 'flex';
+      document.getElementById('btnOmitirIntro').style.display = 'block';
+      iniciarIntro();
+    }
+
+    iniciarIntro();
+
+    function animarEntrada(el) {
+      el.classList.remove('transicion');
+      void el.offsetWidth;
+      el.classList.add('transicion');
+    }
+
     const CORREO_ADMIN = "palrom2006@gmail.com";
     const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00');
 
@@ -440,6 +536,7 @@
         if (desbloqueado) {
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'block';
+          animarEntrada(document.getElementById('app'));
           document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
           document.getElementById('accionesCarpetaAdmin').style.display = esAdmin ? 'flex' : 'none';
           volverACarpetas();
@@ -455,6 +552,7 @@
         document.getElementById('bloqueado').style.display = 'none';
         document.getElementById('app').style.display = 'none';
         document.getElementById('login').style.display = 'block';
+        animarEntrada(document.getElementById('login'));
       }
     });
 
@@ -463,7 +561,9 @@
     function mostrar(id, el) {
       document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
-      document.getElementById('sec-' + id).classList.add('activa');
+      const sec = document.getElementById('sec-' + id);
+      sec.classList.add('activa');
+      animarEntrada(sec);
       el.classList.add('activo');
     }
 
@@ -609,6 +709,7 @@
       pintarDescripcionCarpeta();
       document.getElementById('vistaCarpetas').style.display = 'none';
       document.getElementById('vistaCarpetaAbierta').style.display = 'block';
+      animarEntrada(document.getElementById('vistaCarpetaAbierta'));
       document.getElementById('estadoFoto').textContent = '';
       document.getElementById('nombresElegidos').textContent = '';
       salirModoSeleccion();
@@ -634,6 +735,7 @@
       carpetaAbiertaMusica = null;
       document.getElementById('vistaCarpetaAbierta').style.display = 'none';
       document.getElementById('vistaCarpetas').style.display = 'block';
+      animarEntrada(document.getElementById('vistaCarpetas'));
     }
 
     function mostrarNombresElegidos() {
