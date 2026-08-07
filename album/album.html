@@ -6,7 +6,8 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro álbum</title>
+    <title>Nuestro aniversario</title>
+    <link rel="stylesheet" href="../assets/css/romantic-global.css">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -237,11 +238,11 @@
         /* ---- intro de video ---- */
         #introAlbum {
           position: fixed; inset: 0; z-index: 200; background: #000;
-          display: flex; align-items: center; justify-content: center;
+          display: none; align-items: center; justify-content: center;
         }
         #introAlbum video { width: 100%; height: 100%; object-fit: contain; background: #000; }
         #btnOmitirIntro {
-          position: fixed; top: 16px; right: 16px; z-index: 210;
+          display: none; position: fixed; top: 16px; right: 16px; z-index: 210;
           background: rgba(255,255,255,0.15); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
           padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;
         }
@@ -255,18 +256,68 @@
           padding: 6px 12px; border-radius: 999px; font-family: sans-serif; font-size: 11px; cursor: pointer;
           margin-top: 0;
         }
+        #introInicio {
+          display: none; position: fixed; inset: 0; z-index: 208;
+          align-items: center; justify-content: center; text-align: center; padding: 24px;
+          background: radial-gradient(circle at center, rgba(74,42,128,.58), rgba(0,0,0,.86));
+        }
+        #introInicio .caja-intro {
+          max-width: 390px; width: 100%; border: 1px solid rgba(240,224,192,.35);
+          background: rgba(35,18,64,.82); backdrop-filter: blur(12px);
+          border-radius: 18px; padding: 26px; box-shadow: 0 14px 50px rgba(0,0,0,.45);
+        }
+        #introInicio h2 { margin: 0 0 8px; color: #f0e0c0; font-weight: normal; }
+        #introInicio p { font-family: sans-serif; font-size: 13px; line-height: 1.6; color: rgba(248,241,231,.82); }
+        #introInicio button { width: 100%; }
+
+        #lightboxFoto {
+          display:none; position:fixed; inset:0; z-index:360; background:rgba(10,5,20,.92);
+          align-items:center; justify-content:center; padding:24px; cursor:zoom-out;
+        }
+        #lightboxFoto img { max-width:96vw; max-height:90vh; border-radius:14px; box-shadow:0 16px 60px rgba(0,0,0,.55); }
+
+        /* tutorial del álbum */
+        #tutorialAlbum {
+          display: none; position: fixed; z-index: 320; width: min(360px, calc(100vw - 28px));
+          background: rgba(30,16,54,.97); border: 1px solid rgba(240,224,192,.45);
+          border-radius: 16px; padding: 16px; box-shadow: 0 16px 45px rgba(0,0,0,.48);
+          font-family: sans-serif; color: #f8f1e7;
+        }
+        #tutorialAlbum .tutorial-flecha { font-size: 24px; line-height: 1; margin-bottom: 5px; }
+        #tutorialAlbum .tutorial-paso { font-size: 11px; color: rgba(248,241,231,.62); margin-bottom: 5px; }
+        #tutorialAlbum .tutorial-texto { font-size: 13px; line-height: 1.55; }
+        #tutorialAlbum .tutorial-botones { display:flex; gap:8px; margin-top:12px; }
+        #tutorialAlbum .tutorial-botones button { flex:1; margin:0; padding:8px 10px; }
+        .tutorial-focus {
+          position: relative !important; z-index: 319 !important;
+          outline: 3px solid #f0e0c0 !important; outline-offset: 5px;
+          box-shadow: 0 0 0 8px rgba(107,70,193,.32), 0 0 34px rgba(240,224,192,.42) !important;
+        }
+        #btnTutorial {
+          background: rgba(255,255,255,.10); color:#f8f1e7; border:1px solid rgba(245,232,210,.3);
+          padding:6px 12px; border-radius:999px; font-size:11px; width:auto; margin-top:0;
+        }
     </style>
 </head>
 <body>
 <div id="introAlbum">
-    <video id="videoIntro" muted playsinline></video>
+    <video id="videoIntro" muted playsinline preload="auto"></video>
+</div>
+<div id="introInicio">
+    <div class="caja-intro">
+        <h2>Nuestro aniversario 💜</h2>
+        <p>Hay algo que quiero decirte con mi propia voz. Toca el botón para comenzar la intro con sonido.</p>
+        <button class="btn-bosque" onclick="comenzarIntroConSonido()">▶ comenzar</button>
+    </div>
 </div>
 <button id="btnOmitirIntro" onclick="omitirIntro()">omitir ⏭</button>
-<button id="tocaSonidoIntro" onclick="forzarSonidoIntro()">🔊 toca para el sonido</button>
-<audio id="audioIntro" src="intro-album.mp3"></audio>
+<button id="tocaSonidoIntro" onclick="comenzarIntroConSonido()">🔊 iniciar con sonido</button>
+<audio id="vozIntro" src="../assets/js/audio_aniversario.aac" preload="auto"></audio>
+<audio id="melodiaIntro" src="../assets/js/MELODIA-Una_y_otra_vez-Manuel-Medrano.mp3" preload="auto" loop></audio>
 
 <div class="wrap">
-    <h1>Nuestro álbum 💜</h1>
+    <h1>Nuestro aniversario 💜</h1>
+    <p style="text-align:center; font-family:sans-serif; font-size:13px; color:rgba(248,241,231,.72); margin-top:-8px;">nuestro álbum, nuestras historias y todo lo que seguimos construyendo</p>
 
     <div id="bloqueado">
         <div class="icono">🔒</div>
@@ -285,8 +336,9 @@
 
     <div id="app">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a href="index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
+        <a href="../index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
         <button id="btnVerIntro" onclick="verIntroDeNuevo()">▶ ver intro otra vez</button>
+        <button id="btnTutorial" onclick="iniciarTutorialAlbum(true)">❔ ver tutorial</button>
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
@@ -305,7 +357,7 @@
                     <label class="file-label" for="musicaCarpeta">elegir música (opcional)</label>
                     <input type="file" id="musicaCarpeta" accept="audio/*">
                     <p class="nombre-archivos" id="nombreMusicaCarpeta"></p>
-                    <button class="btn-bosque" onclick="crearCarpeta()">Crear carpeta</button>
+                    <button class="btn-bosque" id="btnCrearCarpeta" onclick="crearCarpeta()">Crear carpeta</button>
                 </div>
                 <div class="carpetas-grid" id="listaCarpetas"></div>
                 <p id="vaciaCarpetas" style="display:none;">todavía no hay carpetas, crea la primera arriba</p>
@@ -336,10 +388,10 @@
                 <button class="btn-experiencia" onclick="iniciarExperiencia()">▶ reproducir experiencia</button>
 
                 <div class="caja" style="margin-top:16px;">
-                    <label class="file-label" for="archivoFotos">elegir fotos</label>
+                    <label class="file-label" id="labelFotos" for="archivoFotos">elegir fotos</label>
                     <input type="file" id="archivoFotos" accept="image/*" multiple onchange="mostrarNombresElegidos()">
                     <p class="nombre-archivos" id="nombresElegidos"></p>
-                    <button onclick="subirFotos()">Subir</button>
+                    <button id="btnSubirFotos" onclick="subirFotos()">Subir</button>
                     <p id="estadoFoto" class="nota-estado"></p>
                 </div>
                 <div style="display:flex; gap:8px; align-items:center; margin-bottom: -6px;">
@@ -374,6 +426,18 @@
     </div>
 </div>
 
+<div id="lightboxFoto" onclick="cerrarFotoGrande()"><img id="lightboxImg" alt="foto ampliada"></div>
+
+<div id="tutorialAlbum">
+    <div class="tutorial-flecha" id="tutorialFlecha">⬆️</div>
+    <div class="tutorial-paso" id="tutorialPaso"></div>
+    <div class="tutorial-texto" id="tutorialTexto"></div>
+    <div class="tutorial-botones">
+        <button onclick="omitirTutorialAlbum()">omitir</button>
+        <button class="btn-bosque" id="tutorialSiguiente" onclick="siguienteTutorialAlbum()">siguiente</button>
+    </div>
+</div>
+
 <!-- ===== MODO EXPERIENCIA (pantalla completa) ===== -->
 <div id="experienciaOverlay">
     <button class="exp-cerrar" onclick="cerrarExperiencia()">✕</button>
@@ -403,65 +467,111 @@
         </div>
     </div>
 
-    <audio id="audioExperiencia" src="musica.mp3" loop></audio>
+    <audio id="audioExperiencia" src="../assets/js/musica.mp3" loop></audio>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="../assets/js/romantic-global.js"></script>
 <script>
     const VIDEO_1 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786845/VID-20260802-WA0069_bh2qie.mp4";
     const VIDEO_2 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786905/VID-20260802-WA0045_uo4858.mp4";
     const INICIO_VIDEO_2 = 16;
 
-    function iniciarIntro() {
+    function prepararIntroDesdeCero() {
       const video = document.getElementById('videoIntro');
-      const audio = document.getElementById('audioIntro');
+      const voz = document.getElementById('vozIntro');
+      const melodia = document.getElementById('melodiaIntro');
 
-      video.muted = true;
+      video.pause();
+      voz.pause();
+      melodia.pause();
+
+      video.muted = true; // los videos no compiten con tu voz
       video.src = VIDEO_1;
       video.currentTime = 0;
-      video.play().catch(() => {});
-
-      audio.currentTime = 0;
-      audio.play().then(() => {
-        document.getElementById('tocaSonidoIntro').style.display = 'none';
-      }).catch(() => {
-        document.getElementById('tocaSonidoIntro').style.display = 'block';
-      });
+      voz.currentTime = 0;
+      melodia.currentTime = 0;
+      voz.volume = 1;
+      melodia.volume = 0.13; // melodía suave detrás de tu voz
 
       video.onended = () => {
         video.src = VIDEO_2;
-        video.onloadedmetadata = () => { video.currentTime = INICIO_VIDEO_2; };
-        video.play().catch(() => {});
+        video.onloadedmetadata = () => {
+          video.currentTime = Math.min(INICIO_VIDEO_2, Math.max(0, video.duration - 0.1));
+          video.play().catch(() => {});
+        };
         video.onended = terminarIntro;
       };
     }
 
-    function forzarSonidoIntro() {
-      const audio = document.getElementById('audioIntro');
-      audio.play().then(() => { document.getElementById('tocaSonidoIntro').style.display = 'none'; }).catch(() => {});
+    async function arrancarIntro() {
+      const video = document.getElementById('videoIntro');
+      const voz = document.getElementById('vozIntro');
+      const melodia = document.getElementById('melodiaIntro');
+      document.getElementById('introInicio').style.display = 'none';
+      document.getElementById('tocaSonidoIntro').style.display = 'none';
+
+      try {
+        await Promise.all([voz.play(), melodia.play()]);
+        await video.play();
+        return true;
+      } catch (err) {
+        video.pause(); voz.pause(); melodia.pause();
+        video.currentTime = 0; voz.currentTime = 0; melodia.currentTime = 0;
+        return false;
+      }
     }
 
+    async function iniciarIntro() {
+      prepararIntroDesdeCero();
+      const ok = await arrancarIntro();
+      if (!ok) {
+        // Chrome/Safari suelen bloquear audio automático. Así la intro NO avanza sin tu voz.
+        document.getElementById('introInicio').style.display = 'flex';
+        document.getElementById('tocaSonidoIntro').style.display = 'none';
+      }
+    }
+
+    async function comenzarIntroConSonido() {
+      // Esta función nace de un toque/clic, por lo que el navegador ya permite reproducir sonido.
+      prepararIntroDesdeCero();
+      const ok = await arrancarIntro();
+      if (!ok) {
+        document.getElementById('introInicio').style.display = 'flex';
+        document.getElementById('tocaSonidoIntro').style.display = 'block';
+      }
+    }
+
+    function forzarSonidoIntro() { comenzarIntroConSonido(); }
     function omitirIntro() { terminarIntro(); }
 
     function terminarIntro() {
       const video = document.getElementById('videoIntro');
-      const audio = document.getElementById('audioIntro');
+      const voz = document.getElementById('vozIntro');
+      const melodia = document.getElementById('melodiaIntro');
       video.pause();
-      audio.pause();
+      voz.pause();
+      melodia.pause();
       document.getElementById('introAlbum').style.display = 'none';
+      document.getElementById('introInicio').style.display = 'none';
       document.getElementById('btnOmitirIntro').style.display = 'none';
       document.getElementById('tocaSonidoIntro').style.display = 'none';
+      if (typeof auth !== 'undefined' && auth.currentUser) {
+        setTimeout(() => iniciarTutorialAlbum(false), 420);
+      }
     }
 
-    function verIntroDeNuevo() {
+    function mostrarIntroInicial() {
       document.getElementById('introAlbum').style.display = 'flex';
       document.getElementById('btnOmitirIntro').style.display = 'block';
       iniciarIntro();
     }
 
-    iniciarIntro();
+    function verIntroDeNuevo() {
+      mostrarIntroInicial();
+    }
 
     function animarEntrada(el) {
       el.classList.remove('transicion');
@@ -543,18 +653,112 @@
           cargarCarpetas();
           cargarGaleria('flores', 'galeriaFlores');
           cargarGaleria('cartasfisicas', 'galeriaCF');
+          RomanticApp.escucharActividad(db, auth);
+          mostrarIntroInicial();
         } else {
+          terminarIntro();
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'none';
         }
       } else {
         esAdmin = false;
+        document.getElementById('introAlbum').style.display = 'none';
+        document.getElementById('introInicio').style.display = 'none';
+        document.getElementById('btnOmitirIntro').style.display = 'none';
         document.getElementById('bloqueado').style.display = 'none';
         document.getElementById('app').style.display = 'none';
         document.getElementById('login').style.display = 'block';
         animarEntrada(document.getElementById('login'));
       }
     });
+
+    // ================= TUTORIAL (solo la primera vez por cuenta/dispositivo) =================
+    let tutorialActivo = false;
+    let tutorialIndice = 0;
+
+    function claveTutorial() {
+      return 'albumTutorialV2:' + (auth.currentUser ? auth.currentUser.uid : 'sinusuario');
+    }
+
+    const PASOS_TUTORIAL = [
+      { selector: '#nombreCarpeta', texto: 'Primero crea tu propia carpeta. Ponle un nombre que tenga sentido para ustedes: una fecha, un viaje, un recuerdo…' },
+      { selector: '#descripcionCarpeta', texto: 'Aquí puedes escribir unas palabras para acompañar la carpeta. Es opcional, pero aparecerá dentro de la experiencia.' },
+      { selector: '#btnCrearCarpeta', texto: 'Cuando estés lista, toca “Crear carpeta”. Yo esperaré aquí y continuaré automáticamente cuando la crees.', espera: true },
+      { selector: '#labelFotos', texto: 'Perfecto 💜. Ahora entra la parte bonita: toca aquí y elige una o varias fotos para esta carpeta.' },
+      { selector: '#btnSubirFotos', texto: 'Después toca “Subir”. Cuando termine la primera subida, el tutorial quedará completado.', espera: true }
+    ];
+
+    function limpiarFocoTutorial() {
+      document.querySelectorAll('.tutorial-focus').forEach(el => el.classList.remove('tutorial-focus'));
+    }
+
+    function posicionarTutorial(target) {
+      const caja = document.getElementById('tutorialAlbum');
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        const r = target.getBoundingClientRect();
+        const ancho = Math.min(360, window.innerWidth - 28);
+        const left = Math.max(14, Math.min(window.innerWidth - ancho - 14, r.left + r.width / 2 - ancho / 2));
+        let top = r.bottom + 16;
+        let flecha = '⬆️';
+        if (top + 190 > window.innerHeight) {
+          top = Math.max(14, r.top - 190);
+          flecha = '⬇️';
+        }
+        caja.style.left = left + 'px';
+        caja.style.top = top + 'px';
+        document.getElementById('tutorialFlecha').textContent = flecha;
+      }, 260);
+    }
+
+    function mostrarPasoTutorial() {
+      if (!tutorialActivo) return;
+      limpiarFocoTutorial();
+      const paso = PASOS_TUTORIAL[tutorialIndice];
+      if (!paso) { completarTutorialAlbum(); return; }
+      const target = document.querySelector(paso.selector);
+      if (!target) return;
+      target.classList.add('tutorial-focus');
+      const caja = document.getElementById('tutorialAlbum');
+      caja.style.display = 'block';
+      document.getElementById('tutorialPaso').textContent = `paso ${tutorialIndice + 1} de ${PASOS_TUTORIAL.length}`;
+      document.getElementById('tutorialTexto').textContent = paso.texto;
+      document.getElementById('tutorialSiguiente').style.display = paso.espera ? 'none' : 'block';
+      posicionarTutorial(target);
+    }
+
+    function iniciarTutorialAlbum(forzado = false) {
+      if (!auth.currentUser || document.getElementById('app').style.display === 'none') return;
+      if (!forzado && esAdmin) return; // ella lo ve automáticamente; tú puedes probarlo con el botón “ver tutorial”
+      if (!forzado && localStorage.getItem(claveTutorial()) === 'ok') return;
+      volverACarpetas();
+      tutorialActivo = true;
+      tutorialIndice = 0;
+      mostrarPasoTutorial();
+    }
+
+    function siguienteTutorialAlbum() {
+      if (!tutorialActivo) return;
+      const paso = PASOS_TUTORIAL[tutorialIndice];
+      if (paso && paso.espera) return;
+      tutorialIndice++;
+      mostrarPasoTutorial();
+    }
+
+    function omitirTutorialAlbum() {
+      localStorage.setItem(claveTutorial(), 'ok');
+      tutorialActivo = false;
+      limpiarFocoTutorial();
+      document.getElementById('tutorialAlbum').style.display = 'none';
+    }
+
+    function completarTutorialAlbum() {
+      localStorage.setItem(claveTutorial(), 'ok');
+      tutorialActivo = false;
+      limpiarFocoTutorial();
+      document.getElementById('tutorialAlbum').style.display = 'none';
+      RomanticApp.mostrarToast('💜 Listo. Ya sabes crear carpetas y guardar fotos aquí.');
+    }
 
     setInterval(() => { if (auth.currentUser && !esAdmin) revisarBloqueo(); }, 1000);
 
@@ -613,18 +817,27 @@
       const inputDesc = document.getElementById('descripcionCarpeta');
       const archivoMusica = document.getElementById('musicaCarpeta').files[0];
       const nombre = inputNombre.value.trim();
+      const descripcion = inputDesc.value.trim();
       if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
       let musicaUrl = null;
       if (archivoMusica) {
         document.getElementById('nombreMusicaCarpeta').textContent = 'subiendo música...';
         musicaUrl = await subirAudioACloudinary(archivoMusica);
       }
-      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), musica: musicaUrl, fecha: Date.now() });
+      const ref = await db.collection('carpetas').add({ nombre, descripcion, musica: musicaUrl, fecha: Date.now() });
+      RomanticApp.registrarActividad(db, auth, 'carpeta', `Se creó una carpeta nueva: “${nombre}” 📁`, { carpetaId: ref.id });
       inputNombre.value = '';
       inputDesc.value = '';
       document.getElementById('musicaCarpeta').value = '';
       document.getElementById('nombreMusicaCarpeta').textContent = '';
-      cargarCarpetas();
+      await cargarCarpetas();
+
+      // Si ella está haciendo el tutorial, abrimos SU carpeta recién creada y seguimos con las fotos.
+      if (tutorialActivo && tutorialIndice === 2) {
+        abrirCarpeta(ref.id, nombre, descripcion, musicaUrl);
+        tutorialIndice = 3;
+        setTimeout(mostrarPasoTutorial, 450);
+      }
     }
 
     async function cargarCarpetas() {
@@ -752,18 +965,28 @@
       const estado = document.getElementById('estadoFoto');
       estado.textContent = `subiendo 0/${archivos.length}...`;
       let listas = 0;
+      let subidas = 0;
       for (const archivo of archivos) {
         const url = await subirACloudinary(archivo);
         if (url) {
-          await db.collection('fotos').add({ url, fecha: Date.now(), carpetaId: carpetaAbiertaId });
+          await db.collection('fotos').add({ url, fecha: Date.now(), carpetaId: carpetaAbiertaId, reacciones: {} });
+          subidas++;
         }
         listas++;
         estado.textContent = `subiendo ${listas}/${archivos.length}...`;
       }
-      estado.textContent = 'listo';
+      estado.textContent = subidas === archivos.length ? 'listo 💜' : `listo: ${subidas}/${archivos.length} subidas`;
       document.getElementById('archivoFotos').value = '';
       document.getElementById('nombresElegidos').textContent = '';
-      cargarGaleriaFotosDeCarpeta();
+      await cargarGaleriaFotosDeCarpeta();
+      if (subidas > 0) {
+        RomanticApp.registrarActividad(
+          db, auth, 'fotos',
+          `${subidas === 1 ? 'Hay una foto nueva' : `Hay ${subidas} fotos nuevas`} en “${carpetaAbiertaNombre}” 📸`,
+          { carpetaId: carpetaAbiertaId, cantidad: subidas }
+        );
+        if (tutorialActivo && tutorialIndice >= 3) completarTutorialAlbum();
+      }
     }
 
     let fotosCarpetaActualCache = [];
@@ -861,7 +1084,7 @@
       document.getElementById('experienciaOverlay').style.display = 'flex';
 
       const audio = document.getElementById('audioExperiencia');
-      audio.src = carpetaAbiertaMusica || 'musica.mp3';
+      audio.src = carpetaAbiertaMusica || '../assets/js/musica.mp3';
       audio.currentTime = 0;
       audio.play().catch(() => {});
 
@@ -927,11 +1150,61 @@
 
     // ================= GALERÍAS SIMPLES (flores, cartas físicas) =================
 
+    const EMOJIS_REACCION = ['💜', '🥹', '😍', '😂', '🌻'];
+
+    function abrirFotoGrande(url) {
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightboxFoto').style.display = 'flex';
+    }
+
+    function cerrarFotoGrande() {
+      document.getElementById('lightboxFoto').style.display = 'none';
+      document.getElementById('lightboxImg').src = '';
+    }
+
+    function crearBarraReacciones(id, data, coleccion, recargar) {
+      const barra = document.createElement('div');
+      barra.className = 'reacciones-foto';
+      const reacciones = (data.reacciones && typeof data.reacciones === 'object') ? data.reacciones : {};
+      const uid = auth.currentUser ? auth.currentUser.uid : null;
+      const miReaccion = uid ? reacciones[uid] : null;
+
+      EMOJIS_REACCION.forEach(emoji => {
+        const cuenta = Object.values(reacciones).filter(v => v === emoji).length;
+        const btn = document.createElement('button');
+        btn.className = 'reaccion-btn' + (miReaccion === emoji ? ' activa' : '');
+        btn.textContent = cuenta ? `${emoji} ${cuenta}` : emoji;
+        btn.title = miReaccion === emoji ? 'quitar mi reacción' : 'reaccionar';
+        btn.onclick = async (e) => {
+          e.stopPropagation();
+          if (!uid) return;
+          const ref = db.collection(coleccion).doc(id);
+          try {
+            if (miReaccion === emoji) {
+              await ref.update({ [`reacciones.${uid}`]: firebase.firestore.FieldValue.delete() });
+            } else {
+              await ref.update({ [`reacciones.${uid}`]: emoji });
+            }
+            recargar();
+          } catch (err) {
+            console.error(err);
+            RomanticApp.mostrarToast('No pude guardar la reacción. Revisa las reglas de Firestore para usuarios autenticados.');
+          }
+        };
+        barra.appendChild(btn);
+      });
+      return barra;
+    }
+
     function crearItemFoto(id, data, coleccion, recargar) {
       const div = document.createElement('div');
       div.className = 'foto-item';
       const img = document.createElement('img');
       img.src = data.url;
+      img.alt = data.nota || 'recuerdo';
+      img.loading = 'lazy';
+      img.style.cursor = 'zoom-in';
+      img.onclick = () => abrirFotoGrande(data.url);
       div.appendChild(img);
       if (typeof data.nota === 'string' && data.nota) {
         const nota = document.createElement('div');
@@ -939,13 +1212,17 @@
         nota.textContent = data.nota;
         div.appendChild(nota);
       }
+
+      div.appendChild(crearBarraReacciones(id, data, coleccion, recargar));
+
       const acciones = document.createElement('div');
       acciones.className = 'foto-acciones';
       const btnEditar = document.createElement('button');
       btnEditar.className = 'icono-btn';
       btnEditar.title = 'editar nota';
       btnEditar.textContent = '✏️';
-      btnEditar.onclick = async () => {
+      btnEditar.onclick = async (e) => {
+        e.stopPropagation();
         const nuevaNota = prompt('nota para esta foto:', data.nota || '');
         if (nuevaNota === null) return;
         await db.collection(coleccion).doc(id).update({ nota: nuevaNota });
@@ -955,7 +1232,8 @@
       btnBorrar.className = 'icono-btn borrar';
       btnBorrar.title = 'eliminar';
       btnBorrar.textContent = '🗑️';
-      btnBorrar.onclick = async () => {
+      btnBorrar.onclick = async (e) => {
+        e.stopPropagation();
         if (!confirm('¿eliminar esta foto de la galería?')) return;
         await db.collection(coleccion).doc(id).delete();
         recargar();
@@ -972,11 +1250,13 @@
       const url = await subirACloudinary(archivo);
       if (!url) return;
       const nota = document.getElementById(notaId).value;
-      await db.collection(categoria).add({ url, nota, fecha: Date.now() });
+      await db.collection(categoria).add({ url, nota, fecha: Date.now(), reacciones: {} });
       document.getElementById(notaId).value = '';
       document.getElementById(inputId).value = '';
       const mapaGaleria = { flores: 'galeriaFlores', cartasfisicas: 'galeriaCF' };
-      cargarGaleria(categoria, mapaGaleria[categoria]);
+      await cargarGaleria(categoria, mapaGaleria[categoria]);
+      const nombre = categoria === 'flores' ? 'una foto de flores 🌻' : 'una foto de una carta física 💌';
+      RomanticApp.registrarActividad(db, auth, categoria, `Hay ${nombre} nueva en el álbum.`, { categoria });
     }
 
     async function cargarGaleria(categoria, contenedorId) {

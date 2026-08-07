@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Día de la novia</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/romantic-global.css">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -26,7 +27,7 @@
         }
 
         #capaBouquet, #capaCarta {
-          position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column;
+          position: fixed; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
         #capaCarta { display: none; overflow-y: auto; padding: 20px 0; }
 
@@ -153,7 +154,7 @@
 
 <button id="tocaParaSonido" onclick="forzarPlay()">🔊 toca para la música</button>
 
-<audio id="audioDiaNovia" src="../assets/js/audio_aniversario.aac" loop></audio>
+<audio id="audioDiaNovia" src="../assets/js/musica.mp3" loop></audio>
 
 <!-- pega aqui links de imagenes miniatura de Kuromi si quieres el fondo decorativo -->
 <script>
@@ -165,6 +166,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<script src="../assets/js/romantic-global.js"></script>
 <script>
     const CORREO_ADMIN = "palrom2006@gmail.com";
     const CLOUD_NAME = "nrfykjzk";
@@ -196,6 +198,7 @@
     auth.onAuthStateChanged(async (user) => {
       esAdmin = !!(user && user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
       document.getElementById('panelAdmin').style.display = esAdmin ? 'block' : 'none';
+      if (user) RomanticApp.escucharActividad(db, auth);
       await cargarMusicaYArrancar();
       iniciarBouquet();
     });
