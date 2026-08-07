@@ -6,1267 +6,7784 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nuestro aniversario</title>
+
     <link rel="stylesheet" href="../assets/css/romantic-global.css">
+
     <style>
-        * { box-sizing: border-box; }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-          margin: 0;
-          min-height: 100vh;
-          background: linear-gradient(180deg, #2a1650, #4a2a80 50%, #6b4aa0);
-          font-family: 'Georgia', serif;
-          color: #f8f1e7;
-          padding: 20px;
-          padding-top: 64px;
+            margin: 0;
+            min-height: 100vh;
+
+            background:
+                    linear-gradient(
+                            180deg,
+                            #2a1650,
+                            #4a2a80 50%,
+                            #6b4aa0
+                    );
+
+            font-family: 'Georgia', serif;
+
+            color: #f8f1e7;
+
+            padding: 20px;
+            padding-top: 64px;
         }
-        .wrap { max-width: 700px; margin: 0 auto; }
-        h1 { text-align: center; font-weight: normal; color: #f0e0c0; letter-spacing: 1px; }
+
+        .wrap {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: normal;
+            color: #f0e0c0;
+            letter-spacing: 1px;
+        }
+
         .caja {
-          background: rgba(245, 232, 210, 0.14);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1px solid rgba(245, 232, 210, 0.28);
-          border-radius: 16px;
-          padding: 22px;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-          margin-bottom: 16px;
+
+            background:
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.14
+                    );
+
+            backdrop-filter: blur(14px);
+
+            -webkit-backdrop-filter:
+                    blur(14px);
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.28
+                    );
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            box-shadow:
+                    0 8px 32px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            0.25
+                    );
+
+            margin-bottom: 16px;
         }
-        .caja p { color: #f8f1e7; }
-        input, textarea {
-          width: 100%;
-          padding: 10px;
-          margin: 6px 0;
-          border-radius: 8px;
-          border: 1px solid rgba(245, 232, 210, 0.4);
-          background: rgba(255,255,255,0.12);
-          color: #fdf8f0;
-          font-family: sans-serif;
-          font-size: 14px;
+
+        .caja p {
+            color: #f8f1e7;
         }
-        textarea { resize: vertical; min-height: 60px; }
-        input::placeholder, textarea::placeholder { color: rgba(248,241,231,0.6); }
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin: 6px 0;
+
+            border-radius: 8px;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.4
+                    );
+
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.12
+                    );
+
+            color: #fdf8f0;
+
+            font-family: sans-serif;
+
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.6
+                    );
+        }
+
         button {
-          background: rgba(240, 224, 192, 0.85);
-          color: #3c2166;
-          border: none;
-          padding: 10px 18px;
-          border-radius: 8px;
-          font-family: sans-serif;
-          font-size: 14px;
-          font-weight: bold;
-          cursor: pointer;
-          margin-top: 6px;
-          transition: background 0.2s ease, transform 0.15s ease;
+
+            background:
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            0.85
+                    );
+
+            color: #3c2166;
+
+            border: none;
+
+            padding:
+                    10px
+                    18px;
+
+            border-radius: 8px;
+
+            font-family: sans-serif;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 6px;
+
+            transition:
+                    background 0.2s ease,
+                    transform 0.15s ease;
         }
-        button:hover { background: #f0e0c0; }
-        button:active { transform: scale(0.97); }
+
+        button:hover {
+            background: #f0e0c0;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
 
         .btn-bosque {
-          background: linear-gradient(135deg, #1f4d3a, #2d6b4f);
-          color: #f0e0c0;
-          border: 1px solid rgba(240, 224, 192, 0.35);
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #1f4d3a,
+                            #2d6b4f
+                    );
+
+            color: #f0e0c0;
+
+            border:
+                    1px solid
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            0.35
+                    );
         }
-        .btn-bosque:hover { background: linear-gradient(135deg, #256045, #35815e); }
+
+        .btn-bosque:hover {
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #256045,
+                            #35815e
+                    );
+        }
 
         .file-label {
-          display: inline-block;
-          width: 100%;
-          text-align: center;
-          background: linear-gradient(135deg, #f0e0c0, #cfead9 45%, #2d6b4f);
-          color: #1c2e24;
-          border: 1px solid rgba(240, 224, 192, 0.5);
-          padding: 10px 18px;
-          border-radius: 8px;
-          font-family: sans-serif;
-          font-size: 14px;
-          font-weight: bold;
-          cursor: pointer;
-          margin-top: 6px;
-          transition: filter 0.2s ease;
+
+            display: inline-block;
+
+            width: 100%;
+
+            text-align: center;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #f0e0c0,
+                            #cfead9 45%,
+                            #2d6b4f
+                    );
+
+            color: #1c2e24;
+
+            border:
+                    1px solid
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            0.5
+                    );
+
+            padding:
+                    10px
+                    18px;
+
+            border-radius: 8px;
+
+            font-family: sans-serif;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 6px;
+
+            transition:
+                    filter 0.2s ease;
         }
-        .file-label:hover { filter: brightness(1.06); }
-        input[type="file"] { display: none; }
-        .nombre-archivos { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75); margin-top: 4px; text-align: center; }
 
-        #login, #app, #bloqueado { display: none; }
-        #bloqueado { text-align: center; padding: 60px 20px; }
-        #bloqueado .icono { font-size: 48px; margin-bottom: 12px; }
-        #bloqueado p { font-family: sans-serif; }
-        #cuenta { font-family: sans-serif; font-size: 28px; font-weight: bold; color: #f0e0c0; margin-top: 16px; letter-spacing: 1px; }
-        #cuenta-label { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); margin-top: 4px; }
+        .file-label:hover {
+            filter: brightness(1.06);
+        }
 
-        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
+        input[type="file"] {
+            display: none;
+        }
+
+        .nombre-archivos {
+
+            font-family: sans-serif;
+
+            font-size: 12px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.75
+                    );
+
+            margin-top: 4px;
+
+            text-align: center;
+        }
+
+        #login,
+        #app,
+        #bloqueado {
+            display: none;
+        }
+
+        #bloqueado {
+
+            text-align: center;
+
+            padding:
+                    60px
+                    20px;
+        }
+
+        #bloqueado .icono {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        #bloqueado p {
+            font-family: sans-serif;
+        }
+
+        #cuenta {
+
+            font-family: sans-serif;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #f0e0c0;
+
+            margin-top: 16px;
+
+            letter-spacing: 1px;
+        }
+
+        #cuenta-label {
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.7
+                    );
+
+            margin-top: 4px;
+        }
+
+        .tabs {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 16px;
+
+            justify-content: center;
+        }
+
         .tab {
-          background: rgba(255,255,255,0.10);
-          backdrop-filter: blur(10px);
-          color: #f8f1e7;
-          border: 1px solid rgba(245, 232, 210, 0.3);
-          padding: 8px 14px;
-          border-radius: 999px;
-          cursor: pointer;
-          font-family: sans-serif;
-          font-size: 13px;
-        }
-        .tab.activo { background: rgba(240, 224, 192, 0.9); color: #3c2166; font-weight: bold; }
-        .seccion { display: none; }
-        .seccion.activa { display: block; }
 
-        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 16px; }
-        .foto-item { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid rgba(245, 232, 210, 0.3); }
-        .foto-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.10
+                    );
+
+            backdrop-filter:
+                    blur(10px);
+
+            color: #f8f1e7;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.3
+                    );
+
+            padding:
+                    8px
+                    14px;
+
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+        }
+
+        .tab.activo {
+
+            background:
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            0.9
+                    );
+
+            color: #3c2166;
+
+            font-weight: bold;
+        }
+
+        .seccion {
+            display: none;
+        }
+
+        .seccion.activa {
+            display: block;
+        }
+
+        .galeria {
+
+            display: grid;
+
+            grid-template-columns:
+                    repeat(
+                            auto-fill,
+                            minmax(
+                                    140px,
+                                    1fr
+                            )
+                    );
+
+            gap: 10px;
+
+            margin-top: 16px;
+        }
+
+        .foto-item {
+
+            position: relative;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.3
+                    );
+        }
+
+        .foto-item img {
+
+            width: 100%;
+
+            aspect-ratio: 1;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
         .foto-nota {
-          font-family: sans-serif; font-size: 11px; color: #f8f1e7;
-          background: rgba(0,0,0,0.35); padding: 4px 6px; word-break: break-word;
-        }
-        .foto-acciones { position: absolute; top: 4px; right: 4px; display: flex; gap: 4px; }
-        .icono-btn {
-          background: rgba(20, 10, 35, 0.65);
-          color: #f8f1e7;
-          border: none;
-          border-radius: 6px;
-          width: 26px; height: 26px;
-          font-size: 13px;
-          padding: 0;
-          margin: 0;
-          cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-        }
-        .icono-btn:hover { background: rgba(20, 10, 35, 0.9); }
-        .icono-btn.borrar:hover { background: #8a3030; }
 
-        #estado, .nota-estado { font-family: sans-serif; font-size: 13px; color: #f0e0c0; margin-top: 6px; }
-        #avisoAdmin { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.6); text-align:center; margin-bottom: 10px; }
+            font-family: sans-serif;
+
+            font-size: 11px;
+
+            color: #f8f1e7;
+
+            background:
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            0.35
+                    );
+
+            padding:
+                    4px
+                    6px;
+
+            word-break: break-word;
+        }
+
+        .foto-acciones {
+
+            position: absolute;
+
+            top: 4px;
+
+            right: 4px;
+
+            display: flex;
+
+            gap: 4px;
+        }
+
+        .icono-btn {
+
+            background:
+                    rgba(
+                            20,
+                            10,
+                            35,
+                            0.65
+                    );
+
+            color: #f8f1e7;
+
+            border: none;
+
+            border-radius: 6px;
+
+            width: 26px;
+
+            height: 26px;
+
+            font-size: 13px;
+
+            padding: 0;
+
+            margin: 0;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .icono-btn:hover {
+
+            background:
+                    rgba(
+                            20,
+                            10,
+                            35,
+                            0.9
+                    );
+        }
+
+        .icono-btn.borrar:hover {
+            background: #8a3030;
+        }
+
+        #estado,
+        .nota-estado {
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            color: #f0e0c0;
+
+            margin-top: 6px;
+        }
+
+        #avisoAdmin {
+
+            font-family: sans-serif;
+
+            font-size: 12px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.6
+                    );
+
+            text-align: center;
+
+            margin-bottom: 10px;
+        }
 
         .logout-fijo {
-          position: fixed; top: 14px; right: 14px; z-index: 50;
-          width: auto; margin: 0; padding: 8px 14px; font-size: 12px;
-          background: linear-gradient(135deg, #1f4d3a, #f0e0c0 140%);
-          color: #1c2e24; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+
+            position: fixed;
+
+            top: 14px;
+
+            right: 14px;
+
+            z-index: 50;
+
+            width: auto;
+
+            margin: 0;
+
+            padding:
+                    8px
+                    14px;
+
+            font-size: 12px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #1f4d3a,
+                            #f0e0c0 140%
+                    );
+
+            color: #1c2e24;
+
+            box-shadow:
+                    0 4px 14px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            0.3
+                    );
         }
 
-        /* --- Carpetas --- */
-        .carpetas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 16px; }
+        /* ================================
+           CARPETAS
+        ================================= */
+
+        .carpetas-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                    repeat(
+                            auto-fill,
+                            minmax(
+                                    150px,
+                                    1fr
+                            )
+                    );
+
+            gap: 14px;
+
+            margin-top: 16px;
+        }
+
         .carpeta-card {
-          position: relative;
-          background: rgba(245, 232, 210, 0.14);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(245, 232, 210, 0.28);
-          border-left: 5px solid #2d6b4f;
-          border-radius: 10px;
-          padding: 16px 14px;
-          cursor: pointer;
-          transition: transform 0.15s ease, background 0.2s ease;
+
+            position: relative;
+
+            background:
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.14
+                    );
+
+            backdrop-filter:
+                    blur(10px);
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.28
+                    );
+
+            border-left:
+                    5px solid
+                    #2d6b4f;
+
+            border-radius: 10px;
+
+            padding:
+                    16px
+                    14px;
+
+            cursor: pointer;
+
+            transition:
+                    transform 0.15s ease,
+                    background 0.2s ease;
         }
-        .carpeta-card:hover { transform: translateY(-2px); background: rgba(245, 232, 210, 0.2); }
-        .carpeta-icono { font-size: 26px; margin-bottom: 6px; }
-        .carpeta-nombre { font-family: sans-serif; font-weight: bold; font-size: 14px; color: #f0e0c0; word-break: break-word; }
-        .carpeta-fecha { font-family: sans-serif; font-size: 11px; color: rgba(248,241,231,0.65); margin-top: 2px; }
-        .carpeta-acciones { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; }
 
-        .encabezado-carpeta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
-        .encabezado-carpeta h3 { margin: 0; font-weight: normal; color: #f0e0c0; }
-        .volver-btn { width: auto; padding: 6px 12px; font-size: 12px; }
-        #vaciaCarpetas { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 10px; }
+        .carpeta-card:hover {
 
-        .caja-descripcion { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-        .caja-descripcion .texto { font-family: sans-serif; font-size: 14px; line-height: 1.5; flex: 1; white-space: pre-wrap; }
-        .caja-descripcion .texto.vacio { color: rgba(248,241,231,0.5); font-style: italic; }
+            transform:
+                    translateY(-2px);
+
+            background:
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.2
+                    );
+        }
+
+        .carpeta-icono {
+
+            font-size: 26px;
+
+            margin-bottom: 6px;
+        }
+
+        .carpeta-nombre {
+
+            font-family: sans-serif;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            color: #f0e0c0;
+
+            word-break: break-word;
+        }
+
+        .carpeta-fecha {
+
+            font-family: sans-serif;
+
+            font-size: 11px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.65
+                    );
+
+            margin-top: 2px;
+        }
+
+        .carpeta-acciones {
+
+            position: absolute;
+
+            top: 8px;
+
+            right: 8px;
+
+            display: flex;
+
+            gap: 4px;
+        }
+
+        .encabezado-carpeta {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 6px;
+        }
+
+        .encabezado-carpeta h3 {
+
+            margin: 0;
+
+            font-weight: normal;
+
+            color: #f0e0c0;
+        }
+
+        .volver-btn {
+
+            width: auto;
+
+            padding:
+                    6px
+                    12px;
+
+            font-size: 12px;
+        }
+
+        #vaciaCarpetas {
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.7
+                    );
+
+            text-align: center;
+
+            margin-top: 10px;
+        }
+
+        .caja-descripcion {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .caja-descripcion .texto {
+
+            font-family: sans-serif;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            flex: 1;
+
+            white-space: pre-wrap;
+        }
+
+        .caja-descripcion .texto.vacio {
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.5
+                    );
+
+            font-style: italic;
+        }
 
         .btn-experiencia {
-          width: 100%;
-          background: linear-gradient(135deg, #2d6b4f, #f0e0c0 160%);
-          color: #1c2e24;
-          font-size: 15px;
-          padding: 12px;
+
+            width: 100%;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #2d6b4f,
+                            #f0e0c0 160%
+                    );
+
+            color: #1c2e24;
+
+            font-size: 15px;
+
+            padding: 12px;
         }
 
-        /* --- Modo experiencia (pantalla completa) --- */
+        /* ================================
+           EXPERIENCIA
+        ================================= */
+
         #experienciaOverlay {
-          display: none;
-          position: fixed; inset: 0; z-index: 100;
-          background: radial-gradient(circle at center, #4a2a80, #1a0d33 80%);
-          align-items: center; justify-content: center;
-          padding: 30px;
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 100;
+
+            background:
+                    radial-gradient(
+                            circle at center,
+                            #4a2a80,
+                            #1a0d33 80%
+                    );
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
         }
+
         .exp-cerrar {
-          position: absolute; top: 18px; right: 18px;
-          background: rgba(255,255,255,0.12); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.3);
-          width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer;
+
+            position: absolute;
+
+            top: 18px;
+
+            right: 18px;
+
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.12
+                    );
+
+            color: #f8f1e7;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.3
+                    );
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            font-size: 16px;
+
+            cursor: pointer;
         }
-        #experienciaPortada, #experienciaFoto, #experienciaFin {
-          display: none;
-          flex-direction: column; align-items: center; justify-content: center;
-          text-align: center; max-width: 520px; width: 100%;
+
+        #experienciaPortada,
+        #experienciaFoto,
+        #experienciaFin {
+
+            display: none;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            max-width: 520px;
+
+            width: 100%;
         }
+
         #expDescripcion {
-          font-family: 'Georgia', serif; font-size: 22px; line-height: 1.7; color: #f8f1e7;
-          margin-bottom: 26px; white-space: pre-wrap;
+
+            font-family:
+                    'Georgia',
+                    serif;
+
+            font-size: 22px;
+
+            line-height: 1.7;
+
+            color: #f8f1e7;
+
+            margin-bottom: 26px;
+
+            white-space: pre-wrap;
         }
-        #expDescripcion.vacio { color: rgba(248,241,231,0.6); font-style: italic; font-size: 17px; }
-        #imgExperiencia { max-width: 100%; max-height: 62vh; border-radius: 14px; box-shadow: 0 12px 50px rgba(0,0,0,0.5); }
-        #imgExperiencia.animar { animation: kenburns 5s ease forwards; }
+
+        #expDescripcion.vacio {
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.6
+                    );
+
+            font-style: italic;
+
+            font-size: 17px;
+        }
+
+        #imgExperiencia {
+
+            max-width: 100%;
+
+            max-height: 62vh;
+
+            border-radius: 14px;
+
+            box-shadow:
+                    0 12px 50px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            0.5
+                    );
+        }
+
+        #imgExperiencia.animar {
+
+            animation:
+                    kenburns
+                    5s
+                    ease
+                    forwards;
+        }
+
         @keyframes kenburns {
-          from { opacity: 0; transform: scale(1.06); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        #contadorExperiencia { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top: 12px; }
-        .exp-controles { display: flex; gap: 10px; margin-top: 20px; }
-        .exp-controles button { margin-top: 0; }
-        #experienciaFin .icono-fin { font-size: 50px; margin-bottom: 14px; }
 
-        .foto-item.seleccionable { cursor: pointer; }
+            from {
+
+                opacity: 0;
+
+                transform:
+                        scale(1.06);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                        scale(1);
+            }
+        }
+
+        #contadorExperiencia {
+
+            font-family: sans-serif;
+
+            font-size: 12px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            0.7
+                    );
+
+            margin-top: 12px;
+        }
+
+        .exp-controles {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .exp-controles button {
+            margin-top: 0;
+        }
+
+        #experienciaFin .icono-fin {
+
+            font-size: 50px;
+
+            margin-bottom: 14px;
+        }
+
+        .foto-item.seleccionable {
+            cursor: pointer;
+        }
+
         .foto-item .check-seleccion {
-          position: absolute; top: 4px; left: 4px; width: 22px; height: 22px;
-          border-radius: 50%; border: 2px solid rgba(255,255,255,0.8);
-          background: rgba(0,0,0,0.3); display: none;
-        }
-        .foto-item.seleccionable .check-seleccion { display: block; }
-        .foto-item.seleccionada .check-seleccion { background: #2d6b4f; border-color: #f0e0c0; }
-        .foto-item.seleccionada .check-seleccion::after {
-          content: '✓'; color: white; font-size: 13px; display: flex;
-          align-items: center; justify-content: center; height: 100%;
-        }
-        .foto-item.seleccionable .foto-acciones { display: none; }
 
-        /* ---- animaciones de transicion entre pantallas (no en CRUD) ---- */
-        .transicion { animation: entrarSuave 0.45s ease; }
+            position: absolute;
+
+            top: 4px;
+
+            left: 4px;
+
+            width: 22px;
+
+            height: 22px;
+
+            border-radius: 50%;
+
+            border:
+                    2px solid
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.8
+                    );
+
+            background:
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            0.3
+                    );
+
+            display: none;
+        }
+
+        .foto-item.seleccionable .check-seleccion {
+            display: block;
+        }
+
+        .foto-item.seleccionada .check-seleccion {
+
+            background: #2d6b4f;
+
+            border-color: #f0e0c0;
+        }
+
+        .foto-item.seleccionada
+        .check-seleccion::after {
+
+            content: '✓';
+
+            color: white;
+
+            font-size: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            height: 100%;
+        }
+
+        .foto-item.seleccionable
+        .foto-acciones {
+
+            display: none;
+        }
+
+        .transicion {
+
+            animation:
+                    entrarSuave
+                    0.45s
+                    ease;
+        }
+
         @keyframes entrarSuave {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                        translateY(10px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                        translateY(0);
+            }
         }
 
-        /* ---- intro de video ---- */
+        /* ================================
+           INTRO DEL ANIVERSARIO
+        ================================= */
+
         #introAlbum {
-          position: fixed; inset: 0; z-index: 200; background: #000;
-          display: none; align-items: center; justify-content: center;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 200;
+
+            background: #000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            opacity: 1;
+
+            transition:
+                    opacity 1.2s ease;
         }
-        #introAlbum video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+
+        #introAlbum.saliendo {
+            opacity: 0;
+        }
+
+        #introAlbum video {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+            background: #000;
+        }
+
         #btnOmitirIntro {
-          display: none; position: fixed; top: 16px; right: 16px; z-index: 210;
-          background: rgba(255,255,255,0.15); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
-          padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;
+
+            display: none;
+
+            position: fixed;
+
+            top: 16px;
+
+            right: 16px;
+
+            z-index: 210;
+
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.15
+                    );
+
+            color: #f8f1e7;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.4
+                    );
+
+            padding:
+                    8px
+                    16px;
+
+            border-radius: 999px;
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            cursor: pointer;
         }
+
         #tocaSonidoIntro {
-          display: none; position: fixed; bottom: 20px; right: 20px; z-index: 210;
-          background: rgba(240,224,192,0.9); color: #3c2166; border: none; border-radius: 999px;
-          padding: 10px 16px; font-family: sans-serif; font-size: 13px; font-weight: bold; cursor: pointer;
+
+            display: none;
+
+            position: fixed;
+
+            bottom: 20px;
+
+            right: 20px;
+
+            z-index: 210;
+
+            background:
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            0.9
+                    );
+
+            color: #3c2166;
+
+            border: none;
+
+            border-radius: 999px;
+
+            padding:
+                    10px
+                    16px;
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
         }
+
         #btnVerIntro {
-          background: rgba(255,255,255,0.10); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.3);
-          padding: 6px 12px; border-radius: 999px; font-family: sans-serif; font-size: 11px; cursor: pointer;
-          margin-top: 0;
+
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            0.10
+                    );
+
+            color: #f8f1e7;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            0.3
+                    );
+
+            padding:
+                    6px
+                    12px;
+
+            border-radius: 999px;
+
+            font-family: sans-serif;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            margin-top: 0;
         }
+
         #introInicio {
-          display: none; position: fixed; inset: 0; z-index: 208;
-          align-items: center; justify-content: center; text-align: center; padding: 24px;
-          background: radial-gradient(circle at center, rgba(74,42,128,.58), rgba(0,0,0,.86));
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 208;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 24px;
+
+            background:
+                    radial-gradient(
+                            circle at center,
+                            rgba(
+                                    74,
+                                    42,
+                                    128,
+                                    .58
+                            ),
+                            rgba(
+                                    0,
+                                    0,
+                                    0,
+                                    .86
+                            )
+                    );
         }
+
         #introInicio .caja-intro {
-          max-width: 390px; width: 100%; border: 1px solid rgba(240,224,192,.35);
-          background: rgba(35,18,64,.82); backdrop-filter: blur(12px);
-          border-radius: 18px; padding: 26px; box-shadow: 0 14px 50px rgba(0,0,0,.45);
+
+            max-width: 390px;
+
+            width: 100%;
+
+            border:
+                    1px solid
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            .35
+                    );
+
+            background:
+                    rgba(
+                            35,
+                            18,
+                            64,
+                            .82
+                    );
+
+            backdrop-filter:
+                    blur(12px);
+
+            border-radius: 18px;
+
+            padding: 26px;
+
+            box-shadow:
+                    0 14px 50px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            .45
+                    );
         }
-        #introInicio h2 { margin: 0 0 8px; color: #f0e0c0; font-weight: normal; }
-        #introInicio p { font-family: sans-serif; font-size: 13px; line-height: 1.6; color: rgba(248,241,231,.82); }
-        #introInicio button { width: 100%; }
+
+        #introInicio h2 {
+
+            margin:
+                    0
+                    0
+                    8px;
+
+            color: #f0e0c0;
+
+            font-weight: normal;
+        }
+
+        #introInicio p {
+
+            font-family: sans-serif;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            .82
+                    );
+        }
+
+        #introInicio button {
+            width: 100%;
+        }
 
         #lightboxFoto {
-          display:none; position:fixed; inset:0; z-index:360; background:rgba(10,5,20,.92);
-          align-items:center; justify-content:center; padding:24px; cursor:zoom-out;
-        }
-        #lightboxFoto img { max-width:96vw; max-height:90vh; border-radius:14px; box-shadow:0 16px 60px rgba(0,0,0,.55); }
 
-        /* tutorial del álbum */
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 360;
+
+            background:
+                    rgba(
+                            10,
+                            5,
+                            20,
+                            .92
+                    );
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 24px;
+
+            cursor: zoom-out;
+        }
+
+        #lightboxFoto img {
+
+            max-width: 96vw;
+
+            max-height: 90vh;
+
+            border-radius: 14px;
+
+            box-shadow:
+                    0 16px 60px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            .55
+                    );
+        }
+
+        /* ================================
+           TUTORIAL
+        ================================= */
+
         #tutorialAlbum {
-          display: none; position: fixed; z-index: 320; width: min(360px, calc(100vw - 28px));
-          background: rgba(30,16,54,.97); border: 1px solid rgba(240,224,192,.45);
-          border-radius: 16px; padding: 16px; box-shadow: 0 16px 45px rgba(0,0,0,.48);
-          font-family: sans-serif; color: #f8f1e7;
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 320;
+
+            width:
+                    min(
+                            360px,
+                            calc(
+                                    100vw - 28px
+                            )
+                    );
+
+            background:
+                    rgba(
+                            30,
+                            16,
+                            54,
+                            .97
+                    );
+
+            border:
+                    1px solid
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            .45
+                    );
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            box-shadow:
+                    0 16px 45px
+                    rgba(
+                            0,
+                            0,
+                            0,
+                            .48
+                    );
+
+            font-family: sans-serif;
+
+            color: #f8f1e7;
         }
-        #tutorialAlbum .tutorial-flecha { font-size: 24px; line-height: 1; margin-bottom: 5px; }
-        #tutorialAlbum .tutorial-paso { font-size: 11px; color: rgba(248,241,231,.62); margin-bottom: 5px; }
-        #tutorialAlbum .tutorial-texto { font-size: 13px; line-height: 1.55; }
-        #tutorialAlbum .tutorial-botones { display:flex; gap:8px; margin-top:12px; }
-        #tutorialAlbum .tutorial-botones button { flex:1; margin:0; padding:8px 10px; }
+
+        #tutorialAlbum .tutorial-flecha {
+
+            font-size: 24px;
+
+            line-height: 1;
+
+            margin-bottom: 5px;
+        }
+
+        #tutorialAlbum .tutorial-paso {
+
+            font-size: 11px;
+
+            color:
+                    rgba(
+                            248,
+                            241,
+                            231,
+                            .62
+                    );
+
+            margin-bottom: 5px;
+        }
+
+        #tutorialAlbum .tutorial-texto {
+
+            font-size: 13px;
+
+            line-height: 1.55;
+        }
+
+        #tutorialAlbum .tutorial-botones {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 12px;
+        }
+
+        #tutorialAlbum .tutorial-botones button {
+
+            flex: 1;
+
+            margin: 0;
+
+            padding:
+                    8px
+                    10px;
+        }
+
         .tutorial-focus {
-          position: relative !important; z-index: 319 !important;
-          outline: 3px solid #f0e0c0 !important; outline-offset: 5px;
-          box-shadow: 0 0 0 8px rgba(107,70,193,.32), 0 0 34px rgba(240,224,192,.42) !important;
+
+            position:
+                    relative
+                    !important;
+
+            z-index:
+                    319
+                    !important;
+
+            outline:
+                    3px solid
+                    #f0e0c0
+                    !important;
+
+            outline-offset: 5px;
+
+            box-shadow:
+                    0 0 0 8px
+                    rgba(
+                            107,
+                            70,
+                            193,
+                            .32
+                    ),
+                    0 0 34px
+                    rgba(
+                            240,
+                            224,
+                            192,
+                            .42
+                    )
+                    !important;
         }
+
         #btnTutorial {
-          background: rgba(255,255,255,.10); color:#f8f1e7; border:1px solid rgba(245,232,210,.3);
-          padding:6px 12px; border-radius:999px; font-size:11px; width:auto; margin-top:0;
+
+            background:
+                    rgba(
+                            255,
+                            255,
+                            255,
+                            .10
+                    );
+
+            color: #f8f1e7;
+
+            border:
+                    1px solid
+                    rgba(
+                            245,
+                            232,
+                            210,
+                            .3
+                    );
+
+            padding:
+                    6px
+                    12px;
+
+            border-radius: 999px;
+
+            font-size: 11px;
+
+            width: auto;
+
+            margin-top: 0;
         }
+
     </style>
+
 </head>
+
 <body>
+
+
+<!-- ==========================================
+     INTRO
+=========================================== -->
+
 <div id="introAlbum">
-    <video id="videoIntro" muted playsinline preload="auto"></video>
+
+    <video
+            id="videoIntro"
+            muted
+            playsinline
+            preload="auto">
+    </video>
+
 </div>
+
+
 <div id="introInicio">
+
     <div class="caja-intro">
-        <h2>Nuestro aniversario 💜</h2>
-        <p>Hay algo que quiero decirte con mi propia voz. Toca el botón para comenzar la intro con sonido.</p>
-        <button class="btn-bosque" onclick="comenzarIntroConSonido()">▶ comenzar</button>
+
+        <h2>
+            Nuestro aniversario 💜
+        </h2>
+
+        <p>
+            Hay algo que quiero decirte
+            con mi propia voz.
+            Toca el botón para comenzar
+            la intro con sonido.
+        </p>
+
+        <button
+                class="btn-bosque"
+                onclick="comenzarIntroConSonido()">
+
+            ▶ comenzar
+
+        </button>
+
     </div>
+
 </div>
-<button id="btnOmitirIntro" onclick="omitirIntro()">omitir ⏭</button>
-<button id="tocaSonidoIntro" onclick="comenzarIntroConSonido()">🔊 iniciar con sonido</button>
-<audio id="vozIntro" src="../assets/js/audio_aniversario.aac" preload="auto"></audio>
-<audio id="melodiaIntro" src="../assets/js/MELODIA-Una_y_otra_vez-Manuel-Medrano.mp3" preload="auto" loop></audio>
+
+
+<button
+        id="btnOmitirIntro"
+        onclick="omitirIntro()">
+
+    omitir ⏭
+
+</button>
+
+
+<button
+        id="tocaSonidoIntro"
+        onclick="comenzarIntroConSonido()">
+
+    🔊 iniciar con sonido
+
+</button>
+
+
+<audio
+        id="vozIntro"
+        src="../assets/js/audio_aniversario.aac"
+        preload="auto">
+</audio>
+
+
+<audio
+        id="melodiaIntro"
+        src="../assets/js/MELODIA-Una_y_otra_vez-Manuel-Medrano.mp3"
+        preload="auto"
+        loop>
+</audio>
+
+
+<!-- ==========================================
+     CONTENIDO
+=========================================== -->
 
 <div class="wrap">
-    <h1>Nuestro aniversario 💜</h1>
-    <p style="text-align:center; font-family:sans-serif; font-size:13px; color:rgba(248,241,231,.72); margin-top:-8px;">nuestro álbum, nuestras historias y todo lo que seguimos construyendo</p>
+
+
+    <h1>
+        Nuestro aniversario 💜
+    </h1>
+
+
+    <p style="
+        text-align:center;
+        font-family:sans-serif;
+        font-size:13px;
+        color:rgba(248,241,231,.72);
+        margin-top:-8px;
+    ">
+
+        nuestro álbum,
+        nuestras historias
+        y todo lo que seguimos construyendo
+
+    </p>
+
+
+    <!-- BLOQUEADO -->
 
     <div id="bloqueado">
-        <div class="icono">🔒</div>
-        <p>esto se abre el 9 de agosto</p>
-        <div id="cuenta">--:--:--:--</div>
-        <div id="cuenta-label">días · horas · minutos · segundos</div>
+
+        <div class="icono">
+            🔒
+        </div>
+
+        <p>
+            esto se abre el 9 de agosto
+        </p>
+
+        <div id="cuenta">
+            --:--:--:--
+        </div>
+
+        <div id="cuenta-label">
+            días · horas · minutos · segundos
+        </div>
+
     </div>
 
-    <div id="login" class="caja">
-        <p style="font-family: sans-serif; margin-top:0;">Inicia sesión</p>
-        <input type="email" id="correo" placeholder="correo">
-        <input type="password" id="clave" placeholder="contraseña">
-        <button onclick="iniciarSesion()">Entrar</button>
+
+    <!-- LOGIN -->
+
+    <div
+            id="login"
+            class="caja">
+
+        <p style="
+            font-family:sans-serif;
+            margin-top:0;
+        ">
+
+            Inicia sesión
+
+        </p>
+
+        <input
+                type="email"
+                id="correo"
+                placeholder="correo">
+
+        <input
+                type="password"
+                id="clave"
+                placeholder="contraseña">
+
+        <button
+                onclick="iniciarSesion()">
+
+            Entrar
+
+        </button>
+
         <p id="estado"></p>
+
     </div>
+
+
+    <!-- APP -->
 
     <div id="app">
-        <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a href="../index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
-        <button id="btnVerIntro" onclick="verIntroDeNuevo()">▶ ver intro otra vez</button>
-        <button id="btnTutorial" onclick="iniciarTutorialAlbum(true)">❔ ver tutorial</button>
+
+
+        <button
+                class="logout-fijo"
+                onclick="cerrarSesion()">
+
+            cerrar sesión
+
+        </button>
+
+
+        <a
+                href="../index.html"
+                style="
+                    display:inline-block;
+                    background:rgba(245,232,210,.16);
+                    color:#f8f1e7;
+                    border:1px solid rgba(245,232,210,.3);
+                    padding:6px 14px;
+                    border-radius:999px;
+                    text-decoration:none;
+                    font-family:sans-serif;
+                    font-size:12px;
+                    margin-bottom:14px;
+                ">
+
+            ← volver al menú
+
+        </a>
+
+
+        <button
+                id="btnVerIntro"
+                onclick="verIntroDeNuevo()">
+
+            ▶ ver intro otra vez
+
+        </button>
+
+
+        <button
+                id="btnTutorial"
+                onclick="iniciarTutorialAlbum(true)">
+
+            ❔ ver tutorial
+
+        </button>
+
+
         <p id="avisoAdmin"></p>
+
+
+        <!-- TABS -->
+
         <div class="tabs">
-            <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
-            <div class="tab" onclick="mostrar('flores', this)">flores</div>
-            <div class="tab" onclick="mostrar('cartasfisicas', this)">cartas físicas</div>
+
+            <div
+                    class="tab activo"
+                    onclick="mostrar('fotos', this)">
+
+                fotos
+
+            </div>
+
+            <div
+                    class="tab"
+                    onclick="mostrar('flores', this)">
+
+                flores
+
+            </div>
+
+            <div
+                    class="tab"
+                    onclick="mostrar('cartasfisicas', this)">
+
+                cartas físicas
+
+            </div>
+
         </div>
 
-        <!-- ===== FOTOS: carpetas con descripcion + experiencia ===== -->
-        <div class="seccion activa" id="sec-fotos">
+
+        <!-- =====================================
+             FOTOS
+        ====================================== -->
+
+        <div
+                class="seccion activa"
+                id="sec-fotos">
+
+
+            <!-- CARPETAS -->
 
             <div id="vistaCarpetas">
+
+
                 <div class="caja">
-                    <p style="font-family: sans-serif; margin-top:0;">Crear carpeta</p>
-                    <input type="text" id="nombreCarpeta" placeholder="ej. 24 de julio, o 'nuestro aniversario'">
-                    <textarea id="descripcionCarpeta" placeholder="descripción (opcional) — se ve al abrir la carpeta"></textarea>
-                    <label class="file-label" for="musicaCarpeta">elegir música (opcional)</label>
-                    <input type="file" id="musicaCarpeta" accept="audio/*">
-                    <p class="nombre-archivos" id="nombreMusicaCarpeta"></p>
-                    <button class="btn-bosque" id="btnCrearCarpeta" onclick="crearCarpeta()">Crear carpeta</button>
+
+                    <p style="
+                        font-family:sans-serif;
+                        margin-top:0;
+                    ">
+
+                        Crear carpeta
+
+                    </p>
+
+
+                    <input
+                            type="text"
+                            id="nombreCarpeta"
+                            placeholder="ej. 24 de julio, o 'nuestro aniversario'">
+
+
+                    <textarea
+                            id="descripcionCarpeta"
+                            placeholder="descripción (opcional) — se ve al abrir la carpeta">
+                    </textarea>
+
+
+                    <label
+                            class="file-label"
+                            for="musicaCarpeta">
+
+                        elegir música (opcional)
+
+                    </label>
+
+
+                    <input
+                            type="file"
+                            id="musicaCarpeta"
+                            accept="audio/*">
+
+
+                    <p
+                            class="nombre-archivos"
+                            id="nombreMusicaCarpeta">
+                    </p>
+
+
+                    <button
+                            class="btn-bosque"
+                            id="btnCrearCarpeta"
+                            onclick="crearCarpeta()">
+
+                        Crear carpeta
+
+                    </button>
+
                 </div>
-                <div class="carpetas-grid" id="listaCarpetas"></div>
-                <p id="vaciaCarpetas" style="display:none;">todavía no hay carpetas, crea la primera arriba</p>
+
+
+                <div
+                        class="carpetas-grid"
+                        id="listaCarpetas">
+                </div>
+
+
+                <p
+                        id="vaciaCarpetas"
+                        style="display:none;">
+
+                    todavía no hay carpetas,
+                    crea la primera arriba
+
+                </p>
+
             </div>
 
-            <div id="vistaCarpetaAbierta" style="display:none;">
-                <button class="volver-btn" onclick="volverACarpetas()">← volver a carpetas</button>
+
+            <!-- CARPETA ABIERTA -->
+
+            <div
+                    id="vistaCarpetaAbierta"
+                    style="display:none;">
+
+
+                <button
+                        class="volver-btn"
+                        onclick="volverACarpetas()">
+
+                    ← volver a carpetas
+
+                </button>
+
+
                 <div class="caja">
+
+
                     <div class="encabezado-carpeta">
-                        <h3 id="tituloCarpetaAbierta"></h3>
-                        <div style="display:flex; gap:6px;" id="accionesCarpetaAdmin">
-                            <button class="icono-btn" onclick="renombrarCarpetaActual()" title="renombrar">✏️</button>
-                            <button class="icono-btn borrar" onclick="eliminarCarpetaActual()" title="eliminar carpeta">🗑️</button>
+
+
+                        <h3 id="tituloCarpetaAbierta">
+                        </h3>
+
+
+                        <div
+                                style="
+                                    display:flex;
+                                    gap:6px;
+                                "
+                                id="accionesCarpetaAdmin">
+
+
+                            <button
+                                    class="icono-btn"
+                                    onclick="renombrarCarpetaActual()"
+                                    title="renombrar">
+
+                                ✏️
+
+                            </button>
+
+
+                            <button
+                                    class="icono-btn borrar"
+                                    onclick="eliminarCarpetaActual()"
+                                    title="eliminar carpeta">
+
+                                🗑️
+
+                            </button>
+
+
                         </div>
+
                     </div>
-                    <label class="file-label" for="cambiarMusica" style="margin-top:10px;">🎵 cambiar música de esta carpeta</label>
-                    <input type="file" id="cambiarMusica" accept="audio/*" onchange="cambiarMusicaCarpeta()">
-                    <p class="nombre-archivos" id="estadoMusicaCarpeta"></p>
+
+
+                    <label
+                            class="file-label"
+                            for="cambiarMusica"
+                            style="margin-top:10px;">
+
+                        🎵 cambiar música
+                        de esta carpeta
+
+                    </label>
+
+
+                    <input
+                            type="file"
+                            id="cambiarMusica"
+                            accept="audio/*"
+                            onchange="cambiarMusicaCarpeta()">
+
+
+                    <p
+                            class="nombre-archivos"
+                            id="estadoMusicaCarpeta">
+                    </p>
+
                 </div>
+
+
+                <!-- DESCRIPCIÓN -->
 
                 <div class="caja">
+
+
                     <div class="caja-descripcion">
-                        <div class="texto" id="descripcionCarpetaTexto"></div>
-                        <button class="icono-btn" onclick="editarDescripcionCarpeta()" title="editar descripción">✏️</button>
+
+
+                        <div
+                                class="texto"
+                                id="descripcionCarpetaTexto">
+                        </div>
+
+
+                        <button
+                                class="icono-btn"
+                                onclick="editarDescripcionCarpeta()"
+                                title="editar descripción">
+
+                            ✏️
+
+                        </button>
+
+
                     </div>
+
                 </div>
 
-                <button class="btn-experiencia" onclick="iniciarExperiencia()">▶ reproducir experiencia</button>
 
-                <div class="caja" style="margin-top:16px;">
-                    <label class="file-label" id="labelFotos" for="archivoFotos">elegir fotos</label>
-                    <input type="file" id="archivoFotos" accept="image/*" multiple onchange="mostrarNombresElegidos()">
-                    <p class="nombre-archivos" id="nombresElegidos"></p>
-                    <button id="btnSubirFotos" onclick="subirFotos()">Subir</button>
-                    <p id="estadoFoto" class="nota-estado"></p>
+                <button
+                        class="btn-experiencia"
+                        onclick="iniciarExperiencia()">
+
+                    ▶ reproducir experiencia
+
+                </button>
+
+
+                <!-- SUBIR FOTOS -->
+
+                <div
+                        class="caja"
+                        style="margin-top:16px;">
+
+
+                    <label
+                            class="file-label"
+                            id="labelFotos"
+                            for="archivoFotos">
+
+                        elegir fotos
+
+                    </label>
+
+
+                    <input
+                            type="file"
+                            id="archivoFotos"
+                            accept="image/*"
+                            multiple
+                            onchange="mostrarNombresElegidos()">
+
+
+                    <p
+                            class="nombre-archivos"
+                            id="nombresElegidos">
+                    </p>
+
+
+                    <button
+                            id="btnSubirFotos"
+                            onclick="subirFotos()">
+
+                        Subir
+
+                    </button>
+
+
+                    <p
+                            id="estadoFoto"
+                            class="nota-estado">
+                    </p>
+
                 </div>
-                <div style="display:flex; gap:8px; align-items:center; margin-bottom: -6px;">
-                    <button class="icono-btn" style="width:auto; padding:6px 12px;" onclick="toggleModoSeleccion()" id="btnModoSeleccion">seleccionar</button>
-                    <button class="icono-btn borrar" style="width:auto; padding:6px 12px; display:none;" onclick="eliminarSeleccionadas()" id="btnEliminarSeleccion">eliminar (0)</button>
+
+
+                <div style="
+                    display:flex;
+                    gap:8px;
+                    align-items:center;
+                    margin-bottom:-6px;
+                ">
+
+
+                    <button
+                            class="icono-btn"
+                            style="
+                                width:auto;
+                                padding:6px 12px;
+                            "
+                            onclick="toggleModoSeleccion()"
+                            id="btnModoSeleccion">
+
+                        seleccionar
+
+                    </button>
+
+
+                    <button
+                            class="icono-btn borrar"
+                            style="
+                                width:auto;
+                                padding:6px 12px;
+                                display:none;
+                            "
+                            onclick="eliminarSeleccionadas()"
+                            id="btnEliminarSeleccion">
+
+                        eliminar (0)
+
+                    </button>
+
                 </div>
-                <div class="galeria" id="galeriaFotos"></div>
+
+
+                <div
+                        class="galeria"
+                        id="galeriaFotos">
+                </div>
+
             </div>
+
         </div>
 
-        <div class="seccion" id="sec-flores">
+
+        <!-- =====================================
+             FLORES
+        ====================================== -->
+
+        <div
+                class="seccion"
+                id="sec-flores">
+
+
             <div class="caja">
-                <p style="font-family: sans-serif; margin-top:0;">Subir foto de flores</p>
-                <label class="file-label" for="archivoFlores">elegir foto</label>
-                <input type="file" id="archivoFlores" accept="image/*">
-                <input type="text" id="notaFlores" placeholder="nota (opcional)">
-                <button onclick="subirDetalle('flores', 'archivoFlores', 'notaFlores')">Subir</button>
+
+
+                <p style="
+                    font-family:sans-serif;
+                    margin-top:0;
+                ">
+
+                    Subir foto de flores
+
+                </p>
+
+
+                <label
+                        class="file-label"
+                        for="archivoFlores">
+
+                    elegir foto
+
+                </label>
+
+
+                <input
+                        type="file"
+                        id="archivoFlores"
+                        accept="image/*">
+
+
+                <input
+                        type="text"
+                        id="notaFlores"
+                        placeholder="nota (opcional)">
+
+
+                <button
+                        onclick="
+                            subirDetalle(
+                                'flores',
+                                'archivoFlores',
+                                'notaFlores'
+                            )
+                        ">
+
+                    Subir
+
+                </button>
+
             </div>
-            <div class="galeria" id="galeriaFlores"></div>
+
+
+            <div
+                    class="galeria"
+                    id="galeriaFlores">
+            </div>
+
         </div>
 
-        <div class="seccion" id="sec-cartasfisicas">
+
+        <!-- =====================================
+             CARTAS FÍSICAS
+        ====================================== -->
+
+        <div
+                class="seccion"
+                id="sec-cartasfisicas">
+
+
             <div class="caja">
-                <p style="font-family: sans-serif; margin-top:0;">Subir foto de carta física</p>
-                <label class="file-label" for="archivoCF">elegir foto</label>
-                <input type="file" id="archivoCF" accept="image/*">
-                <input type="text" id="notaCF" placeholder="nota (opcional)">
-                <button onclick="subirDetalle('cartasfisicas', 'archivoCF', 'notaCF')">Subir</button>
+
+
+                <p style="
+                    font-family:sans-serif;
+                    margin-top:0;
+                ">
+
+                    Subir foto
+                    de carta física
+
+                </p>
+
+
+                <label
+                        class="file-label"
+                        for="archivoCF">
+
+                    elegir foto
+
+                </label>
+
+
+                <input
+                        type="file"
+                        id="archivoCF"
+                        accept="image/*">
+
+
+                <input
+                        type="text"
+                        id="notaCF"
+                        placeholder="nota (opcional)">
+
+
+                <button
+                        onclick="
+                            subirDetalle(
+                                'cartasfisicas',
+                                'archivoCF',
+                                'notaCF'
+                            )
+                        ">
+
+                    Subir
+
+                </button>
+
             </div>
-            <div class="galeria" id="galeriaCF"></div>
+
+
+            <div
+                    class="galeria"
+                    id="galeriaCF">
+            </div>
+
         </div>
+
+
     </div>
+
 </div>
 
-<div id="lightboxFoto" onclick="cerrarFotoGrande()"><img id="lightboxImg" alt="foto ampliada"></div>
+
+<!-- ==========================================
+     FOTO GRANDE
+=========================================== -->
+
+<div
+        id="lightboxFoto"
+        onclick="cerrarFotoGrande()">
+
+    <img
+            id="lightboxImg"
+            alt="foto ampliada">
+
+</div>
+
+
+<!-- ==========================================
+     TUTORIAL
+=========================================== -->
 
 <div id="tutorialAlbum">
-    <div class="tutorial-flecha" id="tutorialFlecha">⬆️</div>
-    <div class="tutorial-paso" id="tutorialPaso"></div>
-    <div class="tutorial-texto" id="tutorialTexto"></div>
-    <div class="tutorial-botones">
-        <button onclick="omitirTutorialAlbum()">omitir</button>
-        <button class="btn-bosque" id="tutorialSiguiente" onclick="siguienteTutorialAlbum()">siguiente</button>
+
+
+    <div
+            class="tutorial-flecha"
+            id="tutorialFlecha">
+
+        ⬆️
+
     </div>
+
+
+    <div
+            class="tutorial-paso"
+            id="tutorialPaso">
+    </div>
+
+
+    <div
+            class="tutorial-texto"
+            id="tutorialTexto">
+    </div>
+
+
+    <div class="tutorial-botones">
+
+
+        <button
+                onclick="omitirTutorialAlbum()">
+
+            omitir
+
+        </button>
+
+
+        <button
+                class="btn-bosque"
+                id="tutorialSiguiente"
+                onclick="siguienteTutorialAlbum()">
+
+            siguiente
+
+        </button>
+
+
+    </div>
+
 </div>
 
-<!-- ===== MODO EXPERIENCIA (pantalla completa) ===== -->
+
+<!-- ==========================================
+     EXPERIENCIA
+=========================================== -->
+
 <div id="experienciaOverlay">
-    <button class="exp-cerrar" onclick="cerrarExperiencia()">✕</button>
+
+
+    <button
+            class="exp-cerrar"
+            onclick="cerrarExperiencia()">
+
+        ✕
+
+    </button>
+
 
     <div id="experienciaPortada">
-        <div id="expDescripcion"></div>
-        <div class="exp-controles">
-            <button onclick="anteriorExperiencia()">← atrás</button>
-            <button class="btn-bosque" onclick="siguienteExperiencia()">siguiente →</button>
+
+
+        <div id="expDescripcion">
         </div>
+
+
+        <div class="exp-controles">
+
+
+            <button
+                    onclick="anteriorExperiencia()">
+
+                ← atrás
+
+            </button>
+
+
+            <button
+                    class="btn-bosque"
+                    onclick="siguienteExperiencia()">
+
+                siguiente →
+
+            </button>
+
+
+        </div>
+
     </div>
+
 
     <div id="experienciaFoto">
-        <img id="imgExperiencia" src="">
-        <div id="contadorExperiencia"></div>
-        <div class="exp-controles">
-            <button onclick="anteriorExperiencia()">← atrás</button>
-            <button class="btn-bosque" onclick="siguienteExperiencia()">siguiente →</button>
+
+
+        <img
+                id="imgExperiencia"
+                src="">
+
+
+        <div id="contadorExperiencia">
         </div>
+
+
+        <div class="exp-controles">
+
+
+            <button
+                    onclick="anteriorExperiencia()">
+
+                ← atrás
+
+            </button>
+
+
+            <button
+                    class="btn-bosque"
+                    onclick="siguienteExperiencia()">
+
+                siguiente →
+
+            </button>
+
+
+        </div>
+
     </div>
+
 
     <div id="experienciaFin">
-        <div class="icono-fin">💜</div>
-        <p style="font-family: sans-serif; font-size: 16px;">fin — gracias por revivir esto conmigo</p>
-        <div class="exp-controles">
-            <button class="btn-bosque" onclick="cerrarExperiencia()">cerrar</button>
+
+
+        <div class="icono-fin">
+            💜
         </div>
+
+
+        <p style="
+            font-family:sans-serif;
+            font-size:16px;
+        ">
+
+            fin —
+            gracias por revivir
+            esto conmigo
+
+        </p>
+
+
+        <div class="exp-controles">
+
+
+            <button
+                    class="btn-bosque"
+                    onclick="cerrarExperiencia()">
+
+                cerrar
+
+            </button>
+
+
+        </div>
+
     </div>
 
-    <audio id="audioExperiencia" src="../assets/js/musica.mp3" loop></audio>
+
+    <audio
+            id="audioExperiencia"
+            src="../assets/js/musica.mp3"
+            loop>
+    </audio>
+
+
 </div>
 
+
+<!-- FIREBASE -->
+
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+
+
+<!-- JS GLOBAL -->
+
 <script src="../assets/js/romantic-global.js"></script>
+
+
 <script>
-    const VIDEO_1 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786845/VID-20260802-WA0069_bh2qie.mp4";
-    const VIDEO_2 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786905/VID-20260802-WA0045_uo4858.mp4";
+
+    /* ==========================================
+       VIDEOS DE LA INTRO
+    =========================================== */
+
+    const VIDEO_1 =
+        "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786845/VID-20260802-WA0069_bh2qie.mp4";
+
+    const VIDEO_2 =
+        "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786905/VID-20260802-WA0045_uo4858.mp4";
+
+
     const INICIO_VIDEO_2 = 16;
 
+
+    /* ==========================================
+       VOLUMEN
+    =========================================== */
+
+    // Tu voz queda al 75 %
+    const VOLUMEN_VOZ = 0.75;
+
+    // Manuel Medrano queda al 20 %
+    const VOLUMEN_MELODIA = 0.20;
+
+
+    let introActiva = false;
+
+    let videoIntroActual = 1;
+
+    let terminandoIntro = false;
+
+
+    /* ==========================================
+       PREPARAR INTRO
+    =========================================== */
+
     function prepararIntroDesdeCero() {
-      const video = document.getElementById('videoIntro');
-      const voz = document.getElementById('vozIntro');
-      const melodia = document.getElementById('melodiaIntro');
 
-      video.pause();
-      voz.pause();
-      melodia.pause();
+        const video =
+            document.getElementById(
+                'videoIntro'
+            );
 
-      video.muted = true; // los videos no compiten con tu voz
-      video.src = VIDEO_1;
-      video.currentTime = 0;
-      voz.currentTime = 0;
-      melodia.currentTime = 0;
-      voz.volume = 1;
-      melodia.volume = 0.13; // melodía suave detrás de tu voz
+        const voz =
+            document.getElementById(
+                'vozIntro'
+            );
 
-      video.onended = () => {
-        video.src = VIDEO_2;
-        video.onloadedmetadata = () => {
-          video.currentTime = Math.min(INICIO_VIDEO_2, Math.max(0, video.duration - 0.1));
-          video.play().catch(() => {});
+        const melodia =
+            document.getElementById(
+                'melodiaIntro'
+            );
+
+
+        introActiva = false;
+
+        terminandoIntro = false;
+
+        videoIntroActual = 1;
+
+
+        video.pause();
+
+        voz.pause();
+
+        melodia.pause();
+
+
+        video.onended = null;
+
+        video.onloadedmetadata = null;
+
+        voz.onended = null;
+
+
+        video.muted = true;
+
+
+        video.src =
+            VIDEO_1;
+
+
+        video.currentTime = 0;
+
+        voz.currentTime = 0;
+
+        melodia.currentTime = 0;
+
+
+        voz.volume =
+            VOLUMEN_VOZ;
+
+        melodia.volume =
+            VOLUMEN_MELODIA;
+
+
+        document
+            .getElementById(
+                'introAlbum'
+            )
+            .classList
+            .remove(
+                'saliendo'
+            );
+
+
+        /*
+         * Lo importante:
+         * LA VOZ decide cuándo
+         * termina la intro.
+         */
+
+        voz.onended = () => {
+
+            finalizarIntroSuavemente();
+
         };
-        video.onended = terminarIntro;
-      };
+
     }
+
+
+    /* ==========================================
+       ALTERNAR VIDEOS
+    =========================================== */
+
+    function reproducirVideoIntro(
+        numero
+    ) {
+
+        if (!introActiva) {
+            return;
+        }
+
+
+        const video =
+            document.getElementById(
+                'videoIntro'
+            );
+
+        const voz =
+            document.getElementById(
+                'vozIntro'
+            );
+
+
+        /*
+         * Si la voz ya terminó,
+         * cerramos la intro.
+         */
+
+        if (voz.ended) {
+
+            finalizarIntroSuavemente();
+
+            return;
+
+        }
+
+
+        video.pause();
+
+
+        video.onloadedmetadata =
+            null;
+
+        video.onended =
+            null;
+
+
+        videoIntroActual =
+            numero;
+
+
+        /*
+         * VIDEO 1
+         */
+
+        if (numero === 1) {
+
+
+            video.src =
+                VIDEO_1;
+
+
+            video.onloadedmetadata =
+                () => {
+
+
+                    if (!introActiva) {
+                        return;
+                    }
+
+
+                    video.currentTime =
+                        0;
+
+
+                    video
+                        .play()
+                        .catch(
+                            () => {}
+                        );
+
+                };
+
+
+            /*
+             * Cuando termina
+             * video 1,
+             * empieza video 2.
+             */
+
+            video.onended =
+                () => {
+
+
+                    if (
+                        introActiva
+                    ) {
+
+                        reproducirVideoIntro(
+                            2
+                        );
+
+                    }
+
+                };
+
+
+        }
+
+        /*
+         * VIDEO 2
+         */
+
+        else {
+
+
+            video.src =
+                VIDEO_2;
+
+
+            video.onloadedmetadata =
+                () => {
+
+
+                    if (!introActiva) {
+                        return;
+                    }
+
+
+                    video.currentTime =
+                        Math.min(
+
+                            INICIO_VIDEO_2,
+
+                            Math.max(
+                                0,
+                                video.duration - 0.1
+                            )
+
+                        );
+
+
+                    video
+                        .play()
+                        .catch(
+                            () => {}
+                        );
+
+                };
+
+
+            /*
+             * Cuando termina
+             * video 2,
+             * volvemos al video 1.
+             */
+
+            video.onended =
+                () => {
+
+
+                    if (
+                        introActiva
+                    ) {
+
+                        reproducirVideoIntro(
+                            1
+                        );
+
+                    }
+
+                };
+
+        }
+
+
+        video.load();
+
+    }
+
+
+    /* ==========================================
+       ARRANCAR INTRO
+    =========================================== */
 
     async function arrancarIntro() {
-      const video = document.getElementById('videoIntro');
-      const voz = document.getElementById('vozIntro');
-      const melodia = document.getElementById('melodiaIntro');
-      document.getElementById('introInicio').style.display = 'none';
-      document.getElementById('tocaSonidoIntro').style.display = 'none';
 
-      try {
-        await Promise.all([voz.play(), melodia.play()]);
-        await video.play();
-        return true;
-      } catch (err) {
-        video.pause(); voz.pause(); melodia.pause();
-        video.currentTime = 0; voz.currentTime = 0; melodia.currentTime = 0;
-        return false;
-      }
+
+        const video =
+            document.getElementById(
+                'videoIntro'
+            );
+
+
+        const voz =
+            document.getElementById(
+                'vozIntro'
+            );
+
+
+        const melodia =
+            document.getElementById(
+                'melodiaIntro'
+            );
+
+
+        document
+            .getElementById(
+                'introInicio'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'tocaSonidoIntro'
+            )
+            .style
+            .display =
+            'none';
+
+
+        try {
+
+
+            introActiva =
+                true;
+
+
+            voz.volume =
+                VOLUMEN_VOZ;
+
+
+            melodia.volume =
+                VOLUMEN_MELODIA;
+
+
+            /*
+             * Primero arrancamos
+             * voz y música.
+             */
+
+            await Promise.all([
+
+                voz.play(),
+
+                melodia.play()
+
+            ]);
+
+
+            /*
+             * Después empieza
+             * el video.
+             */
+
+            await video.play();
+
+
+            /*
+             * Cuando termina
+             * el primer video,
+             * empieza el segundo.
+             */
+
+            video.onended =
+                () => {
+
+
+                    if (
+                        introActiva
+                    ) {
+
+                        reproducirVideoIntro(
+                            2
+                        );
+
+                    }
+
+                };
+
+
+            return true;
+
+
+        }
+
+        catch (err) {
+
+
+            console.log(
+                'El navegador bloqueó el autoplay:',
+                err
+            );
+
+
+            introActiva =
+                false;
+
+
+            video.pause();
+
+            voz.pause();
+
+            melodia.pause();
+
+
+            video.currentTime =
+                0;
+
+            voz.currentTime =
+                0;
+
+            melodia.currentTime =
+                0;
+
+
+            return false;
+
+        }
+
     }
+
+
+    /* ==========================================
+       INTENTAR AUTOPLAY
+    =========================================== */
 
     async function iniciarIntro() {
-      prepararIntroDesdeCero();
-      const ok = await arrancarIntro();
-      if (!ok) {
-        // Chrome/Safari suelen bloquear audio automático. Así la intro NO avanza sin tu voz.
-        document.getElementById('introInicio').style.display = 'flex';
-        document.getElementById('tocaSonidoIntro').style.display = 'none';
-      }
+
+
+        prepararIntroDesdeCero();
+
+
+        const ok =
+            await arrancarIntro();
+
+
+        /*
+         * Si Chrome / Safari
+         * bloquea el sonido,
+         * mostramos un botón.
+         */
+
+        if (!ok) {
+
+
+            document
+                .getElementById(
+                    'introInicio'
+                )
+                .style
+                .display =
+                'flex';
+
+
+            document
+                .getElementById(
+                    'tocaSonidoIntro'
+                )
+                .style
+                .display =
+                'none';
+
+        }
+
     }
+
+
+    /* ==========================================
+       BOTÓN COMENZAR
+    =========================================== */
 
     async function comenzarIntroConSonido() {
-      // Esta función nace de un toque/clic, por lo que el navegador ya permite reproducir sonido.
-      prepararIntroDesdeCero();
-      const ok = await arrancarIntro();
-      if (!ok) {
-        document.getElementById('introInicio').style.display = 'flex';
-        document.getElementById('tocaSonidoIntro').style.display = 'block';
-      }
+
+
+        prepararIntroDesdeCero();
+
+
+        const ok =
+            await arrancarIntro();
+
+
+        if (!ok) {
+
+
+            document
+                .getElementById(
+                    'introInicio'
+                )
+                .style
+                .display =
+                'flex';
+
+
+            document
+                .getElementById(
+                    'tocaSonidoIntro'
+                )
+                .style
+                .display =
+                'block';
+
+        }
+
     }
 
-    function forzarSonidoIntro() { comenzarIntroConSonido(); }
-    function omitirIntro() { terminarIntro(); }
+
+    function forzarSonidoIntro() {
+
+        comenzarIntroConSonido();
+
+    }
+
+
+    /* ==========================================
+       FINAL SUAVE
+    =========================================== */
+
+    function finalizarIntroSuavemente() {
+
+
+        if (terminandoIntro) {
+            return;
+        }
+
+
+        terminandoIntro =
+            true;
+
+
+        introActiva =
+            false;
+
+
+        const melodia =
+            document.getElementById(
+                'melodiaIntro'
+            );
+
+
+        const intro =
+            document.getElementById(
+                'introAlbum'
+            );
+
+
+        /*
+         * La pantalla se desvanece.
+         */
+
+        intro
+            .classList
+            .add(
+                'saliendo'
+            );
+
+
+        /*
+         * La canción también
+         * va bajando.
+         */
+
+        const volumenInicial =
+            melodia.volume;
+
+
+        const duracionFade =
+            1200;
+
+
+        const intervalo =
+            50;
+
+
+        const pasos =
+            duracionFade /
+            intervalo;
+
+
+        let paso =
+            0;
+
+
+        const fade =
+            setInterval(
+
+                () => {
+
+
+                    paso++;
+
+
+                    melodia.volume =
+                        Math.max(
+
+                            0,
+
+                            volumenInicial *
+                            (
+                                1 -
+                                paso /
+                                pasos
+                            )
+
+                        );
+
+
+                    if (
+                        paso >=
+                        pasos
+                    ) {
+
+
+                        clearInterval(
+                            fade
+                        );
+
+
+                        melodia.volume =
+                            VOLUMEN_MELODIA;
+
+
+                        terminarIntro();
+
+                    }
+
+
+                },
+
+                intervalo
+
+            );
+
+    }
+
+
+    /* ==========================================
+       OMITIR
+    =========================================== */
+
+    function omitirIntro() {
+
+        terminarIntro();
+
+    }
+
+
+    /* ==========================================
+       CERRAR INTRO
+    =========================================== */
 
     function terminarIntro() {
-      const video = document.getElementById('videoIntro');
-      const voz = document.getElementById('vozIntro');
-      const melodia = document.getElementById('melodiaIntro');
-      video.pause();
-      voz.pause();
-      melodia.pause();
-      document.getElementById('introAlbum').style.display = 'none';
-      document.getElementById('introInicio').style.display = 'none';
-      document.getElementById('btnOmitirIntro').style.display = 'none';
-      document.getElementById('tocaSonidoIntro').style.display = 'none';
-      if (typeof auth !== 'undefined' && auth.currentUser) {
-        setTimeout(() => iniciarTutorialAlbum(false), 420);
-      }
+
+
+        const video =
+            document.getElementById(
+                'videoIntro'
+            );
+
+
+        const voz =
+            document.getElementById(
+                'vozIntro'
+            );
+
+
+        const melodia =
+            document.getElementById(
+                'melodiaIntro'
+            );
+
+
+        introActiva =
+            false;
+
+
+        terminandoIntro =
+            false;
+
+
+        video.pause();
+
+        voz.pause();
+
+        melodia.pause();
+
+
+        voz.volume =
+            VOLUMEN_VOZ;
+
+
+        melodia.volume =
+            VOLUMEN_MELODIA;
+
+
+        const intro =
+            document.getElementById(
+                'introAlbum'
+            );
+
+
+        intro.style.display =
+            'none';
+
+
+        intro.style.opacity =
+            '1';
+
+
+        intro
+            .classList
+            .remove(
+                'saliendo'
+            );
+
+
+        document
+            .getElementById(
+                'introInicio'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'btnOmitirIntro'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'tocaSonidoIntro'
+            )
+            .style
+            .display =
+            'none';
+
+
+        /*
+         * Al terminar la intro,
+         * podemos mostrar
+         * el tutorial.
+         */
+
+        if (
+            typeof auth !==
+            'undefined' &&
+            auth.currentUser
+        ) {
+
+
+            setTimeout(
+
+                () =>
+                    iniciarTutorialAlbum(
+                        false
+                    ),
+
+                420
+
+            );
+
+        }
+
     }
+
+
+    /* ==========================================
+       MOSTRAR INTRO
+    =========================================== */
 
     function mostrarIntroInicial() {
-      document.getElementById('introAlbum').style.display = 'flex';
-      document.getElementById('btnOmitirIntro').style.display = 'block';
-      iniciarIntro();
+
+
+        const intro =
+            document.getElementById(
+                'introAlbum'
+            );
+
+
+        intro.style.display =
+            'flex';
+
+
+        intro.style.opacity =
+            '1';
+
+
+        intro
+            .classList
+            .remove(
+                'saliendo'
+            );
+
+
+        document
+            .getElementById(
+                'btnOmitirIntro'
+            )
+            .style
+            .display =
+            'block';
+
+
+        iniciarIntro();
+
     }
+
 
     function verIntroDeNuevo() {
-      mostrarIntroInicial();
+
+        mostrarIntroInicial();
+
     }
 
-    function animarEntrada(el) {
-      el.classList.remove('transicion');
-      void el.offsetWidth;
-      el.classList.add('transicion');
+
+    /* ==========================================
+       ANIMACIONES
+    =========================================== */
+
+    function animarEntrada(
+        el
+    ) {
+
+
+        el
+            .classList
+            .remove(
+                'transicion'
+            );
+
+
+        void el.offsetWidth;
+
+
+        el
+            .classList
+            .add(
+                'transicion'
+            );
+
     }
 
-    const CORREO_ADMIN = "palrom2006@gmail.com";
-    const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00');
+
+    /* ==========================================
+       CONFIGURACIÓN
+    =========================================== */
+
+    const CORREO_ADMIN =
+        "palrom2006@gmail.com";
+
+
+    const FECHA_DESBLOQUEO =
+        new Date(
+            '2026-08-09T00:00:00-05:00'
+        );
+
 
     function horaEcuadorAhora() {
-      return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Guayaquil' }));
+
+
+        return new Date(
+
+            new Date()
+                .toLocaleString(
+                    'en-US',
+                    {
+                        timeZone:
+                            'America/Guayaquil'
+                    }
+                )
+
+        );
+
     }
 
-    let esAdmin = false;
-    let carpetaAbiertaId = null;
-    let carpetaAbiertaNombre = null;
-    let carpetaAbiertaDescripcion = '';
-    let carpetaAbiertaMusica = null;
+
+    let esAdmin =
+        false;
+
+
+    let carpetaAbiertaId =
+        null;
+
+
+    let carpetaAbiertaNombre =
+        null;
+
+
+    let carpetaAbiertaDescripcion =
+        '';
+
+
+    let carpetaAbiertaMusica =
+        null;
+
+
+    /* ==========================================
+       BLOQUEO POR FECHA
+    =========================================== */
 
     function revisarBloqueo() {
-      if (esAdmin) { document.getElementById('bloqueado').style.display = 'none'; return true; }
-      const ahora = horaEcuadorAhora();
-      if (ahora >= FECHA_DESBLOQUEO) {
-        document.getElementById('bloqueado').style.display = 'none';
-        return true;
-      } else {
-        document.getElementById('bloqueado').style.display = 'block';
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('app').style.display = 'none';
-        const diff = FECHA_DESBLOQUEO - ahora;
-        const dias = Math.floor(diff / (1000*60*60*24));
-        const horas = Math.floor((diff / (1000*60*60)) % 24);
-        const minutos = Math.floor((diff / (1000*60)) % 60);
-        const segundos = Math.floor((diff / 1000) % 60);
-        document.getElementById('cuenta').textContent =
-          String(dias).padStart(2,'0') + ':' + String(horas).padStart(2,'0') + ':' +
-          String(minutos).padStart(2,'0') + ':' + String(segundos).padStart(2,'0');
-        return false;
-      }
+
+
+        if (esAdmin) {
+
+
+            document
+                .getElementById(
+                    'bloqueado'
+                )
+                .style
+                .display =
+                'none';
+
+
+            return true;
+
+        }
+
+
+        const ahora =
+            horaEcuadorAhora();
+
+
+        if (
+            ahora >=
+            FECHA_DESBLOQUEO
+        ) {
+
+
+            document
+                .getElementById(
+                    'bloqueado'
+                )
+                .style
+                .display =
+                'none';
+
+
+            return true;
+
+        }
+
+
+        else {
+
+
+            document
+                .getElementById(
+                    'bloqueado'
+                )
+                .style
+                .display =
+                'block';
+
+
+            document
+                .getElementById(
+                    'login'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'app'
+                )
+                .style
+                .display =
+                'none';
+
+
+            const diff =
+                FECHA_DESBLOQUEO -
+                ahora;
+
+
+            const dias =
+                Math.floor(
+                    diff /
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                );
+
+
+            const horas =
+                Math.floor(
+                    (
+                        diff /
+                        (
+                            1000 *
+                            60 *
+                            60
+                        )
+                    ) % 24
+                );
+
+
+            const minutos =
+                Math.floor(
+                    (
+                        diff /
+                        (
+                            1000 *
+                            60
+                        )
+                    ) % 60
+                );
+
+
+            const segundos =
+                Math.floor(
+                    (
+                        diff /
+                        1000
+                    ) % 60
+                );
+
+
+            document
+                .getElementById(
+                    'cuenta'
+                )
+                .textContent =
+
+                String(dias)
+                    .padStart(
+                        2,
+                        '0'
+                    )
+
+                +
+
+                ':'
+
+                +
+
+                String(horas)
+                    .padStart(
+                        2,
+                        '0'
+                    )
+
+                +
+
+                ':'
+
+                +
+
+                String(minutos)
+                    .padStart(
+                        2,
+                        '0'
+                    )
+
+                +
+
+                ':'
+
+                +
+
+                String(segundos)
+                    .padStart(
+                        2,
+                        '0'
+                    );
+
+
+            return false;
+
+        }
+
     }
+
+
+    /* ==========================================
+       FIREBASE
+    =========================================== */
 
     const firebaseConfig = {
-      apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
-      authDomain: "album-novia-af9cf.firebaseapp.com",
-      projectId: "album-novia-af9cf",
-      storageBucket: "album-novia-af9cf.firebasestorage.app",
-      messagingSenderId: "560485716923",
-      appId: "1:560485716923:web:8c2a53f3de42bb3dde2a9e"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-    const db = firebase.firestore();
 
-    const CLOUD_NAME = "nrfykjzk";
-    const UPLOAD_PRESET = "album-novia";
+        apiKey:
+            "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
+
+        authDomain:
+            "album-novia-af9cf.firebaseapp.com",
+
+        projectId:
+            "album-novia-af9cf",
+
+        storageBucket:
+            "album-novia-af9cf.firebasestorage.app",
+
+        messagingSenderId:
+            "560485716923",
+
+        appId:
+            "1:560485716923:web:8c2a53f3de42bb3dde2a9e"
+
+    };
+
+
+    firebase.initializeApp(
+        firebaseConfig
+    );
+
+
+    const auth =
+        firebase.auth();
+
+
+    auth.setPersistence(
+        firebase
+            .auth
+            .Auth
+            .Persistence
+            .SESSION
+    );
+
+
+    const db =
+        firebase.firestore();
+
+
+    const CLOUD_NAME =
+        "nrfykjzk";
+
+
+    const UPLOAD_PRESET =
+        "album-novia";
+
+
+    /* ==========================================
+       LOGIN
+    =========================================== */
 
     function iniciarSesion() {
-      const correo = document.getElementById('correo').value;
-      const clave = document.getElementById('clave').value;
-      auth.signInWithEmailAndPassword(correo, clave)
-        .catch(err => { document.getElementById('estado').textContent = "correo o contraseña incorrectos"; });
+
+
+        const correo =
+            document
+                .getElementById(
+                    'correo'
+                )
+                .value;
+
+
+        const clave =
+            document
+                .getElementById(
+                    'clave'
+                )
+                .value;
+
+
+        auth
+            .signInWithEmailAndPassword(
+                correo,
+                clave
+            )
+            .catch(
+                () => {
+
+                    document
+                        .getElementById(
+                            'estado'
+                        )
+                        .textContent =
+                        "correo o contraseña incorrectos";
+
+                }
+            );
+
     }
 
-    function cerrarSesion() { auth.signOut(); }
 
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        esAdmin = (user.email && user.email.toLowerCase() === CORREO_ADMIN.toLowerCase());
-        const desbloqueado = revisarBloqueo();
-        if (desbloqueado) {
-          document.getElementById('login').style.display = 'none';
-          document.getElementById('app').style.display = 'block';
-          animarEntrada(document.getElementById('app'));
-          document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
-          document.getElementById('accionesCarpetaAdmin').style.display = esAdmin ? 'flex' : 'none';
-          volverACarpetas();
-          cargarCarpetas();
-          cargarGaleria('flores', 'galeriaFlores');
-          cargarGaleria('cartasfisicas', 'galeriaCF');
-          RomanticApp.escucharActividad(db, auth);
-          mostrarIntroInicial();
-        } else {
-          terminarIntro();
-          document.getElementById('login').style.display = 'none';
-          document.getElementById('app').style.display = 'none';
+    function cerrarSesion() {
+
+        auth.signOut();
+
+    }
+
+
+    /* ==========================================
+       USUARIO
+    =========================================== */
+
+    auth.onAuthStateChanged(
+
+        user => {
+
+
+            if (user) {
+
+
+                esAdmin =
+                    (
+                        user.email &&
+                        user.email
+                            .toLowerCase()
+                        ===
+                        CORREO_ADMIN
+                            .toLowerCase()
+                    );
+
+
+                const desbloqueado =
+                    revisarBloqueo();
+
+
+                if (desbloqueado) {
+
+
+                    document
+                        .getElementById(
+                            'login'
+                        )
+                        .style
+                        .display =
+                        'none';
+
+
+                    document
+                        .getElementById(
+                            'app'
+                        )
+                        .style
+                        .display =
+                        'block';
+
+
+                    animarEntrada(
+
+                        document
+                            .getElementById(
+                                'app'
+                            )
+
+                    );
+
+
+                    document
+                        .getElementById(
+                            'avisoAdmin'
+                        )
+                        .textContent =
+
+                        esAdmin
+
+                            ?
+
+                            'viendo antes de tiempo 👀'
+
+                            :
+
+                            '';
+
+
+                    document
+                        .getElementById(
+                            'accionesCarpetaAdmin'
+                        )
+                        .style
+                        .display =
+
+                        esAdmin
+
+                            ?
+
+                            'flex'
+
+                            :
+
+                            'none';
+
+
+                    volverACarpetas();
+
+
+                    cargarCarpetas();
+
+
+                    cargarGaleria(
+                        'flores',
+                        'galeriaFlores'
+                    );
+
+
+                    cargarGaleria(
+                        'cartasfisicas',
+                        'galeriaCF'
+                    );
+
+
+                    if (
+                        window.RomanticApp
+                    ) {
+
+                        RomanticApp
+                            .escucharActividad(
+                                db,
+                                auth
+                            );
+
+                    }
+
+
+                    mostrarIntroInicial();
+
+                }
+
+
+                else {
+
+
+                    terminarIntro();
+
+
+                    document
+                        .getElementById(
+                            'login'
+                        )
+                        .style
+                        .display =
+                        'none';
+
+
+                    document
+                        .getElementById(
+                            'app'
+                        )
+                        .style
+                        .display =
+                        'none';
+
+                }
+
+            }
+
+
+            else {
+
+
+                esAdmin =
+                    false;
+
+
+                document
+                    .getElementById(
+                        'introAlbum'
+                    )
+                    .style
+                    .display =
+                    'none';
+
+
+                document
+                    .getElementById(
+                        'introInicio'
+                    )
+                    .style
+                    .display =
+                    'none';
+
+
+                document
+                    .getElementById(
+                        'btnOmitirIntro'
+                    )
+                    .style
+                    .display =
+                    'none';
+
+
+                document
+                    .getElementById(
+                        'bloqueado'
+                    )
+                    .style
+                    .display =
+                    'none';
+
+
+                document
+                    .getElementById(
+                        'app'
+                    )
+                    .style
+                    .display =
+                    'none';
+
+
+                document
+                    .getElementById(
+                        'login'
+                    )
+                    .style
+                    .display =
+                    'block';
+
+
+                animarEntrada(
+
+                    document
+                        .getElementById(
+                            'login'
+                        )
+
+                );
+
+            }
+
         }
-      } else {
-        esAdmin = false;
-        document.getElementById('introAlbum').style.display = 'none';
-        document.getElementById('introInicio').style.display = 'none';
-        document.getElementById('btnOmitirIntro').style.display = 'none';
-        document.getElementById('bloqueado').style.display = 'none';
-        document.getElementById('app').style.display = 'none';
-        document.getElementById('login').style.display = 'block';
-        animarEntrada(document.getElementById('login'));
-      }
-    });
 
-    // ================= TUTORIAL (solo la primera vez por cuenta/dispositivo) =================
-    let tutorialActivo = false;
-    let tutorialIndice = 0;
+    );
+
+
+    /* ==========================================
+       TUTORIAL
+    =========================================== */
+
+    let tutorialActivo =
+        false;
+
+
+    let tutorialIndice =
+        0;
+
 
     function claveTutorial() {
-      return 'albumTutorialV2:' + (auth.currentUser ? auth.currentUser.uid : 'sinusuario');
+
+
+        return (
+
+            'albumTutorialV2:'
+
+            +
+
+            (
+                auth.currentUser
+
+                    ?
+
+                    auth.currentUser.uid
+
+                    :
+
+                    'sinusuario'
+            )
+
+        );
+
     }
+
 
     const PASOS_TUTORIAL = [
-      { selector: '#nombreCarpeta', texto: 'Primero crea tu propia carpeta. Ponle un nombre que tenga sentido para ustedes: una fecha, un viaje, un recuerdo…' },
-      { selector: '#descripcionCarpeta', texto: 'Aquí puedes escribir unas palabras para acompañar la carpeta. Es opcional, pero aparecerá dentro de la experiencia.' },
-      { selector: '#btnCrearCarpeta', texto: 'Cuando estés lista, toca “Crear carpeta”. Yo esperaré aquí y continuaré automáticamente cuando la crees.', espera: true },
-      { selector: '#labelFotos', texto: 'Perfecto 💜. Ahora entra la parte bonita: toca aquí y elige una o varias fotos para esta carpeta.' },
-      { selector: '#btnSubirFotos', texto: 'Después toca “Subir”. Cuando termine la primera subida, el tutorial quedará completado.', espera: true }
+
+
+        {
+
+            selector:
+                '#nombreCarpeta',
+
+            texto:
+                'Primero crea tu propia carpeta. Ponle un nombre que tenga sentido para ustedes: una fecha, un viaje, un recuerdo…'
+
+        },
+
+
+        {
+
+            selector:
+                '#descripcionCarpeta',
+
+            texto:
+                'Aquí puedes escribir unas palabras para acompañar la carpeta. Es opcional, pero aparecerá dentro de la experiencia.'
+
+        },
+
+
+        {
+
+            selector:
+                '#btnCrearCarpeta',
+
+            texto:
+                'Cuando estés lista, toca “Crear carpeta”. Yo esperaré aquí y continuaré automáticamente cuando la crees.',
+
+            espera:
+                true
+
+        },
+
+
+        {
+
+            selector:
+                '#labelFotos',
+
+            texto:
+                'Perfecto 💜. Ahora entra la parte bonita: toca aquí y elige una o varias fotos para esta carpeta.'
+
+        },
+
+
+        {
+
+            selector:
+                '#btnSubirFotos',
+
+            texto:
+                'Después toca “Subir”. Cuando termine la primera subida, el tutorial quedará completado.',
+
+            espera:
+                true
+
+        }
+
     ];
 
+
     function limpiarFocoTutorial() {
-      document.querySelectorAll('.tutorial-focus').forEach(el => el.classList.remove('tutorial-focus'));
+
+
+        document
+            .querySelectorAll(
+                '.tutorial-focus'
+            )
+            .forEach(
+
+                el =>
+                    el.classList.remove(
+                        'tutorial-focus'
+                    )
+
+            );
+
     }
 
-    function posicionarTutorial(target) {
-      const caja = document.getElementById('tutorialAlbum');
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setTimeout(() => {
-        const r = target.getBoundingClientRect();
-        const ancho = Math.min(360, window.innerWidth - 28);
-        const left = Math.max(14, Math.min(window.innerWidth - ancho - 14, r.left + r.width / 2 - ancho / 2));
-        let top = r.bottom + 16;
-        let flecha = '⬆️';
-        if (top + 190 > window.innerHeight) {
-          top = Math.max(14, r.top - 190);
-          flecha = '⬇️';
-        }
-        caja.style.left = left + 'px';
-        caja.style.top = top + 'px';
-        document.getElementById('tutorialFlecha').textContent = flecha;
-      }, 260);
+
+    function posicionarTutorial(
+        target
+    ) {
+
+
+        const caja =
+            document
+                .getElementById(
+                    'tutorialAlbum'
+                );
+
+
+        target.scrollIntoView({
+
+            behavior:
+                'smooth',
+
+            block:
+                'center'
+
+        });
+
+
+        setTimeout(
+
+            () => {
+
+
+                const r =
+                    target
+                        .getBoundingClientRect();
+
+
+                const ancho =
+                    Math.min(
+
+                        360,
+
+                        window.innerWidth -
+                        28
+
+                    );
+
+
+                const left =
+                    Math.max(
+
+                        14,
+
+                        Math.min(
+
+                            window.innerWidth -
+                            ancho -
+                            14,
+
+                            r.left +
+                            r.width /
+                            2 -
+                            ancho /
+                            2
+
+                        )
+
+                    );
+
+
+                let top =
+                    r.bottom +
+                    16;
+
+
+                let flecha =
+                    '⬆️';
+
+
+                if (
+                    top + 190 >
+                    window.innerHeight
+                ) {
+
+
+                    top =
+                        Math.max(
+
+                            14,
+
+                            r.top -
+                            190
+
+                        );
+
+
+                    flecha =
+                        '⬇️';
+
+                }
+
+
+                caja.style.left =
+                    left +
+                    'px';
+
+
+                caja.style.top =
+                    top +
+                    'px';
+
+
+                document
+                    .getElementById(
+                        'tutorialFlecha'
+                    )
+                    .textContent =
+                    flecha;
+
+
+            },
+
+            260
+
+        );
+
     }
+
 
     function mostrarPasoTutorial() {
-      if (!tutorialActivo) return;
-      limpiarFocoTutorial();
-      const paso = PASOS_TUTORIAL[tutorialIndice];
-      if (!paso) { completarTutorialAlbum(); return; }
-      const target = document.querySelector(paso.selector);
-      if (!target) return;
-      target.classList.add('tutorial-focus');
-      const caja = document.getElementById('tutorialAlbum');
-      caja.style.display = 'block';
-      document.getElementById('tutorialPaso').textContent = `paso ${tutorialIndice + 1} de ${PASOS_TUTORIAL.length}`;
-      document.getElementById('tutorialTexto').textContent = paso.texto;
-      document.getElementById('tutorialSiguiente').style.display = paso.espera ? 'none' : 'block';
-      posicionarTutorial(target);
+
+
+        if (!tutorialActivo) {
+            return;
+        }
+
+
+        limpiarFocoTutorial();
+
+
+        const paso =
+            PASOS_TUTORIAL[
+                tutorialIndice
+            ];
+
+
+        if (!paso) {
+
+
+            completarTutorialAlbum();
+
+            return;
+
+        }
+
+
+        const target =
+            document
+                .querySelector(
+                    paso.selector
+                );
+
+
+        if (!target) {
+            return;
+        }
+
+
+        target
+            .classList
+            .add(
+                'tutorial-focus'
+            );
+
+
+        const caja =
+            document
+                .getElementById(
+                    'tutorialAlbum'
+                );
+
+
+        caja.style.display =
+            'block';
+
+
+        document
+            .getElementById(
+                'tutorialPaso'
+            )
+            .textContent =
+
+            `paso ${
+                tutorialIndice + 1
+            } de ${
+                PASOS_TUTORIAL.length
+            }`;
+
+
+        document
+            .getElementById(
+                'tutorialTexto'
+            )
+            .textContent =
+            paso.texto;
+
+
+        document
+            .getElementById(
+                'tutorialSiguiente'
+            )
+            .style
+            .display =
+
+            paso.espera
+
+                ?
+
+                'none'
+
+                :
+
+                'block';
+
+
+        posicionarTutorial(
+            target
+        );
+
     }
 
-    function iniciarTutorialAlbum(forzado = false) {
-      if (!auth.currentUser || document.getElementById('app').style.display === 'none') return;
-      if (!forzado && esAdmin) return; // ella lo ve automáticamente; tú puedes probarlo con el botón “ver tutorial”
-      if (!forzado && localStorage.getItem(claveTutorial()) === 'ok') return;
-      volverACarpetas();
-      tutorialActivo = true;
-      tutorialIndice = 0;
-      mostrarPasoTutorial();
+
+    function iniciarTutorialAlbum(
+        forzado = false
+    ) {
+
+
+        if (
+            !auth.currentUser
+        ) {
+            return;
+        }
+
+
+        if (
+            document
+                .getElementById(
+                    'app'
+                )
+                .style
+                .display
+            ===
+            'none'
+        ) {
+            return;
+        }
+
+
+        /*
+         * Tú como admin no lo ves
+         * automáticamente,
+         * pero puedes probarlo
+         * con el botón.
+         */
+
+        if (
+            !forzado &&
+            esAdmin
+        ) {
+            return;
+        }
+
+
+        /*
+         * Solo una vez
+         * para ella.
+         */
+
+        if (
+            !forzado &&
+            localStorage
+                .getItem(
+                    claveTutorial()
+                )
+            ===
+            'ok'
+        ) {
+            return;
+        }
+
+
+        volverACarpetas();
+
+
+        tutorialActivo =
+            true;
+
+
+        tutorialIndice =
+            0;
+
+
+        mostrarPasoTutorial();
+
     }
+
 
     function siguienteTutorialAlbum() {
-      if (!tutorialActivo) return;
-      const paso = PASOS_TUTORIAL[tutorialIndice];
-      if (paso && paso.espera) return;
-      tutorialIndice++;
-      mostrarPasoTutorial();
+
+
+        if (!tutorialActivo) {
+            return;
+        }
+
+
+        const paso =
+            PASOS_TUTORIAL[
+                tutorialIndice
+            ];
+
+
+        if (
+            paso &&
+            paso.espera
+        ) {
+            return;
+        }
+
+
+        tutorialIndice++;
+
+
+        mostrarPasoTutorial();
+
     }
+
 
     function omitirTutorialAlbum() {
-      localStorage.setItem(claveTutorial(), 'ok');
-      tutorialActivo = false;
-      limpiarFocoTutorial();
-      document.getElementById('tutorialAlbum').style.display = 'none';
+
+
+        localStorage.setItem(
+
+            claveTutorial(),
+
+            'ok'
+
+        );
+
+
+        tutorialActivo =
+            false;
+
+
+        limpiarFocoTutorial();
+
+
+        document
+            .getElementById(
+                'tutorialAlbum'
+            )
+            .style
+            .display =
+            'none';
+
     }
+
 
     function completarTutorialAlbum() {
-      localStorage.setItem(claveTutorial(), 'ok');
-      tutorialActivo = false;
-      limpiarFocoTutorial();
-      document.getElementById('tutorialAlbum').style.display = 'none';
-      RomanticApp.mostrarToast('💜 Listo. Ya sabes crear carpetas y guardar fotos aquí.');
-    }
 
-    setInterval(() => { if (auth.currentUser && !esAdmin) revisarBloqueo(); }, 1000);
 
-    function mostrar(id, el) {
-      document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
-      const sec = document.getElementById('sec-' + id);
-      sec.classList.add('activa');
-      animarEntrada(sec);
-      el.classList.add('activo');
-    }
+        localStorage.setItem(
 
-    async function subirACloudinary(archivo) {
-      const formData = new FormData();
-      formData.append('file', archivo);
-      formData.append('upload_preset', UPLOAD_PRESET);
-      try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
-        const data = await res.json();
-        if (!res.ok || !data.secure_url) {
-          console.error('Error de Cloudinary:', data);
-          alert('no se pudo subir "' + archivo.name + '": ' + (data.error ? data.error.message : 'error desconocido'));
-          return null;
+            claveTutorial(),
+
+            'ok'
+
+        );
+
+
+        tutorialActivo =
+            false;
+
+
+        limpiarFocoTutorial();
+
+
+        document
+            .getElementById(
+                'tutorialAlbum'
+            )
+            .style
+            .display =
+            'none';
+
+
+        if (
+            window.RomanticApp
+        ) {
+
+            RomanticApp
+                .mostrarToast(
+                    '💜 Listo. Ya sabes crear carpetas y guardar fotos aquí.'
+                );
+
         }
-        return data.secure_url;
-      } catch (err) {
-        console.error('Error de red al subir:', err);
-        alert('fallo de conexión subiendo "' + archivo.name + '"');
-        return null;
-      }
+
     }
 
-    async function subirAudioACloudinary(archivo) {
-      const formData = new FormData();
-      formData.append('file', archivo);
-      formData.append('upload_preset', UPLOAD_PRESET);
-      try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
-        const data = await res.json();
-        if (!res.ok || !data.secure_url) {
-          console.error('Error subiendo audio:', data);
-          alert('no se pudo subir la música: ' + (data.error ? data.error.message : 'error desconocido'));
-          return null;
+
+    setInterval(
+
+        () => {
+
+            if (
+                auth.currentUser &&
+                !esAdmin
+            ) {
+
+                revisarBloqueo();
+
+            }
+
+        },
+
+        1000
+
+    );
+
+
+    /* ==========================================
+       TABS
+    =========================================== */
+
+    function mostrar(
+        id,
+        el
+    ) {
+
+
+        document
+            .querySelectorAll(
+                '.seccion'
+            )
+            .forEach(
+
+                s =>
+                    s.classList.remove(
+                        'activa'
+                    )
+
+            );
+
+
+        document
+            .querySelectorAll(
+                '.tab'
+            )
+            .forEach(
+
+                t =>
+                    t.classList.remove(
+                        'activo'
+                    )
+
+            );
+
+
+        const sec =
+            document
+                .getElementById(
+                    'sec-' +
+                    id
+                );
+
+
+        sec
+            .classList
+            .add(
+                'activa'
+            );
+
+
+        animarEntrada(
+            sec
+        );
+
+
+        el
+            .classList
+            .add(
+                'activo'
+            );
+
+    }
+
+
+    /* ==========================================
+       CLOUDINARY
+    =========================================== */
+
+    async function subirACloudinary(
+        archivo
+    ) {
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            'file',
+            archivo
+        );
+
+
+        formData.append(
+            'upload_preset',
+            UPLOAD_PRESET
+        );
+
+
+        try {
+
+
+            const res =
+                await fetch(
+
+                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+
+                    {
+
+                        method:
+                            'POST',
+
+                        body:
+                            formData
+
+                    }
+
+                );
+
+
+            const data =
+                await res.json();
+
+
+            if (
+                !res.ok ||
+                !data.secure_url
+            ) {
+
+
+                console.error(
+                    'Error de Cloudinary:',
+                    data
+                );
+
+
+                alert(
+
+                    'no se pudo subir "' +
+                    archivo.name +
+                    '": ' +
+                    (
+                        data.error
+
+                            ?
+
+                            data.error.message
+
+                            :
+
+                            'error desconocido'
+                    )
+
+                );
+
+
+                return null;
+
+            }
+
+
+            return data.secure_url;
+
         }
-        return data.secure_url;
-      } catch (err) {
-        alert('fallo de conexión subiendo la música');
-        return null;
-      }
+
+
+        catch (err) {
+
+
+            console.error(
+                'Error de red al subir:',
+                err
+            );
+
+
+            alert(
+
+                'fallo de conexión subiendo "' +
+                archivo.name +
+                '"'
+
+            );
+
+
+            return null;
+
+        }
+
     }
 
-    // ================= CARPETAS =================
+
+    async function subirAudioACloudinary(
+        archivo
+    ) {
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            'file',
+            archivo
+        );
+
+
+        formData.append(
+            'upload_preset',
+            UPLOAD_PRESET
+        );
+
+
+        try {
+
+
+            const res =
+                await fetch(
+
+                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`,
+
+                    {
+
+                        method:
+                            'POST',
+
+                        body:
+                            formData
+
+                    }
+
+                );
+
+
+            const data =
+                await res.json();
+
+
+            if (
+                !res.ok ||
+                !data.secure_url
+            ) {
+
+
+                console.error(
+                    'Error subiendo audio:',
+                    data
+                );
+
+
+                alert(
+
+                    'no se pudo subir la música: '
+
+                    +
+
+                    (
+                        data.error
+
+                            ?
+
+                            data.error.message
+
+                            :
+
+                            'error desconocido'
+                    )
+
+                );
+
+
+                return null;
+
+            }
+
+
+            return data.secure_url;
+
+        }
+
+
+        catch (err) {
+
+
+            alert(
+                'fallo de conexión subiendo la música'
+            );
+
+
+            return null;
+
+        }
+
+    }
+
+
+    /* ==========================================
+       CREAR CARPETA
+    =========================================== */
 
     async function crearCarpeta() {
-      const inputNombre = document.getElementById('nombreCarpeta');
-      const inputDesc = document.getElementById('descripcionCarpeta');
-      const archivoMusica = document.getElementById('musicaCarpeta').files[0];
-      const nombre = inputNombre.value.trim();
-      const descripcion = inputDesc.value.trim();
-      if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
-      let musicaUrl = null;
-      if (archivoMusica) {
-        document.getElementById('nombreMusicaCarpeta').textContent = 'subiendo música...';
-        musicaUrl = await subirAudioACloudinary(archivoMusica);
-      }
-      const ref = await db.collection('carpetas').add({ nombre, descripcion, musica: musicaUrl, fecha: Date.now() });
-      RomanticApp.registrarActividad(db, auth, 'carpeta', `Se creó una carpeta nueva: “${nombre}” 📁`, { carpetaId: ref.id });
-      inputNombre.value = '';
-      inputDesc.value = '';
-      document.getElementById('musicaCarpeta').value = '';
-      document.getElementById('nombreMusicaCarpeta').textContent = '';
-      await cargarCarpetas();
 
-      // Si ella está haciendo el tutorial, abrimos SU carpeta recién creada y seguimos con las fotos.
-      if (tutorialActivo && tutorialIndice === 2) {
-        abrirCarpeta(ref.id, nombre, descripcion, musicaUrl);
-        tutorialIndice = 3;
-        setTimeout(mostrarPasoTutorial, 450);
-      }
+
+        const inputNombre =
+            document
+                .getElementById(
+                    'nombreCarpeta'
+                );
+
+
+        const inputDesc =
+            document
+                .getElementById(
+                    'descripcionCarpeta'
+                );
+
+
+        const archivoMusica =
+            document
+                .getElementById(
+                    'musicaCarpeta'
+                )
+                .files[0];
+
+
+        const nombre =
+            inputNombre
+                .value
+                .trim();
+
+
+        const descripcion =
+            inputDesc
+                .value
+                .trim();
+
+
+        if (!nombre) {
+
+
+            alert(
+                'ponle un nombre a la carpeta'
+            );
+
+
+            return;
+
+        }
+
+
+        let musicaUrl =
+            null;
+
+
+        if (archivoMusica) {
+
+
+            document
+                .getElementById(
+                    'nombreMusicaCarpeta'
+                )
+                .textContent =
+                'subiendo música...';
+
+
+            musicaUrl =
+                await subirAudioACloudinary(
+                    archivoMusica
+                );
+
+        }
+
+
+        const ref =
+            await db
+                .collection(
+                    'carpetas'
+                )
+                .add({
+
+                    nombre:
+                        nombre,
+
+                    descripcion:
+                        descripcion,
+
+                    musica:
+                        musicaUrl,
+
+                    fecha:
+                        Date.now()
+
+                });
+
+
+        if (
+            window.RomanticApp
+        ) {
+
+
+            RomanticApp
+                .registrarActividad(
+
+                    db,
+
+                    auth,
+
+                    'carpeta',
+
+                    `Se creó una carpeta nueva: “${nombre}” 📁`,
+
+                    {
+
+                        carpetaId:
+                            ref.id
+
+                    }
+
+                );
+
+        }
+
+
+        inputNombre.value =
+            '';
+
+
+        inputDesc.value =
+            '';
+
+
+        document
+            .getElementById(
+                'musicaCarpeta'
+            )
+            .value =
+            '';
+
+
+        document
+            .getElementById(
+                'nombreMusicaCarpeta'
+            )
+            .textContent =
+            '';
+
+
+        await cargarCarpetas();
+
+
+        /*
+         * Si ella está haciendo
+         * el tutorial,
+         * abrimos automáticamente
+         * la carpeta que acaba
+         * de crear.
+         */
+
+        if (
+            tutorialActivo &&
+            tutorialIndice === 2
+        ) {
+
+
+            abrirCarpeta(
+
+                ref.id,
+
+                nombre,
+
+                descripcion,
+
+                musicaUrl
+
+            );
+
+
+            tutorialIndice =
+                3;
+
+
+            setTimeout(
+
+                mostrarPasoTutorial,
+
+                450
+
+            );
+
+        }
+
     }
+
+
+    /* ==========================================
+       CARGAR CARPETAS
+    =========================================== */
 
     async function cargarCarpetas() {
-      const contenedor = document.getElementById('listaCarpetas');
-      contenedor.innerHTML = '';
-      const snap = await db.collection('carpetas').orderBy('fecha', 'desc').get();
-      document.getElementById('vaciaCarpetas').style.display = snap.empty ? 'block' : 'none';
-      snap.forEach(doc => {
-        const c = doc.data();
-        const div = document.createElement('div');
-        div.className = 'carpeta-card';
-        div.onclick = (e) => {
-          if (e.target.closest('.carpeta-acciones')) return;
-          abrirCarpeta(doc.id, c.nombre, c.descripcion || '', c.musica || null);
-        };
-        div.innerHTML = `
-          <div class="carpeta-acciones" style="${esAdmin ? '' : 'display:none;'}">
-            <button class="icono-btn" onclick="event.stopPropagation(); renombrarCarpeta('${doc.id}')" title="renombrar">✏️</button>
-            <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarCarpeta('${doc.id}')" title="eliminar">🗑️</button>
-          </div>
-          <div class="carpeta-icono">📁</div>
-          <div class="carpeta-nombre"></div>
-          <div class="carpeta-fecha">${new Date(c.fecha).toLocaleDateString('es-EC', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
-        `;
-        div.querySelector('.carpeta-nombre').textContent = c.nombre;
-        contenedor.appendChild(div);
-      });
+
+
+        const contenedor =
+            document
+                .getElementById(
+                    'listaCarpetas'
+                );
+
+
+        contenedor.innerHTML =
+            '';
+
+
+        const snap =
+            await db
+                .collection(
+                    'carpetas'
+                )
+                .orderBy(
+                    'fecha',
+                    'desc'
+                )
+                .get();
+
+
+        document
+            .getElementById(
+                'vaciaCarpetas'
+            )
+            .style
+            .display =
+
+            snap.empty
+
+                ?
+
+                'block'
+
+                :
+
+                'none';
+
+
+        snap.forEach(
+
+            doc => {
+
+
+                const c =
+                    doc.data();
+
+
+                const div =
+                    document
+                        .createElement(
+                            'div'
+                        );
+
+
+                div.className =
+                    'carpeta-card';
+
+
+                div.onclick =
+                    e => {
+
+
+                        if (
+                            e.target.closest(
+                                '.carpeta-acciones'
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        abrirCarpeta(
+
+                            doc.id,
+
+                            c.nombre,
+
+                            c.descripcion ||
+                            '',
+
+                            c.musica ||
+                            null
+
+                        );
+
+                    };
+
+
+                div.innerHTML = `
+
+                    <div
+                        class="carpeta-acciones"
+                        style="${
+                            esAdmin
+                                ?
+                                ''
+                                :
+                                'display:none;'
+                        }">
+
+                        <button
+                            class="icono-btn"
+                            onclick="
+                                event.stopPropagation();
+                                renombrarCarpeta('${doc.id}')
+                            "
+                            title="renombrar">
+
+                            ✏️
+
+                        </button>
+
+                        <button
+                            class="icono-btn borrar"
+                            onclick="
+                                event.stopPropagation();
+                                eliminarCarpeta('${doc.id}')
+                            "
+                            title="eliminar">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+                    <div class="carpeta-icono">
+                        📁
+                    </div>
+
+                    <div class="carpeta-nombre">
+                    </div>
+
+                    <div class="carpeta-fecha">
+
+                        ${
+                            new Date(
+                                c.fecha
+                            )
+                            .toLocaleDateString(
+                                'es-EC',
+                                {
+                                    year:
+                                        'numeric',
+
+                                    month:
+                                        'short',
+
+                                    day:
+                                        'numeric'
+                                }
+                            )
+                        }
+
+                    </div>
+                `;
+
+
+                div
+                    .querySelector(
+                        '.carpeta-nombre'
+                    )
+                    .textContent =
+                    c.nombre;
+
+
+                contenedor
+                    .appendChild(
+                        div
+                    );
+
+            }
+
+        );
+
     }
 
-    async function renombrarCarpeta(id) {
-      const nuevo = prompt('nuevo nombre para la carpeta:');
-      if (!nuevo || !nuevo.trim()) return;
-      await db.collection('carpetas').doc(id).update({ nombre: nuevo.trim() });
-      cargarCarpetas();
-      if (carpetaAbiertaId === id) {
-        carpetaAbiertaNombre = nuevo.trim();
-        document.getElementById('tituloCarpetaAbierta').textContent = carpetaAbiertaNombre;
-      }
+
+    /* ==========================================
+       RENOMBRAR
+    =========================================== */
+
+    async function renombrarCarpeta(
+        id
+    ) {
+
+
+        const nuevo =
+            prompt(
+                'nuevo nombre para la carpeta:'
+            );
+
+
+        if (
+            !nuevo ||
+            !nuevo.trim()
+        ) {
+            return;
+        }
+
+
+        await db
+            .collection(
+                'carpetas'
+            )
+            .doc(
+                id
+            )
+            .update({
+
+                nombre:
+                    nuevo.trim()
+
+            });
+
+
+        cargarCarpetas();
+
+
+        if (
+            carpetaAbiertaId ===
+            id
+        ) {
+
+
+            carpetaAbiertaNombre =
+                nuevo.trim();
+
+
+            document
+                .getElementById(
+                    'tituloCarpetaAbierta'
+                )
+                .textContent =
+                carpetaAbiertaNombre;
+
+        }
+
     }
 
-    function renombrarCarpetaActual() { if (carpetaAbiertaId) renombrarCarpeta(carpetaAbiertaId); }
+
+    function renombrarCarpetaActual() {
+
+
+        if (
+            carpetaAbiertaId
+        ) {
+
+
+            renombrarCarpeta(
+                carpetaAbiertaId
+            );
+
+        }
+
+    }
+
+
+    /* ==========================================
+       DESCRIPCIÓN
+    =========================================== */
 
     async function editarDescripcionCarpeta() {
-      const nueva = prompt('descripción de esta carpeta:', carpetaAbiertaDescripcion || '');
-      if (nueva === null) return;
-      await db.collection('carpetas').doc(carpetaAbiertaId).update({ descripcion: nueva });
-      carpetaAbiertaDescripcion = nueva;
-      pintarDescripcionCarpeta();
+
+
+        const nueva =
+            prompt(
+
+                'descripción de esta carpeta:',
+
+                carpetaAbiertaDescripcion ||
+                ''
+
+            );
+
+
+        if (
+            nueva === null
+        ) {
+            return;
+        }
+
+
+        await db
+            .collection(
+                'carpetas'
+            )
+            .doc(
+                carpetaAbiertaId
+            )
+            .update({
+
+                descripcion:
+                    nueva
+
+            });
+
+
+        carpetaAbiertaDescripcion =
+            nueva;
+
+
+        pintarDescripcionCarpeta();
+
     }
+
 
     function pintarDescripcionCarpeta() {
-      const el = document.getElementById('descripcionCarpetaTexto');
-      if (carpetaAbiertaDescripcion && carpetaAbiertaDescripcion.trim()) {
-        el.textContent = carpetaAbiertaDescripcion;
-        el.classList.remove('vacio');
-      } else {
-        el.textContent = 'sin descripción todavía — toca el lápiz para agregar una';
-        el.classList.add('vacio');
-      }
+
+
+        const el =
+            document
+                .getElementById(
+                    'descripcionCarpetaTexto'
+                );
+
+
+        if (
+            carpetaAbiertaDescripcion &&
+            carpetaAbiertaDescripcion
+                .trim()
+        ) {
+
+
+            el.textContent =
+                carpetaAbiertaDescripcion;
+
+
+            el
+                .classList
+                .remove(
+                    'vacio'
+                );
+
+        }
+
+
+        else {
+
+
+            el.textContent =
+                'sin descripción todavía — toca el lápiz para agregar una';
+
+
+            el
+                .classList
+                .add(
+                    'vacio'
+                );
+
+        }
+
     }
 
-    async function eliminarCarpeta(id) {
-      if (!confirm('¿eliminar esta carpeta y quitar sus fotos de la galería? esto no se puede deshacer')) return;
-      const fotosSnap = await db.collection('fotos').where('carpetaId', '==', id).get();
-      const lotes = [];
-      fotosSnap.forEach(doc => lotes.push(doc.ref.delete()));
-      await Promise.all(lotes);
-      await db.collection('carpetas').doc(id).delete();
-      if (carpetaAbiertaId === id) volverACarpetas();
-      cargarCarpetas();
+
+    /* ==========================================
+       ELIMINAR CARPETA
+    =========================================== */
+
+    async function eliminarCarpeta(
+        id
+    ) {
+
+
+        if (
+            !confirm(
+                '¿eliminar esta carpeta y quitar sus fotos de la galería? esto no se puede deshacer'
+            )
+        ) {
+            return;
+        }
+
+
+        const fotosSnap =
+            await db
+                .collection(
+                    'fotos'
+                )
+                .where(
+                    'carpetaId',
+                    '==',
+                    id
+                )
+                .get();
+
+
+        const lotes =
+            [];
+
+
+        fotosSnap.forEach(
+
+            doc =>
+                lotes.push(
+                    doc.ref.delete()
+                )
+
+        );
+
+
+        await Promise.all(
+            lotes
+        );
+
+
+        await db
+            .collection(
+                'carpetas'
+            )
+            .doc(
+                id
+            )
+            .delete();
+
+
+        if (
+            carpetaAbiertaId ===
+            id
+        ) {
+
+
+            volverACarpetas();
+
+        }
+
+
+        cargarCarpetas();
+
     }
 
-    function eliminarCarpetaActual() { if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId); }
 
-    function abrirCarpeta(id, nombre, descripcion, musica) {
-      carpetaAbiertaId = id;
-      carpetaAbiertaNombre = nombre;
-      carpetaAbiertaDescripcion = descripcion;
-      carpetaAbiertaMusica = musica || null;
-      document.getElementById('tituloCarpetaAbierta').textContent = nombre;
-      document.getElementById('estadoMusicaCarpeta').textContent = carpetaAbiertaMusica ? '🎵 esta carpeta tiene música propia' : 'usando la música por defecto';
-      pintarDescripcionCarpeta();
-      document.getElementById('vistaCarpetas').style.display = 'none';
-      document.getElementById('vistaCarpetaAbierta').style.display = 'block';
-      animarEntrada(document.getElementById('vistaCarpetaAbierta'));
-      document.getElementById('estadoFoto').textContent = '';
-      document.getElementById('nombresElegidos').textContent = '';
-      salirModoSeleccion();
-      cargarGaleriaFotosDeCarpeta();
+    function eliminarCarpetaActual() {
+
+
+        if (
+            carpetaAbiertaId
+        ) {
+
+
+            eliminarCarpeta(
+                carpetaAbiertaId
+            );
+
+        }
+
     }
+
+
+    /* ==========================================
+       ABRIR CARPETA
+    =========================================== */
+
+    function abrirCarpeta(
+
+        id,
+
+        nombre,
+
+        descripcion,
+
+        musica
+
+    ) {
+
+
+        carpetaAbiertaId =
+            id;
+
+
+        carpetaAbiertaNombre =
+            nombre;
+
+
+        carpetaAbiertaDescripcion =
+            descripcion;
+
+
+        carpetaAbiertaMusica =
+            musica ||
+            null;
+
+
+        document
+            .getElementById(
+                'tituloCarpetaAbierta'
+            )
+            .textContent =
+            nombre;
+
+
+        document
+            .getElementById(
+                'estadoMusicaCarpeta'
+            )
+            .textContent =
+
+            carpetaAbiertaMusica
+
+                ?
+
+                '🎵 esta carpeta tiene música propia'
+
+                :
+
+                'usando la música por defecto';
+
+
+        pintarDescripcionCarpeta();
+
+
+        document
+            .getElementById(
+                'vistaCarpetas'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'vistaCarpetaAbierta'
+            )
+            .style
+            .display =
+            'block';
+
+
+        animarEntrada(
+
+            document
+                .getElementById(
+                    'vistaCarpetaAbierta'
+                )
+
+        );
+
+
+        document
+            .getElementById(
+                'estadoFoto'
+            )
+            .textContent =
+            '';
+
+
+        document
+            .getElementById(
+                'nombresElegidos'
+            )
+            .textContent =
+            '';
+
+
+        salirModoSeleccion();
+
+
+        cargarGaleriaFotosDeCarpeta();
+
+    }
+
+
+    /* ==========================================
+       CAMBIAR MÚSICA
+    =========================================== */
 
     async function cambiarMusicaCarpeta() {
-      const archivo = document.getElementById('cambiarMusica').files[0];
-      if (!archivo) return;
-      document.getElementById('estadoMusicaCarpeta').textContent = 'subiendo música...';
-      const url = await subirAudioACloudinary(archivo);
-      if (!url) { document.getElementById('estadoMusicaCarpeta').textContent = ''; return; }
-      await db.collection('carpetas').doc(carpetaAbiertaId).update({ musica: url });
-      carpetaAbiertaMusica = url;
-      document.getElementById('estadoMusicaCarpeta').textContent = '🎵 música actualizada';
-      document.getElementById('cambiarMusica').value = '';
+
+
+        const archivo =
+            document
+                .getElementById(
+                    'cambiarMusica'
+                )
+                .files[0];
+
+
+        if (!archivo) {
+            return;
+        }
+
+
+        document
+            .getElementById(
+                'estadoMusicaCarpeta'
+            )
+            .textContent =
+            'subiendo música...';
+
+
+        const url =
+            await subirAudioACloudinary(
+                archivo
+            );
+
+
+        if (!url) {
+
+
+            document
+                .getElementById(
+                    'estadoMusicaCarpeta'
+                )
+                .textContent =
+                '';
+
+
+            return;
+
+        }
+
+
+        await db
+            .collection(
+                'carpetas'
+            )
+            .doc(
+                carpetaAbiertaId
+            )
+            .update({
+
+                musica:
+                    url
+
+            });
+
+
+        carpetaAbiertaMusica =
+            url;
+
+
+        document
+            .getElementById(
+                'estadoMusicaCarpeta'
+            )
+            .textContent =
+            '🎵 música actualizada';
+
+
+        document
+            .getElementById(
+                'cambiarMusica'
+            )
+            .value =
+            '';
+
     }
+
+
+    /* ==========================================
+       VOLVER
+    =========================================== */
 
     function volverACarpetas() {
-      carpetaAbiertaId = null;
-      carpetaAbiertaNombre = null;
-      carpetaAbiertaDescripcion = '';
-      carpetaAbiertaMusica = null;
-      document.getElementById('vistaCarpetaAbierta').style.display = 'none';
-      document.getElementById('vistaCarpetas').style.display = 'block';
-      animarEntrada(document.getElementById('vistaCarpetas'));
+
+
+        carpetaAbiertaId =
+            null;
+
+
+        carpetaAbiertaNombre =
+            null;
+
+
+        carpetaAbiertaDescripcion =
+            '';
+
+
+        carpetaAbiertaMusica =
+            null;
+
+
+        document
+            .getElementById(
+                'vistaCarpetaAbierta'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'vistaCarpetas'
+            )
+            .style
+            .display =
+            'block';
+
+
+        animarEntrada(
+
+            document
+                .getElementById(
+                    'vistaCarpetas'
+                )
+
+        );
+
     }
+
+
+    /* ==========================================
+       FOTOS ELEGIDAS
+    =========================================== */
 
     function mostrarNombresElegidos() {
-      const archivos = document.getElementById('archivoFotos').files;
-      if (!archivos.length) { document.getElementById('nombresElegidos').textContent = ''; return; }
-      document.getElementById('nombresElegidos').textContent =
-        archivos.length === 1 ? archivos[0].name : `${archivos.length} fotos elegidas`;
+
+
+        const archivos =
+            document
+                .getElementById(
+                    'archivoFotos'
+                )
+                .files;
+
+
+        if (!archivos.length) {
+
+
+            document
+                .getElementById(
+                    'nombresElegidos'
+                )
+                .textContent =
+                '';
+
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                'nombresElegidos'
+            )
+            .textContent =
+
+            archivos.length ===
+            1
+
+                ?
+
+                archivos[0]
+                    .name
+
+                :
+
+                `${archivos.length} fotos elegidas`;
+
     }
+
+
+    /* ==========================================
+       SUBIR FOTOS
+    =========================================== */
 
     async function subirFotos() {
-      if (!carpetaAbiertaId) return;
-      const archivos = Array.from(document.getElementById('archivoFotos').files);
-      if (!archivos.length) { alert('elige al menos una foto'); return; }
-      const estado = document.getElementById('estadoFoto');
-      estado.textContent = `subiendo 0/${archivos.length}...`;
-      let listas = 0;
-      let subidas = 0;
-      for (const archivo of archivos) {
-        const url = await subirACloudinary(archivo);
-        if (url) {
-          await db.collection('fotos').add({ url, fecha: Date.now(), carpetaId: carpetaAbiertaId, reacciones: {} });
-          subidas++;
+
+
+        if (
+            !carpetaAbiertaId
+        ) {
+            return;
         }
-        listas++;
-        estado.textContent = `subiendo ${listas}/${archivos.length}...`;
-      }
-      estado.textContent = subidas === archivos.length ? 'listo 💜' : `listo: ${subidas}/${archivos.length} subidas`;
-      document.getElementById('archivoFotos').value = '';
-      document.getElementById('nombresElegidos').textContent = '';
-      await cargarGaleriaFotosDeCarpeta();
-      if (subidas > 0) {
-        RomanticApp.registrarActividad(
-          db, auth, 'fotos',
-          `${subidas === 1 ? 'Hay una foto nueva' : `Hay ${subidas} fotos nuevas`} en “${carpetaAbiertaNombre}” 📸`,
-          { carpetaId: carpetaAbiertaId, cantidad: subidas }
-        );
-        if (tutorialActivo && tutorialIndice >= 3) completarTutorialAlbum();
-      }
+
+
+        const archivos =
+            Array.from(
+
+                document
+                    .getElementById(
+                        'archivoFotos'
+                    )
+                    .files
+
+            );
+
+
+        if (
+            !archivos.length
+        ) {
+
+
+            alert(
+                'elige al menos una foto'
+            );
+
+
+            return;
+
+        }
+
+
+        const estado =
+            document
+                .getElementById(
+                    'estadoFoto'
+                );
+
+
+        estado.textContent =
+            `subiendo 0/${archivos.length}...`;
+
+
+        let listas =
+            0;
+
+
+        let subidas =
+            0;
+
+
+        for (
+            const archivo
+            of archivos
+        ) {
+
+
+            const url =
+                await subirACloudinary(
+                    archivo
+                );
+
+
+            if (url) {
+
+
+                await db
+                    .collection(
+                        'fotos'
+                    )
+                    .add({
+
+                        url:
+                            url,
+
+                        fecha:
+                            Date.now(),
+
+                        carpetaId:
+                            carpetaAbiertaId,
+
+                        reacciones:
+                            {}
+
+                    });
+
+
+                subidas++;
+
+            }
+
+
+            listas++;
+
+
+            estado.textContent =
+                `subiendo ${listas}/${archivos.length}...`;
+
+        }
+
+
+        estado.textContent =
+
+            subidas ===
+            archivos.length
+
+                ?
+
+                'listo 💜'
+
+                :
+
+                `listo: ${subidas}/${archivos.length} subidas`;
+
+
+        document
+            .getElementById(
+                'archivoFotos'
+            )
+            .value =
+            '';
+
+
+        document
+            .getElementById(
+                'nombresElegidos'
+            )
+            .textContent =
+            '';
+
+
+        await cargarGaleriaFotosDeCarpeta();
+
+
+        if (
+            subidas >
+            0
+        ) {
+
+
+            if (
+                window.RomanticApp
+            ) {
+
+
+                RomanticApp
+                    .registrarActividad(
+
+                        db,
+
+                        auth,
+
+                        'fotos',
+
+                        `${
+                            subidas === 1
+
+                                ?
+
+                                'Hay una foto nueva'
+
+                                :
+
+                                `Hay ${subidas} fotos nuevas`
+                        } en “${carpetaAbiertaNombre}” 📸`,
+
+                        {
+
+                            carpetaId:
+                                carpetaAbiertaId,
+
+                            cantidad:
+                                subidas
+
+                        }
+
+                    );
+
+            }
+
+
+            if (
+                tutorialActivo &&
+                tutorialIndice >= 3
+            ) {
+
+
+                completarTutorialAlbum();
+
+            }
+
+        }
+
     }
 
-    let fotosCarpetaActualCache = [];
-    let modoSeleccion = false;
-    let fotosSeleccionadas = new Set();
+
+    /* ==========================================
+       SELECCIÓN DE FOTOS
+    =========================================== */
+
+    let fotosCarpetaActualCache =
+        [];
+
+
+    let modoSeleccion =
+        false;
+
+
+    let fotosSeleccionadas =
+        new Set();
+
 
     function toggleModoSeleccion() {
-      modoSeleccion = !modoSeleccion;
-      fotosSeleccionadas.clear();
-      document.getElementById('btnModoSeleccion').textContent = modoSeleccion ? 'cancelar' : 'seleccionar';
-      document.getElementById('btnEliminarSeleccion').style.display = modoSeleccion ? 'inline-block' : 'none';
-      document.getElementById('btnEliminarSeleccion').textContent = 'eliminar (0)';
-      cargarGaleriaFotosDeCarpeta();
+
+
+        modoSeleccion =
+            !modoSeleccion;
+
+
+        fotosSeleccionadas.clear();
+
+
+        document
+            .getElementById(
+                'btnModoSeleccion'
+            )
+            .textContent =
+
+            modoSeleccion
+
+                ?
+
+                'cancelar'
+
+                :
+
+                'seleccionar';
+
+
+        document
+            .getElementById(
+                'btnEliminarSeleccion'
+            )
+            .style
+            .display =
+
+            modoSeleccion
+
+                ?
+
+                'inline-block'
+
+                :
+
+                'none';
+
+
+        document
+            .getElementById(
+                'btnEliminarSeleccion'
+            )
+            .textContent =
+            'eliminar (0)';
+
+
+        cargarGaleriaFotosDeCarpeta();
+
     }
+
 
     function salirModoSeleccion() {
-      modoSeleccion = false;
-      fotosSeleccionadas.clear();
-      const btnSel = document.getElementById('btnModoSeleccion');
-      const btnEli = document.getElementById('btnEliminarSeleccion');
-      if (btnSel) btnSel.textContent = 'seleccionar';
-      if (btnEli) { btnEli.style.display = 'none'; btnEli.textContent = 'eliminar (0)'; }
+
+
+        modoSeleccion =
+            false;
+
+
+        fotosSeleccionadas.clear();
+
+
+        const btnSel =
+            document
+                .getElementById(
+                    'btnModoSeleccion'
+                );
+
+
+        const btnEli =
+            document
+                .getElementById(
+                    'btnEliminarSeleccion'
+                );
+
+
+        if (btnSel) {
+
+
+            btnSel.textContent =
+                'seleccionar';
+
+        }
+
+
+        if (btnEli) {
+
+
+            btnEli.style.display =
+                'none';
+
+
+            btnEli.textContent =
+                'eliminar (0)';
+
+        }
+
     }
 
-    function toggleSeleccionFoto(id, elDiv) {
-      if (fotosSeleccionadas.has(id)) {
-        fotosSeleccionadas.delete(id);
-        elDiv.classList.remove('seleccionada');
-      } else {
-        fotosSeleccionadas.add(id);
-        elDiv.classList.add('seleccionada');
-      }
-      document.getElementById('btnEliminarSeleccion').textContent = `eliminar (${fotosSeleccionadas.size})`;
+
+    function toggleSeleccionFoto(
+
+        id,
+
+        elDiv
+
+    ) {
+
+
+        if (
+            fotosSeleccionadas
+                .has(
+                    id
+                )
+        ) {
+
+
+            fotosSeleccionadas
+                .delete(
+                    id
+                );
+
+
+            elDiv
+                .classList
+                .remove(
+                    'seleccionada'
+                );
+
+        }
+
+
+        else {
+
+
+            fotosSeleccionadas
+                .add(
+                    id
+                );
+
+
+            elDiv
+                .classList
+                .add(
+                    'seleccionada'
+                );
+
+        }
+
+
+        document
+            .getElementById(
+                'btnEliminarSeleccion'
+            )
+            .textContent =
+
+            `eliminar (${fotosSeleccionadas.size})`;
+
     }
+
 
     async function eliminarSeleccionadas() {
-      if (!fotosSeleccionadas.size) return;
-      if (!confirm(`¿eliminar ${fotosSeleccionadas.size} foto(s) de la galería?`)) return;
-      const lotes = Array.from(fotosSeleccionadas).map(id => db.collection('fotos').doc(id).delete());
-      await Promise.all(lotes);
-      salirModoSeleccion();
-      cargarGaleriaFotosDeCarpeta();
+
+
+        if (
+            !fotosSeleccionadas.size
+        ) {
+            return;
+        }
+
+
+        if (
+            !confirm(
+                `¿eliminar ${fotosSeleccionadas.size} foto(s) de la galería?`
+            )
+        ) {
+            return;
+        }
+
+
+        const lotes =
+            Array.from(
+                fotosSeleccionadas
+            )
+            .map(
+
+                id =>
+                    db
+                        .collection(
+                            'fotos'
+                        )
+                        .doc(
+                            id
+                        )
+                        .delete()
+
+            );
+
+
+        await Promise.all(
+            lotes
+        );
+
+
+        salirModoSeleccion();
+
+
+        cargarGaleriaFotosDeCarpeta();
+
     }
+
+
+    /* ==========================================
+       GALERÍA DE LA CARPETA
+    =========================================== */
 
     async function cargarGaleriaFotosDeCarpeta() {
-      const contenedor = document.getElementById('galeriaFotos');
-      contenedor.innerHTML = '';
-      const snap = await db.collection('fotos').where('carpetaId', '==', carpetaAbiertaId).get();
-      let items = [];
-      snap.forEach(doc => items.push({ id: doc.id, data: doc.data() }));
-      items.sort((a, b) => b.data.fecha - a.data.fecha); // mas reciente primero
-      fotosCarpetaActualCache = [];
-      items.forEach(item => {
-        fotosCarpetaActualCache.push(item.data);
-        if (modoSeleccion) {
-          const div = document.createElement('div');
-          div.className = 'foto-item seleccionable';
-          div.innerHTML = `<img src="${item.data.url}"><div class="check-seleccion"></div>`;
-          div.onclick = () => toggleSeleccionFoto(item.id, div);
-          contenedor.appendChild(div);
-        } else {
-          contenedor.appendChild(crearItemFoto(item.id, item.data, 'fotos', cargarGaleriaFotosDeCarpeta));
-        }
-      });
-      fotosCarpetaActualCache.reverse(); // orden cronologico para la experiencia
+
+
+        const contenedor =
+            document
+                .getElementById(
+                    'galeriaFotos'
+                );
+
+
+        contenedor.innerHTML =
+            '';
+
+
+        const snap =
+            await db
+                .collection(
+                    'fotos'
+                )
+                .where(
+                    'carpetaId',
+                    '==',
+                    carpetaAbiertaId
+                )
+                .get();
+
+
+        let items =
+            [];
+
+
+        snap.forEach(
+
+            doc =>
+
+                items.push({
+
+                    id:
+                        doc.id,
+
+                    data:
+                        doc.data()
+
+                })
+
+        );
+
+
+        items.sort(
+
+            (
+                a,
+                b
+            ) =>
+
+                b.data.fecha -
+                a.data.fecha
+
+        );
+
+
+        fotosCarpetaActualCache =
+            [];
+
+
+        items.forEach(
+
+            item => {
+
+
+                fotosCarpetaActualCache
+                    .push(
+                        item.data
+                    );
+
+
+                if (
+                    modoSeleccion
+                ) {
+
+
+                    const div =
+                        document
+                            .createElement(
+                                'div'
+                            );
+
+
+                    div.className =
+                        'foto-item seleccionable';
+
+
+                    div.innerHTML = `
+
+                        <img
+                            src="${item.data.url}">
+
+                        <div
+                            class="check-seleccion">
+                        </div>
+                    `;
+
+
+                    div.onclick =
+                        () =>
+
+                            toggleSeleccionFoto(
+
+                                item.id,
+
+                                div
+
+                            );
+
+
+                    contenedor
+                        .appendChild(
+                            div
+                        );
+
+                }
+
+
+                else {
+
+
+                    contenedor
+                        .appendChild(
+
+                            crearItemFoto(
+
+                                item.id,
+
+                                item.data,
+
+                                'fotos',
+
+                                cargarGaleriaFotosDeCarpeta
+
+                            )
+
+                        );
+
+                }
+
+            }
+
+        );
+
+
+        /*
+         * Para la experiencia
+         * usamos orden cronológico.
+         */
+
+        fotosCarpetaActualCache
+            .reverse();
+
     }
 
-    // ================= MODO EXPERIENCIA =================
 
-    let expFotos = [];
-    let expGuion = [];
-    let expIndice = -1;
+    /* ==========================================
+       EXPERIENCIA DE LA CARPETA
+    =========================================== */
+
+    let expFotos =
+        [];
+
+
+    let expGuion =
+        [];
+
+
+    let expIndice =
+        -1;
+
 
     function iniciarExperiencia() {
-      if (!fotosCarpetaActualCache.length) { alert('sube fotos primero'); return; }
-      expFotos = fotosCarpetaActualCache;
 
-      // guion: primera foto, luego la descripcion, luego el resto de fotos
-      expGuion = [{ tipo: 'foto', foto: expFotos[0] }, { tipo: 'descripcion' }];
-      for (let i = 1; i < expFotos.length; i++) expGuion.push({ tipo: 'foto', foto: expFotos[i] });
-      expIndice = -1;
 
-      const descEl = document.getElementById('expDescripcion');
-      if (carpetaAbiertaDescripcion && carpetaAbiertaDescripcion.trim()) {
-        descEl.textContent = carpetaAbiertaDescripcion;
-        descEl.classList.remove('vacio');
-      } else {
-        descEl.textContent = carpetaAbiertaNombre;
-        descEl.classList.add('vacio');
-      }
+        if (
+            !fotosCarpetaActualCache.length
+        ) {
 
-      document.getElementById('experienciaPortada').style.display = 'none';
-      document.getElementById('experienciaFoto').style.display = 'none';
-      document.getElementById('experienciaFin').style.display = 'none';
-      document.getElementById('experienciaOverlay').style.display = 'flex';
 
-      const audio = document.getElementById('audioExperiencia');
-      audio.src = carpetaAbiertaMusica || '../assets/js/musica.mp3';
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
+            alert(
+                'sube fotos primero'
+            );
 
-      siguienteExperiencia();
+
+            return;
+
+        }
+
+
+        expFotos =
+            fotosCarpetaActualCache;
+
+
+        /*
+         * Primera foto,
+         * descripción,
+         * resto de fotos.
+         */
+
+        expGuion = [
+
+            {
+
+                tipo:
+                    'foto',
+
+                foto:
+                    expFotos[0]
+
+            },
+
+            {
+
+                tipo:
+                    'descripcion'
+
+            }
+
+        ];
+
+
+        for (
+            let i = 1;
+            i < expFotos.length;
+            i++
+        ) {
+
+
+            expGuion.push({
+
+                tipo:
+                    'foto',
+
+                foto:
+                    expFotos[i]
+
+            });
+
+        }
+
+
+        expIndice =
+            -1;
+
+
+        const descEl =
+            document
+                .getElementById(
+                    'expDescripcion'
+                );
+
+
+        if (
+            carpetaAbiertaDescripcion &&
+            carpetaAbiertaDescripcion
+                .trim()
+        ) {
+
+
+            descEl.textContent =
+                carpetaAbiertaDescripcion;
+
+
+            descEl
+                .classList
+                .remove(
+                    'vacio'
+                );
+
+        }
+
+
+        else {
+
+
+            descEl.textContent =
+                carpetaAbiertaNombre;
+
+
+            descEl
+                .classList
+                .add(
+                    'vacio'
+                );
+
+        }
+
+
+        document
+            .getElementById(
+                'experienciaPortada'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'experienciaFoto'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'experienciaFin'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'experienciaOverlay'
+            )
+            .style
+            .display =
+            'flex';
+
+
+        const audio =
+            document
+                .getElementById(
+                    'audioExperiencia'
+                );
+
+
+        audio.src =
+
+            carpetaAbiertaMusica
+
+                ||
+
+            '../assets/js/musica.mp3';
+
+
+        audio.currentTime =
+            0;
+
+
+        audio
+            .play()
+            .catch(
+                () => {}
+            );
+
+
+        siguienteExperiencia();
+
     }
 
-    function contarFotosHasta(indice) {
-      let n = 0;
-      for (let i = 0; i <= indice; i++) if (expGuion[i].tipo === 'foto') n++;
-      return n;
+
+    function contarFotosHasta(
+        indice
+    ) {
+
+
+        let n =
+            0;
+
+
+        for (
+            let i = 0;
+            i <= indice;
+            i++
+        ) {
+
+
+            if (
+                expGuion[i].tipo ===
+                'foto'
+            ) {
+
+
+                n++;
+
+            }
+
+        }
+
+
+        return n;
+
     }
+
 
     function totalFotosEnGuion() {
-      return expGuion.filter(s => s.tipo === 'foto').length;
+
+
+        return expGuion
+            .filter(
+
+                s =>
+                    s.tipo ===
+                    'foto'
+
+            )
+            .length;
+
     }
+
 
     function siguienteExperiencia() {
-      expIndice++;
-      if (expIndice >= expGuion.length) {
-        document.getElementById('experienciaPortada').style.display = 'none';
-        document.getElementById('experienciaFoto').style.display = 'none';
-        document.getElementById('experienciaFin').style.display = 'flex';
-        return;
-      }
-      const paso = expGuion[expIndice];
-      if (paso.tipo === 'descripcion') {
-        document.getElementById('experienciaFoto').style.display = 'none';
-        document.getElementById('experienciaFin').style.display = 'none';
-        document.getElementById('experienciaPortada').style.display = 'flex';
-      } else {
-        document.getElementById('experienciaPortada').style.display = 'none';
-        document.getElementById('experienciaFin').style.display = 'none';
-        document.getElementById('experienciaFoto').style.display = 'flex';
-        const img = document.getElementById('imgExperiencia');
-        img.classList.remove('animar');
-        void img.offsetWidth; // fuerza reinicio de la animacion
-        img.src = paso.foto.url;
-        img.classList.add('animar');
-        document.getElementById('contadorExperiencia').textContent = contarFotosHasta(expIndice) + ' / ' + totalFotosEnGuion();
-      }
+
+
+        expIndice++;
+
+
+        if (
+            expIndice >=
+            expGuion.length
+        ) {
+
+
+            document
+                .getElementById(
+                    'experienciaPortada'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFoto'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFin'
+                )
+                .style
+                .display =
+                'flex';
+
+
+            return;
+
+        }
+
+
+        const paso =
+            expGuion[
+                expIndice
+            ];
+
+
+        if (
+            paso.tipo ===
+            'descripcion'
+        ) {
+
+
+            document
+                .getElementById(
+                    'experienciaFoto'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFin'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaPortada'
+                )
+                .style
+                .display =
+                'flex';
+
+        }
+
+
+        else {
+
+
+            document
+                .getElementById(
+                    'experienciaPortada'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFin'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFoto'
+                )
+                .style
+                .display =
+                'flex';
+
+
+            const img =
+                document
+                    .getElementById(
+                        'imgExperiencia'
+                    );
+
+
+            img
+                .classList
+                .remove(
+                    'animar'
+                );
+
+
+            void img.offsetWidth;
+
+
+            img.src =
+                paso.foto.url;
+
+
+            img
+                .classList
+                .add(
+                    'animar'
+                );
+
+
+            document
+                .getElementById(
+                    'contadorExperiencia'
+                )
+                .textContent =
+
+                contarFotosHasta(
+                    expIndice
+                )
+
+                +
+
+                ' / '
+
+                +
+
+                totalFotosEnGuion();
+
+        }
+
     }
+
 
     function anteriorExperiencia() {
-      if (expIndice <= 0) return;
-      expIndice--;
-      const paso = expGuion[expIndice];
-      if (paso.tipo === 'descripcion') {
-        document.getElementById('experienciaFoto').style.display = 'none';
-        document.getElementById('experienciaPortada').style.display = 'flex';
-      } else {
-        document.getElementById('experienciaPortada').style.display = 'none';
-        document.getElementById('experienciaFoto').style.display = 'flex';
-        document.getElementById('imgExperiencia').src = paso.foto.url;
-        document.getElementById('contadorExperiencia').textContent = contarFotosHasta(expIndice) + ' / ' + totalFotosEnGuion();
-      }
+
+
+        if (
+            expIndice <=
+            0
+        ) {
+            return;
+        }
+
+
+        expIndice--;
+
+
+        const paso =
+            expGuion[
+                expIndice
+            ];
+
+
+        if (
+            paso.tipo ===
+            'descripcion'
+        ) {
+
+
+            document
+                .getElementById(
+                    'experienciaFoto'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaPortada'
+                )
+                .style
+                .display =
+                'flex';
+
+        }
+
+
+        else {
+
+
+            document
+                .getElementById(
+                    'experienciaPortada'
+                )
+                .style
+                .display =
+                'none';
+
+
+            document
+                .getElementById(
+                    'experienciaFoto'
+                )
+                .style
+                .display =
+                'flex';
+
+
+            document
+                .getElementById(
+                    'imgExperiencia'
+                )
+                .src =
+                paso.foto.url;
+
+
+            document
+                .getElementById(
+                    'contadorExperiencia'
+                )
+                .textContent =
+
+                contarFotosHasta(
+                    expIndice
+                )
+
+                +
+
+                ' / '
+
+                +
+
+                totalFotosEnGuion();
+
+        }
+
     }
+
 
     function cerrarExperiencia() {
-      document.getElementById('experienciaOverlay').style.display = 'none';
-      const audio = document.getElementById('audioExperiencia');
-      audio.pause();
+
+
+        document
+            .getElementById(
+                'experienciaOverlay'
+            )
+            .style
+            .display =
+            'none';
+
+
+        const audio =
+            document
+                .getElementById(
+                    'audioExperiencia'
+                );
+
+
+        audio.pause();
+
     }
 
-    // ================= GALERÍAS SIMPLES (flores, cartas físicas) =================
 
-    const EMOJIS_REACCION = ['💜', '🥹', '😍', '😂', '🌻'];
+    /* ==========================================
+       REACCIONES
+    =========================================== */
 
-    function abrirFotoGrande(url) {
-      document.getElementById('lightboxImg').src = url;
-      document.getElementById('lightboxFoto').style.display = 'flex';
+    const EMOJIS_REACCION = [
+
+        '💜',
+
+        '🥹',
+
+        '😍',
+
+        '😂',
+
+        '🌻'
+
+    ];
+
+
+    /* ==========================================
+       FOTO GRANDE
+    =========================================== */
+
+    function abrirFotoGrande(
+        url
+    ) {
+
+
+        document
+            .getElementById(
+                'lightboxImg'
+            )
+            .src =
+            url;
+
+
+        document
+            .getElementById(
+                'lightboxFoto'
+            )
+            .style
+            .display =
+            'flex';
+
     }
+
 
     function cerrarFotoGrande() {
-      document.getElementById('lightboxFoto').style.display = 'none';
-      document.getElementById('lightboxImg').src = '';
+
+
+        document
+            .getElementById(
+                'lightboxFoto'
+            )
+            .style
+            .display =
+            'none';
+
+
+        document
+            .getElementById(
+                'lightboxImg'
+            )
+            .src =
+            '';
+
     }
 
-    function crearBarraReacciones(id, data, coleccion, recargar) {
-      const barra = document.createElement('div');
-      barra.className = 'reacciones-foto';
-      const reacciones = (data.reacciones && typeof data.reacciones === 'object') ? data.reacciones : {};
-      const uid = auth.currentUser ? auth.currentUser.uid : null;
-      const miReaccion = uid ? reacciones[uid] : null;
 
-      EMOJIS_REACCION.forEach(emoji => {
-        const cuenta = Object.values(reacciones).filter(v => v === emoji).length;
-        const btn = document.createElement('button');
-        btn.className = 'reaccion-btn' + (miReaccion === emoji ? ' activa' : '');
-        btn.textContent = cuenta ? `${emoji} ${cuenta}` : emoji;
-        btn.title = miReaccion === emoji ? 'quitar mi reacción' : 'reaccionar';
-        btn.onclick = async (e) => {
-          e.stopPropagation();
-          if (!uid) return;
-          const ref = db.collection(coleccion).doc(id);
-          try {
-            if (miReaccion === emoji) {
-              await ref.update({ [`reacciones.${uid}`]: firebase.firestore.FieldValue.delete() });
-            } else {
-              await ref.update({ [`reacciones.${uid}`]: emoji });
-            }
-            recargar();
-          } catch (err) {
-            console.error(err);
-            RomanticApp.mostrarToast('No pude guardar la reacción. Revisa las reglas de Firestore para usuarios autenticados.');
-          }
+    /* ==========================================
+       BARRA DE REACCIONES
+    =========================================== */
+
+    function crearBarraReacciones(
+
+        id,
+
+        data,
+
+        coleccion,
+
+        recargar
+
+    ) {
+
+
+        const barra =
+            document
+                .createElement(
+                    'div'
+                );
+
+
+        barra.className =
+            'reacciones-foto';
+
+
+        const reacciones =
+
+            (
+                data.reacciones &&
+                typeof data.reacciones ===
+                'object'
+            )
+
+                ?
+
+                data.reacciones
+
+                :
+
+                {};
+
+
+        const uid =
+
+            auth.currentUser
+
+                ?
+
+                auth.currentUser.uid
+
+                :
+
+                null;
+
+
+        const miReaccion =
+
+            uid
+
+                ?
+
+                reacciones[uid]
+
+                :
+
+                null;
+
+
+        EMOJIS_REACCION
+            .forEach(
+
+                emoji => {
+
+
+                    const cuenta =
+
+                        Object
+                            .values(
+                                reacciones
+                            )
+                            .filter(
+
+                                v =>
+                                    v ===
+                                    emoji
+
+                            )
+                            .length;
+
+
+                    const btn =
+                        document
+                            .createElement(
+                                'button'
+                            );
+
+
+                    btn.className =
+
+                        'reaccion-btn'
+
+                        +
+
+                        (
+                            miReaccion ===
+                            emoji
+
+                                ?
+
+                                ' activa'
+
+                                :
+
+                                ''
+                        );
+
+
+                    btn.textContent =
+
+                        cuenta
+
+                            ?
+
+                            `${emoji} ${cuenta}`
+
+                            :
+
+                            emoji;
+
+
+                    btn.title =
+
+                        miReaccion ===
+                        emoji
+
+                            ?
+
+                            'quitar mi reacción'
+
+                            :
+
+                            'reaccionar';
+
+
+                    btn.onclick =
+                        async e => {
+
+
+                            e.stopPropagation();
+
+
+                            if (!uid) {
+                                return;
+                            }
+
+
+                            const ref =
+
+                                db
+                                    .collection(
+                                        coleccion
+                                    )
+                                    .doc(
+                                        id
+                                    );
+
+
+                            try {
+
+
+                                if (
+                                    miReaccion ===
+                                    emoji
+                                ) {
+
+
+                                    await ref.update({
+
+                                        [`reacciones.${uid}`]:
+
+                                            firebase
+                                                .firestore
+                                                .FieldValue
+                                                .delete()
+
+                                    });
+
+                                }
+
+
+                                else {
+
+
+                                    await ref.update({
+
+                                        [`reacciones.${uid}`]:
+
+                                            emoji
+
+                                    });
+
+                                }
+
+
+                                recargar();
+
+                            }
+
+
+                            catch (err) {
+
+
+                                console.error(
+                                    err
+                                );
+
+
+                                if (
+                                    window.RomanticApp
+                                ) {
+
+
+                                    RomanticApp
+                                        .mostrarToast(
+
+                                            'No pude guardar la reacción. Revisa las reglas de Firestore para usuarios autenticados.'
+
+                                        );
+
+                                }
+
+                            }
+
+                        };
+
+
+                    barra
+                        .appendChild(
+                            btn
+                        );
+
+                }
+
+            );
+
+
+        return barra;
+
+    }
+
+
+    /* ==========================================
+       CREAR FOTO
+    =========================================== */
+
+    function crearItemFoto(
+
+        id,
+
+        data,
+
+        coleccion,
+
+        recargar
+
+    ) {
+
+
+        const div =
+            document
+                .createElement(
+                    'div'
+                );
+
+
+        div.className =
+            'foto-item';
+
+
+        const img =
+            document
+                .createElement(
+                    'img'
+                );
+
+
+        img.src =
+            data.url;
+
+
+        img.alt =
+            data.nota ||
+            'recuerdo';
+
+
+        img.loading =
+            'lazy';
+
+
+        img.style.cursor =
+            'zoom-in';
+
+
+        img.onclick =
+            () =>
+
+                abrirFotoGrande(
+                    data.url
+                );
+
+
+        div.appendChild(
+            img
+        );
+
+
+        if (
+            typeof data.nota ===
+            'string'
+            &&
+            data.nota
+        ) {
+
+
+            const nota =
+                document
+                    .createElement(
+                        'div'
+                    );
+
+
+            nota.className =
+                'foto-nota';
+
+
+            nota.textContent =
+                data.nota;
+
+
+            div.appendChild(
+                nota
+            );
+
+        }
+
+
+        div.appendChild(
+
+            crearBarraReacciones(
+
+                id,
+
+                data,
+
+                coleccion,
+
+                recargar
+
+            )
+
+        );
+
+
+        /*
+         * Botones editar/eliminar.
+         */
+
+        const acciones =
+            document
+                .createElement(
+                    'div'
+                );
+
+
+        acciones.className =
+            'foto-acciones';
+
+
+        const btnEditar =
+            document
+                .createElement(
+                    'button'
+                );
+
+
+        btnEditar.className =
+            'icono-btn';
+
+
+        btnEditar.title =
+            'editar nota';
+
+
+        btnEditar.textContent =
+            '✏️';
+
+
+        btnEditar.onclick =
+            async e => {
+
+
+                e.stopPropagation();
+
+
+                const nuevaNota =
+                    prompt(
+
+                        'nota para esta foto:',
+
+                        data.nota ||
+                        ''
+
+                    );
+
+
+                if (
+                    nuevaNota ===
+                    null
+                ) {
+                    return;
+                }
+
+
+                await db
+                    .collection(
+                        coleccion
+                    )
+                    .doc(
+                        id
+                    )
+                    .update({
+
+                        nota:
+                            nuevaNota
+
+                    });
+
+
+                recargar();
+
+            };
+
+
+        const btnBorrar =
+            document
+                .createElement(
+                    'button'
+                );
+
+
+        btnBorrar.className =
+            'icono-btn borrar';
+
+
+        btnBorrar.title =
+            'eliminar';
+
+
+        btnBorrar.textContent =
+            '🗑️';
+
+
+        btnBorrar.onclick =
+            async e => {
+
+
+                e.stopPropagation();
+
+
+                if (
+                    !confirm(
+                        '¿eliminar esta foto de la galería?'
+                    )
+                ) {
+                    return;
+                }
+
+
+                await db
+                    .collection(
+                        coleccion
+                    )
+                    .doc(
+                        id
+                    )
+                    .delete();
+
+
+                recargar();
+
+            };
+
+
+        acciones.appendChild(
+            btnEditar
+        );
+
+
+        acciones.appendChild(
+            btnBorrar
+        );
+
+
+        div.appendChild(
+            acciones
+        );
+
+
+        return div;
+
+    }
+
+
+    /* ==========================================
+       SUBIR FLORES / CARTAS FÍSICAS
+    =========================================== */
+
+    async function subirDetalle(
+
+        categoria,
+
+        inputId,
+
+        notaId
+
+    ) {
+
+
+        const archivo =
+            document
+                .getElementById(
+                    inputId
+                )
+                .files[0];
+
+
+        if (!archivo) {
+
+
+            alert(
+                'elige una imagen primero'
+            );
+
+
+            return;
+
+        }
+
+
+        const url =
+            await subirACloudinary(
+                archivo
+            );
+
+
+        if (!url) {
+            return;
+        }
+
+
+        const nota =
+            document
+                .getElementById(
+                    notaId
+                )
+                .value;
+
+
+        await db
+            .collection(
+                categoria
+            )
+            .add({
+
+                url:
+                    url,
+
+                nota:
+                    nota,
+
+                fecha:
+                    Date.now(),
+
+                reacciones:
+                    {}
+
+            });
+
+
+        document
+            .getElementById(
+                notaId
+            )
+            .value =
+            '';
+
+
+        document
+            .getElementById(
+                inputId
+            )
+            .value =
+            '';
+
+
+        const mapaGaleria = {
+
+            flores:
+                'galeriaFlores',
+
+            cartasfisicas:
+                'galeriaCF'
+
         };
-        barra.appendChild(btn);
-      });
-      return barra;
+
+
+        await cargarGaleria(
+
+            categoria,
+
+            mapaGaleria[
+                categoria
+            ]
+
+        );
+
+
+        const nombre =
+
+            categoria ===
+            'flores'
+
+                ?
+
+                'una foto de flores 🌻'
+
+                :
+
+                'una foto de una carta física 💌';
+
+
+        if (
+            window.RomanticApp
+        ) {
+
+
+            RomanticApp
+                .registrarActividad(
+
+                    db,
+
+                    auth,
+
+                    categoria,
+
+                    `Hay ${nombre} nueva en el álbum.`,
+
+                    {
+
+                        categoria:
+                            categoria
+
+                    }
+
+                );
+
+        }
+
     }
 
-    function crearItemFoto(id, data, coleccion, recargar) {
-      const div = document.createElement('div');
-      div.className = 'foto-item';
-      const img = document.createElement('img');
-      img.src = data.url;
-      img.alt = data.nota || 'recuerdo';
-      img.loading = 'lazy';
-      img.style.cursor = 'zoom-in';
-      img.onclick = () => abrirFotoGrande(data.url);
-      div.appendChild(img);
-      if (typeof data.nota === 'string' && data.nota) {
-        const nota = document.createElement('div');
-        nota.className = 'foto-nota';
-        nota.textContent = data.nota;
-        div.appendChild(nota);
-      }
 
-      div.appendChild(crearBarraReacciones(id, data, coleccion, recargar));
+    /* ==========================================
+       GALERÍAS
+    =========================================== */
 
-      const acciones = document.createElement('div');
-      acciones.className = 'foto-acciones';
-      const btnEditar = document.createElement('button');
-      btnEditar.className = 'icono-btn';
-      btnEditar.title = 'editar nota';
-      btnEditar.textContent = '✏️';
-      btnEditar.onclick = async (e) => {
-        e.stopPropagation();
-        const nuevaNota = prompt('nota para esta foto:', data.nota || '');
-        if (nuevaNota === null) return;
-        await db.collection(coleccion).doc(id).update({ nota: nuevaNota });
-        recargar();
-      };
-      const btnBorrar = document.createElement('button');
-      btnBorrar.className = 'icono-btn borrar';
-      btnBorrar.title = 'eliminar';
-      btnBorrar.textContent = '🗑️';
-      btnBorrar.onclick = async (e) => {
-        e.stopPropagation();
-        if (!confirm('¿eliminar esta foto de la galería?')) return;
-        await db.collection(coleccion).doc(id).delete();
-        recargar();
-      };
-      acciones.appendChild(btnEditar);
-      acciones.appendChild(btnBorrar);
-      div.appendChild(acciones);
-      return div;
+    async function cargarGaleria(
+
+        categoria,
+
+        contenedorId
+
+    ) {
+
+
+        const contenedor =
+            document
+                .getElementById(
+                    contenedorId
+                );
+
+
+        contenedor.innerHTML =
+            '';
+
+
+        const snap =
+            await db
+                .collection(
+                    categoria
+                )
+                .orderBy(
+                    'fecha',
+                    'desc'
+                )
+                .get();
+
+
+        snap.forEach(
+
+            doc => {
+
+
+                contenedor
+                    .appendChild(
+
+                        crearItemFoto(
+
+                            doc.id,
+
+                            doc.data(),
+
+                            categoria,
+
+                            () =>
+
+                                cargarGaleria(
+
+                                    categoria,
+
+                                    contenedorId
+
+                                )
+
+                        )
+
+                    );
+
+            }
+
+        );
+
     }
 
-    async function subirDetalle(categoria, inputId, notaId) {
-      const archivo = document.getElementById(inputId).files[0];
-      if (!archivo) { alert('elige una imagen primero'); return; }
-      const url = await subirACloudinary(archivo);
-      if (!url) return;
-      const nota = document.getElementById(notaId).value;
-      await db.collection(categoria).add({ url, nota, fecha: Date.now(), reacciones: {} });
-      document.getElementById(notaId).value = '';
-      document.getElementById(inputId).value = '';
-      const mapaGaleria = { flores: 'galeriaFlores', cartasfisicas: 'galeriaCF' };
-      await cargarGaleria(categoria, mapaGaleria[categoria]);
-      const nombre = categoria === 'flores' ? 'una foto de flores 🌻' : 'una foto de una carta física 💌';
-      RomanticApp.registrarActividad(db, auth, categoria, `Hay ${nombre} nueva en el álbum.`, { categoria });
-    }
-
-    async function cargarGaleria(categoria, contenedorId) {
-      const contenedor = document.getElementById(contenedorId);
-      contenedor.innerHTML = '';
-      const snap = await db.collection(categoria).orderBy('fecha', 'desc').get();
-      snap.forEach(doc => {
-        contenedor.appendChild(crearItemFoto(doc.id, doc.data(), categoria, () => cargarGaleria(categoria, contenedorId)));
-      });
-    }
 </script>
+
 </body>
 </html>
