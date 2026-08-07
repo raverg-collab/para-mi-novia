@@ -167,6 +167,19 @@
         .volver-btn { width: auto; padding: 6px 12px; font-size: 12px; }
         #vaciaCarpetas { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 10px; }
 
+        /* --- Tutorial con flecha (primera vez) --- */
+        .tutorial-caja {
+          display: flex; align-items: center; gap: 10px;
+          background: rgba(240, 224, 192, 0.16);
+          border: 1px dashed rgba(240, 224, 192, 0.6);
+          border-radius: 12px; padding: 12px 16px; margin-top: 14px;
+          font-family: sans-serif; font-size: 13px; color: #f0e0c0;
+        }
+        .tutorial-caja .flecha { font-size: 20px; animation: rebotarArriba 1.2s ease-in-out infinite; }
+        .tutorial-caja.flecha-abajo .flecha { animation: rebotarAbajo 1.2s ease-in-out infinite; }
+        @keyframes rebotarArriba { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes rebotarAbajo { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
         .caja-descripcion { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
         .caja-descripcion .texto { font-family: sans-serif; font-size: 14px; line-height: 1.5; flex: 1; white-space: pre-wrap; }
         .caja-descripcion .texto.vacio { color: rgba(248,241,231,0.5); font-style: italic; }
@@ -226,45 +239,9 @@
           align-items: center; justify-content: center; height: 100%;
         }
         .foto-item.seleccionable .foto-acciones { display: none; }
-
-        /* ---- animaciones de transicion entre pantallas (no en CRUD) ---- */
-        .transicion { animation: entrarSuave 0.45s ease; }
-        @keyframes entrarSuave {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ---- intro de video ---- */
-        #introAlbum {
-          position: fixed; inset: 0; z-index: 200; background: #000;
-          display: flex; align-items: center; justify-content: center;
-        }
-        #introAlbum video { width: 100%; height: 100%; object-fit: contain; background: #000; }
-        #btnOmitirIntro {
-          position: fixed; top: 16px; right: 16px; z-index: 210;
-          background: rgba(255,255,255,0.15); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
-          padding: 8px 16px; border-radius: 999px; font-family: sans-serif; font-size: 13px; cursor: pointer;
-        }
-        #tocaSonidoIntro {
-          display: none; position: fixed; bottom: 20px; right: 20px; z-index: 210;
-          background: rgba(240,224,192,0.9); color: #3c2166; border: none; border-radius: 999px;
-          padding: 10px 16px; font-family: sans-serif; font-size: 13px; font-weight: bold; cursor: pointer;
-        }
-        #btnVerIntro {
-          background: rgba(255,255,255,0.10); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.3);
-          padding: 6px 12px; border-radius: 999px; font-family: sans-serif; font-size: 11px; cursor: pointer;
-          margin-top: 0;
-        }
     </style>
 </head>
 <body>
-<div id="introAlbum">
-    <video id="videoIntro" muted playsinline></video>
-</div>
-<button id="btnOmitirIntro" onclick="omitirIntro()">omitir ⏭</button>
-<button id="tocaSonidoIntro" onclick="forzarSonidoIntro()">🔊 toca para el sonido</button>
-<audio id="audioIntro" src="intro-album.mp3"></audio>
-
 <div class="wrap">
     <h1>Nuestro álbum 💜</h1>
 
@@ -285,8 +262,7 @@
 
     <div id="app">
         <button class="logout-fijo" onclick="cerrarSesion()">cerrar sesión</button>
-        <a href="index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
-        <button id="btnVerIntro" onclick="verIntroDeNuevo()">▶ ver intro otra vez</button>
+        <a href="../index.html" style="display:inline-block; background: rgba(245, 232, 210, 0.16); color: #f8f1e7; border: 1px solid rgba(245, 232, 210, 0.3); padding: 6px 14px; border-radius: 999px; text-decoration: none; font-family: sans-serif; font-size: 12px; margin-bottom: 14px;">← volver al menú</a>
         <p id="avisoAdmin"></p>
         <div class="tabs">
             <div class="tab activo" onclick="mostrar('fotos', this)">fotos</div>
@@ -302,13 +278,20 @@
                     <p style="font-family: sans-serif; margin-top:0;">Crear carpeta</p>
                     <input type="text" id="nombreCarpeta" placeholder="ej. 24 de julio, o 'nuestro aniversario'">
                     <textarea id="descripcionCarpeta" placeholder="descripción (opcional) — se ve al abrir la carpeta"></textarea>
-                    <label class="file-label" for="musicaCarpeta">elegir música (opcional)</label>
+                    <label class="file-label" for="musicaCarpeta">🎵 elegir música de fondo (opcional)</label>
                     <input type="file" id="musicaCarpeta" accept="audio/*">
                     <p class="nombre-archivos" id="nombreMusicaCarpeta"></p>
+                    <label class="file-label" for="vozCarpeta">🎤 elegir tu voz (opcional)</label>
+                    <input type="file" id="vozCarpeta" accept="audio/*">
+                    <p class="nombre-archivos" id="nombreVozCarpeta"></p>
                     <button class="btn-bosque" onclick="crearCarpeta()">Crear carpeta</button>
                 </div>
                 <div class="carpetas-grid" id="listaCarpetas"></div>
                 <p id="vaciaCarpetas" style="display:none;">todavía no hay carpetas, crea la primera arriba</p>
+                <div class="tutorial-caja" id="tutorialCrearCarpeta" style="display:none;">
+                    <span class="flecha">☝️</span>
+                    <span>empieza aquí arriba: ponle un nombre, escribe una descripción y toca "Crear carpeta"</span>
+                </div>
             </div>
 
             <div id="vistaCarpetaAbierta" style="display:none;">
@@ -321,9 +304,12 @@
                             <button class="icono-btn borrar" onclick="eliminarCarpetaActual()" title="eliminar carpeta">🗑️</button>
                         </div>
                     </div>
-                    <label class="file-label" for="cambiarMusica" style="margin-top:10px;">🎵 cambiar música de esta carpeta</label>
+                    <label class="file-label" for="cambiarMusica" style="margin-top:10px;">🎵 cambiar música de fondo de esta carpeta</label>
                     <input type="file" id="cambiarMusica" accept="audio/*" onchange="cambiarMusicaCarpeta()">
                     <p class="nombre-archivos" id="estadoMusicaCarpeta"></p>
+                    <label class="file-label" for="cambiarVoz" style="margin-top:10px;">🎤 cambiar tu voz de esta carpeta</label>
+                    <input type="file" id="cambiarVoz" accept="audio/*" onchange="cambiarVozCarpeta()">
+                    <p class="nombre-archivos" id="estadoVozCarpeta"></p>
                 </div>
 
                 <div class="caja">
@@ -341,6 +327,10 @@
                     <p class="nombre-archivos" id="nombresElegidos"></p>
                     <button onclick="subirFotos()">Subir</button>
                     <p id="estadoFoto" class="nota-estado"></p>
+                </div>
+                <div class="tutorial-caja" id="tutorialSubirFotos" style="display:none; margin-bottom:14px;">
+                    <span class="flecha">☝️</span>
+                    <span>ahora toca "elegir fotos" ahí arriba, escoge las que quieras y dale a "Subir"</span>
                 </div>
                 <div style="display:flex; gap:8px; align-items:center; margin-bottom: -6px;">
                     <button class="icono-btn" style="width:auto; padding:6px 12px;" onclick="toggleModoSeleccion()" id="btnModoSeleccion">seleccionar</button>
@@ -403,72 +393,14 @@
         </div>
     </div>
 
-    <audio id="audioExperiencia" src="musica.mp3" loop></audio>
+    <audio id="audioVoz" src=""></audio>
+    <audio id="audioMusicaFondo" src="../assets/js/musica.mp3" loop></audio>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
-    const VIDEO_1 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786845/VID-20260802-WA0069_bh2qie.mp4";
-    const VIDEO_2 = "https://res.cloudinary.com/nrfykjzk/video/upload/v1785786905/VID-20260802-WA0045_uo4858.mp4";
-    const INICIO_VIDEO_2 = 16;
-
-    function iniciarIntro() {
-      const video = document.getElementById('videoIntro');
-      const audio = document.getElementById('audioIntro');
-
-      video.muted = true;
-      video.src = VIDEO_1;
-      video.currentTime = 0;
-      video.play().catch(() => {});
-
-      audio.currentTime = 0;
-      audio.play().then(() => {
-        document.getElementById('tocaSonidoIntro').style.display = 'none';
-      }).catch(() => {
-        document.getElementById('tocaSonidoIntro').style.display = 'block';
-      });
-
-      video.onended = () => {
-        video.src = VIDEO_2;
-        video.onloadedmetadata = () => { video.currentTime = INICIO_VIDEO_2; };
-        video.play().catch(() => {});
-        video.onended = terminarIntro;
-      };
-    }
-
-    function forzarSonidoIntro() {
-      const audio = document.getElementById('audioIntro');
-      audio.play().then(() => { document.getElementById('tocaSonidoIntro').style.display = 'none'; }).catch(() => {});
-    }
-
-    function omitirIntro() { terminarIntro(); }
-
-    function terminarIntro() {
-      const video = document.getElementById('videoIntro');
-      const audio = document.getElementById('audioIntro');
-      video.pause();
-      audio.pause();
-      document.getElementById('introAlbum').style.display = 'none';
-      document.getElementById('btnOmitirIntro').style.display = 'none';
-      document.getElementById('tocaSonidoIntro').style.display = 'none';
-    }
-
-    function verIntroDeNuevo() {
-      document.getElementById('introAlbum').style.display = 'flex';
-      document.getElementById('btnOmitirIntro').style.display = 'block';
-      iniciarIntro();
-    }
-
-    iniciarIntro();
-
-    function animarEntrada(el) {
-      el.classList.remove('transicion');
-      void el.offsetWidth;
-      el.classList.add('transicion');
-    }
-
     const CORREO_ADMIN = "palrom2006@gmail.com";
     const FECHA_DESBLOQUEO = new Date('2026-08-09T00:00:00-05:00');
 
@@ -481,6 +413,7 @@
     let carpetaAbiertaNombre = null;
     let carpetaAbiertaDescripcion = '';
     let carpetaAbiertaMusica = null;
+    let carpetaAbiertaVoz = null;
 
     function revisarBloqueo() {
       if (esAdmin) { document.getElementById('bloqueado').style.display = 'none'; return true; }
@@ -536,7 +469,6 @@
         if (desbloqueado) {
           document.getElementById('login').style.display = 'none';
           document.getElementById('app').style.display = 'block';
-          animarEntrada(document.getElementById('app'));
           document.getElementById('avisoAdmin').textContent = esAdmin ? 'viendo antes de tiempo 👀' : '';
           document.getElementById('accionesCarpetaAdmin').style.display = esAdmin ? 'flex' : 'none';
           volverACarpetas();
@@ -552,7 +484,6 @@
         document.getElementById('bloqueado').style.display = 'none';
         document.getElementById('app').style.display = 'none';
         document.getElementById('login').style.display = 'block';
-        animarEntrada(document.getElementById('login'));
       }
     });
 
@@ -561,9 +492,7 @@
     function mostrar(id, el) {
       document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('activo'));
-      const sec = document.getElementById('sec-' + id);
-      sec.classList.add('activa');
-      animarEntrada(sec);
+      document.getElementById('sec-' + id).classList.add('activa');
       el.classList.add('activo');
     }
 
@@ -612,6 +541,7 @@
       const inputNombre = document.getElementById('nombreCarpeta');
       const inputDesc = document.getElementById('descripcionCarpeta');
       const archivoMusica = document.getElementById('musicaCarpeta').files[0];
+      const archivoVoz = document.getElementById('vozCarpeta').files[0];
       const nombre = inputNombre.value.trim();
       if (!nombre) { alert('ponle un nombre a la carpeta'); return; }
       let musicaUrl = null;
@@ -619,11 +549,18 @@
         document.getElementById('nombreMusicaCarpeta').textContent = 'subiendo música...';
         musicaUrl = await subirAudioACloudinary(archivoMusica);
       }
-      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), musica: musicaUrl, fecha: Date.now() });
+      let vozUrl = null;
+      if (archivoVoz) {
+        document.getElementById('nombreVozCarpeta').textContent = 'subiendo tu voz...';
+        vozUrl = await subirAudioACloudinary(archivoVoz);
+      }
+      await db.collection('carpetas').add({ nombre, descripcion: inputDesc.value.trim(), musica: musicaUrl, voz: vozUrl, fecha: Date.now() });
       inputNombre.value = '';
       inputDesc.value = '';
       document.getElementById('musicaCarpeta').value = '';
       document.getElementById('nombreMusicaCarpeta').textContent = '';
+      document.getElementById('vozCarpeta').value = '';
+      document.getElementById('nombreVozCarpeta').textContent = '';
       cargarCarpetas();
     }
 
@@ -632,13 +569,14 @@
       contenedor.innerHTML = '';
       const snap = await db.collection('carpetas').orderBy('fecha', 'desc').get();
       document.getElementById('vaciaCarpetas').style.display = snap.empty ? 'block' : 'none';
+      document.getElementById('tutorialCrearCarpeta').style.display = (esAdmin && snap.empty) ? 'flex' : 'none';
       snap.forEach(doc => {
         const c = doc.data();
         const div = document.createElement('div');
         div.className = 'carpeta-card';
         div.onclick = (e) => {
           if (e.target.closest('.carpeta-acciones')) return;
-          abrirCarpeta(doc.id, c.nombre, c.descripcion || '', c.musica || null);
+          abrirCarpeta(doc.id, c.nombre, c.descripcion || '', c.musica || null, c.voz || null);
         };
         div.innerHTML = `
           <div class="carpeta-acciones" style="${esAdmin ? '' : 'display:none;'}">
@@ -699,17 +637,18 @@
 
     function eliminarCarpetaActual() { if (carpetaAbiertaId) eliminarCarpeta(carpetaAbiertaId); }
 
-    function abrirCarpeta(id, nombre, descripcion, musica) {
+    function abrirCarpeta(id, nombre, descripcion, musica, voz) {
       carpetaAbiertaId = id;
       carpetaAbiertaNombre = nombre;
       carpetaAbiertaDescripcion = descripcion;
       carpetaAbiertaMusica = musica || null;
+      carpetaAbiertaVoz = voz || null;
       document.getElementById('tituloCarpetaAbierta').textContent = nombre;
       document.getElementById('estadoMusicaCarpeta').textContent = carpetaAbiertaMusica ? '🎵 esta carpeta tiene música propia' : 'usando la música por defecto';
+      document.getElementById('estadoVozCarpeta').textContent = carpetaAbiertaVoz ? '🎤 esta carpeta ya tiene tu voz' : 'sin voz todavía — la experiencia sonará solo con música';
       pintarDescripcionCarpeta();
       document.getElementById('vistaCarpetas').style.display = 'none';
       document.getElementById('vistaCarpetaAbierta').style.display = 'block';
-      animarEntrada(document.getElementById('vistaCarpetaAbierta'));
       document.getElementById('estadoFoto').textContent = '';
       document.getElementById('nombresElegidos').textContent = '';
       salirModoSeleccion();
@@ -728,14 +667,27 @@
       document.getElementById('cambiarMusica').value = '';
     }
 
+    async function cambiarVozCarpeta() {
+      const archivo = document.getElementById('cambiarVoz').files[0];
+      if (!archivo) return;
+      document.getElementById('estadoVozCarpeta').textContent = 'subiendo tu voz...';
+      const url = await subirAudioACloudinary(archivo);
+      if (!url) { document.getElementById('estadoVozCarpeta').textContent = ''; return; }
+      await db.collection('carpetas').doc(carpetaAbiertaId).update({ voz: url });
+      carpetaAbiertaVoz = url;
+      document.getElementById('estadoVozCarpeta').textContent = '🎤 voz actualizada';
+      document.getElementById('cambiarVoz').value = '';
+    }
+
     function volverACarpetas() {
       carpetaAbiertaId = null;
       carpetaAbiertaNombre = null;
       carpetaAbiertaDescripcion = '';
       carpetaAbiertaMusica = null;
+      carpetaAbiertaVoz = null;
       document.getElementById('vistaCarpetaAbierta').style.display = 'none';
       document.getElementById('vistaCarpetas').style.display = 'block';
-      animarEntrada(document.getElementById('vistaCarpetas'));
+      cargarCarpetas();
     }
 
     function mostrarNombresElegidos() {
@@ -829,6 +781,7 @@
         }
       });
       fotosCarpetaActualCache.reverse(); // orden cronologico para la experiencia
+      document.getElementById('tutorialSubirFotos').style.display = (esAdmin && items.length === 0) ? 'flex' : 'none';
     }
 
     // ================= MODO EXPERIENCIA =================
@@ -860,10 +813,26 @@
       document.getElementById('experienciaFin').style.display = 'none';
       document.getElementById('experienciaOverlay').style.display = 'flex';
 
-      const audio = document.getElementById('audioExperiencia');
-      audio.src = carpetaAbiertaMusica || 'musica.mp3';
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
+      // VOLUMEN_MUSICA_FONDO: ajusta este numero (0 a 1) si quieres la musica mas o menos suave
+      const VOLUMEN_MUSICA_FONDO = 0.18;
+
+      const voz = document.getElementById('audioVoz');
+      const musicaFondo = document.getElementById('audioMusicaFondo');
+
+      if (carpetaAbiertaVoz) {
+        voz.src = carpetaAbiertaVoz;
+        voz.currentTime = 0;
+        voz.volume = 1;
+        voz.play().catch(() => {});
+      } else {
+        voz.pause();
+        voz.removeAttribute('src');
+      }
+
+      musicaFondo.src = carpetaAbiertaMusica || '../assets/js/musica.mp3';
+      musicaFondo.currentTime = 0;
+      musicaFondo.volume = VOLUMEN_MUSICA_FONDO;
+      musicaFondo.play().catch(() => {});
 
       siguienteExperiencia();
     }
@@ -921,8 +890,8 @@
 
     function cerrarExperiencia() {
       document.getElementById('experienciaOverlay').style.display = 'none';
-      const audio = document.getElementById('audioExperiencia');
-      audio.pause();
+      document.getElementById('audioVoz').pause();
+      document.getElementById('audioMusicaFondo').pause();
     }
 
     // ================= GALERÍAS SIMPLES (flores, cartas físicas) =================

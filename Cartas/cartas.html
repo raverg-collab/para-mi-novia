@@ -60,7 +60,7 @@
         input[type="color"] { padding: 4px; height: 42px; cursor: pointer; }
         input[type="file"] { padding: 8px; }
         label.chica { font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.75); display:block; margin-top: 8px; }
-        .opciones-tipo { display: flex; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+        .opciones-tipo { display: flex; gap: 8px; margin: 8px 0; }
         .opciones-tipo label { font-family: sans-serif; font-size: 13px; display: flex; align-items: center; gap: 4px; }
         button {
           background: rgba(240, 224, 192, 0.85);
@@ -158,28 +158,14 @@
         .icono-btn.borrar:hover { background: #8a3030; }
         #vacioEscritorio { font-family: sans-serif; font-size: 13px; color: rgba(248,241,231,0.7); text-align: center; margin-top: 20px; }
 
-        #lector { position: fixed; inset: 0; z-index: 40; background: #2a1650; overflow-y: auto; }
+        #lector { position: fixed; inset: 0; z-index: 40; background: #2a1650; }
         #lector iframe { width: 100%; height: 100%; border: none; }
-        #lectorTexto { max-width: 480px; margin: 60px auto 40px; padding: 0 20px; }
-        #lectorTexto img.gif-carta { width: 100%; border-radius: 10px; margin-top: 16px; }
+        #lectorTexto { max-width: 480px; margin: 60px auto; padding: 0 20px; }
         .volver-lector {
           position: fixed; top: 14px; left: 14px; z-index: 70;
           background: rgba(20,10,35,0.75); color: #f8f1e7; border: 1px solid rgba(245,232,210,0.4);
           padding: 8px 14px; border-radius: 999px; font-family: sans-serif; font-size: 12px; cursor: pointer;
         }
-
-        /* ---- modal editar ---- */
-        #modalEditar {
-          display: none; position: fixed; inset: 0; z-index: 80;
-          background: rgba(15,8,28,0.75); align-items: center; justify-content: center; padding: 20px;
-        }
-        #modalEditar .caja { max-width: 420px; width: 100%; max-height: 85vh; overflow-y: auto; }
-        #modalEditar h3 { margin-top: 0; font-weight: normal; color: #f0e0c0; }
-        .fila-modal { display: flex; gap: 8px; }
-        .fila-modal button { flex: 1; }
-        #estadoEditar { font-family: sans-serif; font-size: 12px; color: #f0e0c0; }
-        .transicion { animation: entrarSuave 0.45s ease; }
-        @keyframes entrarSuave { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -229,7 +215,7 @@
 
                 <div id="campoArchivoCarta">
                     <p style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7); margin-top:0;">
-                        pon el nombre del archivo .html que ya subiste al repo
+                        pon el nombre del archivo .html que ya subiste al repo (el diseño lo haces tú en IntelliJ)
                     </p>
                     <input type="text" id="archivoNuevo" placeholder="nombre-del-archivo.html">
                 </div>
@@ -238,12 +224,6 @@
                         escribe el mensaje aquí mismo, útil si estás desde el celular
                     </p>
                     <textarea id="textoNuevo" placeholder="escribe la carta aquí..."></textarea>
-                    <label class="chica">GIF (opcional, se muestra debajo del texto)</label>
-                    <input type="file" id="gifNuevo" accept="image/gif" onchange="mostrarNombreGifNueva()">
-                    <p class="chica" id="nombreGifNueva"></p>
-                    <label class="chica">🎵 música que suene al abrir (opcional)</label>
-                    <input type="file" id="musicaNuevo" accept="audio/*" onchange="mostrarNombreMusicaNueva()">
-                    <p class="chica" id="nombreMusicaNueva"></p>
                 </div>
 
                 <label style="font-family: sans-serif; font-size: 12px; color: rgba(248,241,231,0.7);">imagen de previsualización (opcional)</label>
@@ -264,31 +244,7 @@
         <iframe id="iframeLector" src=""></iframe>
         <div id="lectorTexto" style="display:none;">
             <p style="white-space:pre-wrap; font-family: 'Georgia', serif; color: #f8f1e7; line-height:1.8; margin-top: 70px;" id="lectorTextoContenido"></p>
-            <img class="gif-carta" id="lectorGif" style="display:none;">
         </div>
-        <audio id="audioLector" loop></audio>
-    </div>
-</div>
-
-<!-- ---- modal editar carta ---- -->
-<div id="modalEditar">
-    <div class="caja">
-        <h3>Editar carta</h3>
-        <div id="editarSoloTexto">
-            <label class="chica">texto</label>
-            <textarea id="editTexto"></textarea>
-        </div>
-        <label class="chica">GIF (opcional — sube uno para reemplazar el actual)</label>
-        <input type="file" id="editGifArchivo" accept="image/gif" onchange="mostrarNombreGifEdit()">
-        <p class="chica" id="editGifEstado"></p>
-        <label class="chica">🎵 cambiar música (opcional, sube un archivo nuevo para reemplazar)</label>
-        <input type="file" id="editMusicaArchivo" accept="audio/*" onchange="mostrarNombreMusicaEdit()">
-        <p class="chica" id="editMusicaEstado"></p>
-        <div class="fila-modal">
-            <button onclick="cerrarModalEditar()">cancelar</button>
-            <button class="btn-bosque" onclick="guardarEdicion()">guardar</button>
-        </div>
-        <p id="estadoEditar" style="font-family: sans-serif; font-size: 12px; color: #f0e0c0;"></p>
     </div>
 </div>
 
@@ -297,8 +253,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 <script>
     const CORREO_ADMIN = "palrom2006@gmail.com";
-    const CLOUD_NAME = "nrfykjzk";
-    const UPLOAD_PRESET = "album-novia";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCmTlMDrPpAlLCszeFxPru-AEvtFhEUDzk",
@@ -313,9 +267,11 @@
     auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     const db = firebase.firestore();
 
+    const CLOUD_NAME = "nrfykjzk";
+    const UPLOAD_PRESET = "album-novia";
+
     let esAdmin = false;
     let categoriaActual = null;
-    let editandoId = null;
 
     function iniciarSesion() {
       const correo = document.getElementById('correo').value;
@@ -324,12 +280,6 @@
         .catch(() => { document.getElementById('estadoLogin').textContent = "correo o contraseña incorrectos"; });
     }
     function cerrarSesion() { auth.signOut(); }
-
-    function animarEntrada(el) {
-      el.classList.remove('transicion');
-      void el.offsetWidth;
-      el.classList.add('transicion');
-    }
 
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -340,7 +290,6 @@
       } else {
         esAdmin = false;
         document.getElementById('login').style.display = 'block';
-        animarEntrada(document.getElementById('login'));
         document.getElementById('categorias').style.display = 'none';
         document.getElementById('escritorio').style.display = 'none';
         document.getElementById('lector').style.display = 'none';
@@ -350,7 +299,6 @@
     function volverACategorias() {
       categoriaActual = null;
       document.getElementById('categorias').style.display = 'block';
-      animarEntrada(document.getElementById('categorias'));
       document.getElementById('escritorio').style.display = 'none';
       document.getElementById('lector').style.display = 'none';
       revisarBadgesCategorias();
@@ -368,7 +316,6 @@
       categoriaActual = categoria;
       document.getElementById('categorias').style.display = 'none';
       document.getElementById('escritorio').style.display = 'block';
-      animarEntrada(document.getElementById('escritorio'));
       document.getElementById('lector').style.display = 'none';
       document.getElementById('tituloEscritorio').textContent = categoria === 'bienvenida' ? 'bienvenida 💌' : 'motivación ☀️';
       document.getElementById('cajaNueva').style.display = esAdmin ? 'block' : 'none';
@@ -381,23 +328,6 @@
       document.getElementById('campoTextoCarta').style.display = tipo === 'texto' ? 'block' : 'none';
     }
 
-    function mostrarNombreMusicaNueva() {
-      const archivo = document.getElementById('musicaNuevo').files[0];
-      document.getElementById('nombreMusicaNueva').textContent = archivo ? archivo.name : '';
-    }
-    function mostrarNombreGifNueva() {
-      const archivo = document.getElementById('gifNuevo').files[0];
-      document.getElementById('nombreGifNueva').textContent = archivo ? archivo.name : '';
-    }
-    function mostrarNombreMusicaEdit() {
-      const archivo = document.getElementById('editMusicaArchivo').files[0];
-      document.getElementById('editMusicaEstado').textContent = archivo ? ('nuevo archivo: ' + archivo.name) : '';
-    }
-    function mostrarNombreGifEdit() {
-      const archivo = document.getElementById('editGifArchivo').files[0];
-      document.getElementById('editGifEstado').textContent = archivo ? ('nuevo gif: ' + archivo.name) : '';
-    }
-
     async function subirACloudinary(archivo) {
       const formData = new FormData();
       formData.append('file', archivo);
@@ -407,25 +337,7 @@
       return data.secure_url;
     }
 
-    async function subirAudioACloudinary(archivo) {
-      const formData = new FormData();
-      formData.append('file', archivo);
-      formData.append('upload_preset', UPLOAD_PRESET);
-      try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, { method: 'POST', body: formData });
-        const data = await res.json();
-        if (!res.ok || !data.secure_url) {
-          alert('no se pudo subir la música: ' + (data.error ? data.error.message : 'error desconocido'));
-          return null;
-        }
-        return data.secure_url;
-      } catch (err) {
-        alert('fallo de conexión subiendo la música');
-        return null;
-      }
-    }
-
-    // ================= CREAR =================
+    // ================= CREAR / EDITAR ENTRADAS =================
 
     async function crearEntrada() {
       const tipo = document.querySelector('input[name="tipoCarta"]:checked').value;
@@ -442,27 +354,12 @@
       if (archivoImg) imagen = await subirACloudinary(archivoImg);
       const color = document.getElementById('colorNuevo').value;
 
-      let gif = null, musica = null;
-      if (tipo === 'texto') {
-        const archivoGif = document.getElementById('gifNuevo').files[0];
-        if (archivoGif) {
-          estado.textContent = 'subiendo gif...';
-          gif = await subirACloudinary(archivoGif);
-        }
-        const archivoMusica = document.getElementById('musicaNuevo').files[0];
-        if (archivoMusica) {
-          estado.textContent = 'subiendo música...';
-          musica = await subirAudioACloudinary(archivoMusica);
-        }
-      }
-
       const ultimaSnap = await db.collection('entradas').where('categoria', '==', categoriaActual).orderBy('numero', 'desc').limit(1).get();
       const numero = ultimaSnap.empty ? 1 : (ultimaSnap.docs[0].data().numero + 1);
 
       await db.collection('entradas').add({
         categoria: categoriaActual, numero, tipo,
         archivo: archivo, contenido: contenido,
-        gif, musica,
         imagen: imagen || null,
         color: imagen ? null : color,
         fecha: Date.now(), leida: false
@@ -470,10 +367,6 @@
 
       document.getElementById('archivoNuevo').value = '';
       document.getElementById('textoNuevo').value = '';
-      document.getElementById('gifNuevo').value = '';
-      document.getElementById('nombreGifNueva').textContent = '';
-      document.getElementById('musicaNuevo').value = '';
-      document.getElementById('nombreMusicaNueva').textContent = '';
       document.getElementById('imagenNuevo').value = '';
       estado.textContent = 'lista ✓';
       cargarEntradas();
@@ -483,48 +376,6 @@
       if (!confirm('¿quitar esta carta del escritorio?')) return;
       await db.collection('entradas').doc(id).delete();
       cargarEntradas();
-    }
-
-    // ================= EDITAR =================
-
-    async function abrirModalEditar(id, c) {
-      editandoId = id;
-      document.getElementById('editarSoloTexto').style.display = c.tipo === 'texto' ? 'block' : 'none';
-      document.getElementById('editTexto').value = c.contenido || '';
-      document.getElementById('editGifArchivo').value = '';
-      document.getElementById('editGifEstado').textContent = c.gif ? 'ya tiene un gif puesto' : 'sin gif todavía';
-      document.getElementById('editMusicaEstado').textContent = c.musica ? 'ya tiene música puesta' : 'sin música todavía';
-      document.getElementById('editMusicaArchivo').value = '';
-      document.getElementById('estadoEditar').textContent = '';
-      document.getElementById('modalEditar').style.display = 'flex';
-    }
-
-    function cerrarModalEditar() {
-      document.getElementById('modalEditar').style.display = 'none';
-      editandoId = null;
-    }
-
-    async function guardarEdicion() {
-      const estado = document.getElementById('estadoEditar');
-      estado.textContent = 'guardando...';
-      const datos = {
-        contenido: document.getElementById('editTexto').value
-      };
-      const archivoGif = document.getElementById('editGifArchivo').files[0];
-      if (archivoGif) {
-        estado.textContent = 'subiendo gif...';
-        const urlGif = await subirACloudinary(archivoGif);
-        if (urlGif) datos.gif = urlGif;
-      }
-      const archivoMusica = document.getElementById('editMusicaArchivo').files[0];
-      if (archivoMusica) {
-        estado.textContent = 'subiendo música...';
-        const urlMusica = await subirAudioACloudinary(archivoMusica);
-        if (urlMusica) datos.musica = urlMusica;
-      }
-      await db.collection('entradas').doc(editandoId).update(datos);
-      estado.textContent = 'guardado ✓';
-      setTimeout(() => { cerrarModalEditar(); cargarEntradas(); }, 500);
     }
 
     // ================= LISTAR =================
@@ -544,7 +395,6 @@
         if (esAdmin) {
           adminBotones = `
             <div class="carta-acciones-admin">
-              <button class="icono-btn" onclick='event.stopPropagation(); abrirModalEditar("${doc.id}", ${JSON.stringify(c).replace(/'/g, "&#39;")})' title="editar">✏️</button>
               <button class="icono-btn borrar" onclick="event.stopPropagation(); eliminarEntrada('${doc.id}')" title="quitar">🗑️</button>
             </div>`;
         }
@@ -580,15 +430,10 @@
       if (!esAdmin && !c.leida) {
         await db.collection('entradas').doc(id).update({ leida: true });
       }
-      const audio = document.getElementById('audioLector');
-      audio.pause();
       if (c.tipo === 'texto') {
         document.getElementById('iframeLector').style.display = 'none';
         document.getElementById('lectorTexto').style.display = 'block';
         document.getElementById('lectorTextoContenido').textContent = c.contenido;
-        const gifEl = document.getElementById('lectorGif');
-        if (c.gif) { gifEl.src = c.gif; gifEl.style.display = 'block'; } else { gifEl.style.display = 'none'; }
-        if (c.musica) { audio.src = c.musica; audio.currentTime = 0; audio.play().catch(() => {}); }
       } else {
         document.getElementById('lectorTexto').style.display = 'none';
         document.getElementById('iframeLector').style.display = 'block';
@@ -596,15 +441,12 @@
       }
       document.getElementById('escritorio').style.display = 'none';
       document.getElementById('lector').style.display = 'block';
-      animarEntrada(document.getElementById('lector'));
     }
 
     function volverAlEscritorio() {
       document.getElementById('iframeLector').src = '';
-      document.getElementById('audioLector').pause();
       document.getElementById('lector').style.display = 'none';
       document.getElementById('escritorio').style.display = 'block';
-      animarEntrada(document.getElementById('escritorio'));
       cargarEntradas();
     }
 </script>
